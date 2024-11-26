@@ -109,7 +109,7 @@ app.controller('controllercreateuser', function($scope, $http, $location) {
     };
 
     $scope.submitCreateAccount = function() {
-        $http.post('http://localhost:8000/user', $scope.createAccountData)
+        $http.post('http://localhost:8000/users', $scope.createAccountData)
             .then(function(response) {
                 if (response.data.success) {
                     console.log("Account created successfully");
