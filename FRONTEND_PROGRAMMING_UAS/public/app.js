@@ -27,6 +27,10 @@ app.config(function($routeProvider) {
         templateUrl: 'model/modellogin.html',
         controller: 'controllerlogin'
     })
+    .when('/createuser', {
+        templateUrl: 'model/modelcreate.html',
+        controller: 'controllercreateuser'
+    })
     .when('/home', {
         templateUrl: 'model/modelhome.html',
         controller: 'controllerhome'
@@ -95,6 +99,31 @@ app.controller('controllercart', function($scope) {
 
 app.controller('controlleradmin', function($scope) {
     $scope.message = "Welcome to the Admin Page!";
+});
+
+app.controller('controllercreateuser', function($scope, $http, $location) {
+    $scope.createAccountData = {
+        name: '',
+        email: '',
+        password: ''
+    };
+
+    $scope.submitCreateAccount = function() {
+        $http.post('http://localhost:8000/users', $scope.createAccountData)
+            .then(function(response) {
+                if (response.data.success) {
+                    console.log("Account created successfully");
+                    $location.path('/login');
+                } else {
+                    console.log("Account creation failed:", response.data.message);
+                    $scope.errorMessage = response.data.message;
+                }
+            })
+            .catch(function(error) {
+                console.error("Account creation error:", error);
+                $scope.errorMessage = 'An error occurred while creating the account.';
+            });
+    };
 });
 
 app.run(function($rootScope, $document) {
