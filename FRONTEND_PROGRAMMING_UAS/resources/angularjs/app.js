@@ -52,3 +52,31 @@ app.controller('controllercart', function($scope) {
 app.controller('controlleradmin', function($scope) {
     $scope.message = "Welcome to the Admin Page!";
 });
+
+
+app.run(function($rootScope, $document) {
+    $rootScope.$on('$routeChangeSuccess', function(event, current) {
+        var cssFile = '';
+        switch (current.$$route.originalPath) {
+            case '/login':
+                cssFile = 'modelstyle/modellogin.css';
+                break;
+            case '/home':
+                cssFile = 'modelstyle/modelhome.css';
+                break;
+            case '/product':
+                cssFile = 'modelstyle/modelproduct.css';
+                break;
+            case '/profile':
+                cssFile = 'modelstyle/modelprofile.css';
+                break;
+        }
+        if (cssFile) {
+            var head = $document[0].head;
+            var link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = cssFile;
+            head.appendChild(link);
+        }
+    });
+});
