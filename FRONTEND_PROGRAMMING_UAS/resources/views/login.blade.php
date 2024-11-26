@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Document</title>
 
@@ -10,13 +11,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular-route.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <link rel="stylesheet" href="style.css">
-    <script src="app.js"></script>
 </head>
 <body ng-app="myApp">
     <div ng-view>
         
     </div>
+    <script src="{{ asset('app.js') }}"></script>
 </body>
 </html>

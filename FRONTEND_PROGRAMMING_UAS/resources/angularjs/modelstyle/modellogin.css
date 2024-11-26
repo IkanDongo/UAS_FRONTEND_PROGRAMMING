@@ -1,7 +1,0 @@
-input {
-    border-radius: 5px ;
-}
-
-input:focus {
-    border-radius: 15px;
-}
