@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/product.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Acme&family=Noto+Sans+Telugu:wght@100..900&family=Poiret+One&display=swap"
+        rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="JS/model.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/1975de5d56.js" crossorigin="anonymous"></script>
+    <title>SOMETHING WEBSITE - Home Page</title>
+</head>
+
+<body ng-app="myApp">
+    <navbar-model></navbar-model>
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="IMG/mensfashion.gif" class="d-block w-100" alt="Men's Fashion">
+            </div>
+            <div class="carousel-item">
+                <img src="IMG/womensfashion.gif" class="d-block w-100" alt="Women's Fashion">
+            </div>
+            <div class="carousel-item">
+                <img src="IMG/kidsfashion.gif" class="d-block w-100" alt="Kids' Fashion">
+            </div>
+            <div class="carousel-item">
+                <img src="IMG/beauty.gif" class="d-block w-100" alt="Beauty">
+            </div>
+            <div class="carousel-item">
+                <img src="IMG/sportwear.jpg" class="d-block w-100" alt="Sportwear">
+            </div>
+            <div class="carousel-item">
+                <img src="IMG/lifestyle.gif" class="d-block w-100" alt="Lifestyle">
+            </div>
+            <div class="carousel-item">
+                <img src="IMG/luxury.jpg" class="d-block w-100" alt="Luxury">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2 class="text-white">Handpicked by Our Designer</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card">
+                    <img src="IMG/image1.jpg" class="card-img-top" alt="image1">
+                    <div class="card-body">
+                        <h3 class="card-title">Elegansi Modern</h3>
+                        <p class="card-text">Koleksi modern kami mengusung semangat elegansi,
+                            dirancang dengan hati-hati untuk mereka yang memancarkan kepercayaan diri dan kecanggihan di
+                            setiap momen.
+                            Dengan perhatian pada detail, setiap potongan mencerminkan perpaduan sempurna antara gaya
+                            kontemporer dan
+                            keanggunan abadi, memungkinkan Anda bertransisi dengan mudah dari siang ke malam, apa pun
+                            acaranya. Apakah
+                            itu acara santai atau formal, pakaian ini memastikan Anda tampil menonjol dengan kualitas
+                            dan gaya yang tak
+                            tertandingi.</p>
+
+                        <p class="card-text"><strong>Testimoni:</strong> "Saya suka koleksi ini menghadirkan sentuhan
+                            modern pada potongan
+                            klasik. Setiap kali saya mengenakan salah satu pakaian ini, saya merasa tampil rapi dan
+                            percaya diri." -
+                            Sarah L.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card">
+                    <img src="IMG/image2.jpg" class="card-img-top" alt="image2">
+                    <div class="card-body">
+                        <h3 class="card-title ">Kenyamanan Kasual</h3>
+                        <p class="card-text">Kenyamanan tanpa usaha, didefinisikan ulang. Pakaian kasual kami dirancang
+                            untuk mereka yang menghargai gaya
+                            tanpa mengorbankan kenyamanan. Dibuat dari kain terlembut, setiap potongan dirancang untuk
+                            memberikan
+                            fleksibilitas dan breathability, menjadikannya sempurna untuk gaya hidup dinamis Anda.
+                            Apakah Anda sedang
+                            berbelanja, bertemu teman, atau sekadar bersantai di rumah, pakaian kasual kami berintegrasi
+                            dengan mulus ke
+                            dalam aktivitas sehari-hari Anda, memungkinkan Anda bergerak dengan mudah dan anggun.</p>
+                        <p class="card-text"><strong>Testimoni:</strong> "Fashion ini adalah yang paling nyaman yang
+                            pernah saya miliki. Fit-nya sempurna
+                            dan tampak bagus, baik saat saya bersama teman maupun hanya bersantai di rumah."- Mark D.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card">
+                    <img src="IMG/image3.jpg" class="card-img-top" alt="image3">
+                    <div class="card-body">
+                        <h3 class="card-title">Berani & Bergaya</h3>
+                        <p class="card-text">Dengan penuh keberanian, koleksi ini dirancang untuk mereka yang berani
+                            membuat pernyataan. Apakah Anda
+                            sedang berpakaian untuk acara spesial atau hanya ingin meningkatkan tampilan sehari-hari
+                            Anda, aksesori dan
+                            pakaian yang mencolok ini pasti akan menarik perhatian. Dibuat dari bahan premium, setiap
+                            item adalah bukti
+                            dari keahlian, dengan detail rumit dan desain yang menonjol yang mendorong batas-batas
+                            fashion konvensional.
+                            Rangkul keunikan Anda dan redefinisikan gaya Anda dengan sentuhan keberanian.</p>
+                        <p class="card-text"><strong>Testimoni:</strong>"Setiap kali saya memakai fashion ini, saya
+                            selalu mendapat pujian. Fashion ini
+                            berani, elegan, dan menambahkan sentuhan akhir sempurna pada setiap pakaian!" - Alex M.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container my-5">
+        <h2 class="text-center mb-4 text-white">Tips & Tricks of The Week</h2>
+        <div class="row g-4">
+
+            <div class="card text-black" style="background-image: url('/Image/test123.jpg'); background-size: cover;">
+                <div class="card-body">
+                    <blockquote class="blockquote">
+                        <p>"Pilih pakaian dengan bahan yang nyaman, terutama saat musim panas..."</p>
+                        <footer class="blockquote-footer text-white">Ahli Fashion A</footer>
+                    </blockquote>
+                </div>
+
+            </div>
+
+            <div class="card text-black" style="background-image: url('/Image/test1234.jpg'); background-size: cover;">
+                <div class="card-body">
+                    <blockquote class="blockquote">
+                        <p>"Investasikan pada sepatu kulit berkualitas, karena bisa digunakan dalam berbagai acara..."
+                        </p>
+                        <footer class="blockquote-footer text-white">Ahli Fashion B</footer>
+                    </blockquote>
+                </div>
+
+            </div>
+
+            <div class="card text-black" style="background-image: url('/Image/test12345.jpg'); background-size: cover;">
+                <div class="card-body">
+                    <blockquote class="blockquote">
+                        <p>"Aksesori seperti jam tangan atau cincin dapat meningkatkan penampilan..."</p>
+                        <footer class="blockquote-footer text-white">Ahli Fashion C</footer>
+                    </blockquote>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container my-5">
+        <h2 class="text-center mb-4 text-white">Featured Product</h2>
+    </div>
+
+
+    <script src="JS/footerModel/footer-model.js"></script>
+    <footer-model></footer-model>
+
+</body>
+
+</html>
