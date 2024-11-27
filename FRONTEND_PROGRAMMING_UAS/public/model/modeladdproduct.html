@@ -1,11 +1,6 @@
 <div class="container">
     <h2>Add New Product</h2>
-    <!-- 'name' => 'required|string|max:255',
-        'description' => 'nullable|string',
-        'category' => 'required|string',
-        'brand' => 'nullable|string',
-        'price' => 'required|numeric|min:0',
-        'stock' => 'required|integer|min:0', -->
+    <br>
     <form ng-submit="createProduct()">
         <div class="mb-3">
             <label for="productName" class="form-label">Product Name</label>
@@ -30,7 +25,7 @@
 
         <div class="mb-3">
             <label for="productStock" class="form-label">Product Stock</label>
-            <input type="number" id="product.stock" ng-model="product.stock" class="form-control" required>
+            <input type="number" id="productStock" ng-model="product.stock" class="form-control" required>
         </div>
 
         <button type="submit" class="btn btn-dark ">Add Product</button>

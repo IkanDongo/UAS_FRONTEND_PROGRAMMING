@@ -17,3 +17,5 @@ Route::get('/{any}', function () {
 
 
 Route::post('/products', [ProductController::class, 'create']);
+Route::get('/products', [ProductController::class, 'index']);
+Route::get('/products/{id}', [ProductController::class, 'find']);

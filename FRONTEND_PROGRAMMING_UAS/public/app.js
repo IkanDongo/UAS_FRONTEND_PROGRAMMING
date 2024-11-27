@@ -115,8 +115,8 @@ app.controller('controlleraddproduct', function($scope, $http, $location, AuthSe
         name: '',
         category: '',
         description: '',
-        price: null,
-        stock: null
+        price: '',
+        stock: '',
     };
     $scope.errorMessage = '';
 
