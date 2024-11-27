@@ -28,7 +28,7 @@ app.factory('csrfInterceptor', function($q) {
 
     return {
         request: function(config) {
-            if (config.method === 'POST' || config.method === 'PUT' || config.method === 'DELETE') {
+            if (config.method === 'POST' || config.method === 'PUT' || config.method === 'DELETE' || config.method === 'PATCH') {
                 config.headers['X-CSRF-TOKEN'] = csrfToken;
             }
             return config;
@@ -163,30 +163,36 @@ app.controller('controlleradminproduct', ['$scope', '$http', function($scope, $h
 app.controller('controllerulist', function($scope, $http) {
     $scope.users = [];
 
-    // Fetch users
     $http.get('http://localhost:8000/users')
-        .then(function(response) {
+        .then(function (response) {
             $scope.users = response.data;
         })
-        .catch(function(error) {
+        .catch(function (error) {
             console.error('Error fetching users:', error);
         });
 
-    // Toggle admin status
-    $scope.toggleAdminStatus = function(user) {
-        const userId = user._id; // Assuming '_id' is the unique identifier
-        $http.patch(`http://localhost:8000/users/${userId}/toggle-admin`)
-            .then(function(response) {
-                const updatedUser = response.data.user;
-                // Update local user data
-                const index = $scope.users.findIndex(u => u._id === userId);
-                if (index !== -1) {
-                    $scope.users[index] = updatedUser;
+    $scope.toggleAdmin = function(userId) {
+        $http.patch('http://localhost:8000/users/' + userId + '/toggleAdmin')
+            .then(function (response) {
+                let user = $scope.users.find(u => u._id === userId);
+                if (user) {
+                    user.is_admin = !user.is_admin;
                 }
-                alert('User admin status updated successfully.');
+                console.log(response.data.message);
             })
-            .catch(function(error) {
-                console.error('Error updating admin status:', error);
+            .catch(function (error) {
+                console.error('Error toggling admin:', error);
+            });
+    };
+
+    $scope.removeUser = function(userId) {
+        $http.delete('http://localhost:8000/users/' + userId)
+            .then(function (response) {
+                $scope.users = $scope.users.filter(u => u._id !== userId);
+                console.log(response.data.message);
+            })
+            .catch(function (error) {
+                console.error('Error deleting user:', error);
             });
     };
 });
