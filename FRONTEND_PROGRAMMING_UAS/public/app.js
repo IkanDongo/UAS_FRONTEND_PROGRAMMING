@@ -80,6 +80,10 @@ app.config(function($routeProvider) {
         templateUrl: 'model/modeladminulist.html',
         controller: 'controlleradminproduct'
     })
+    .when('/admin/plist', {
+        templateUrl: 'model/modeladminplist.html',
+        controller: 'controlleradminproduct'
+    })
     .otherwise('login');
 });
 
@@ -159,6 +163,21 @@ app.controller('controlleradminproduct', ['$scope', '$http', function($scope, $h
             });
     };
 }]);
+
+
+app.controller('controllerplist',function($scope, $http) {
+    $scope.products = [];
+
+
+    $http.get('http://localhost:8000/products')
+        .then(function(response) {
+            $scope.products = response.data; 
+        })
+       .catch(function (error) {
+            console.error('Error fetching products:', error);
+        });
+});
+
 
 app.controller('controllerulist', function($scope, $http) {
     $scope.users = [];

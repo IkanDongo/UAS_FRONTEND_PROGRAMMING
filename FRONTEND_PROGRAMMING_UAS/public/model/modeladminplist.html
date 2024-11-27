@@ -1,0 +1,59 @@
+<div class="container">
+    <div class="sidebar">
+        <h3 class="text-center text-white py-3 display-6">Admin Dashboard</h3>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <strong>User Options</strong>
+                <ul class="nav flex-column ms-3">
+                    <li class="nav-item"><a href="#!/admin/ulist" class="nav-link">User list</a></li>
+                    <li class="nav-item"><a href="#!/admin/user" class="nav-link">Add Admin</a></li>
+                    <li class="nav-item"><a href="#!/admin/useredit" class="nav-link">Edit Admin</a></li>
+                    <li class="nav-item"><a href="#!/admin/userremove" class="nav-link">Remove User</a></li>
+                </ul>
+            </li>
+            <li class="nav-item mt-4">
+                <strong>Product Options</strong>
+                <ul class="nav flex-column ms-3">
+                    <li class="nav-item"><a href="#!/admin/plist" class="nav-link">Product List</a></li>
+                    <li class="nav-item"><a href="#!/admin/product" class="nav-link">Add Product</a></li>
+                    <li class="nav-item"><a href="#!/admin/productremove" class="nav-link">Remove Product</a></li>
+                    <li class="nav-item"><a href="#!/admin/productedit" class="nav-link">Edit Product</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="content" ng-controller="controllerplist">
+        <h1 class="display-3">Welcome, Admin</h1>
+        <p class="text-dark">What are you doing today?</p>
+        <div ng-if="products.length > 0">
+            <h2>Product List</h2>
+            <table class="table table-bordered">
+                <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="products in products">
+                                <td>{{ products._id }}</td>
+                                <td>{{ products.description }}</td>
+                                <td>{{ products.category }}</td>
+                                <td>{{ products.price }}</td>
+                                <td>{{ products.stock }}</td>
+                            </tr>
+                </tbody>
+            </table>
+        </div>
+        <div ng-if="products.length === 0">
+            <p>No product found.</p>
+        </div>
+    </div>
+
+
+
+</div>
