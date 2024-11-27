@@ -5,17 +5,19 @@
             <li class="nav-item">
                 <strong>User Options</strong>
                 <ul class="nav flex-column ms-3">
-                    <li class="nav-item"><a href="#!/add-admin" class="nav-link">Add Admin</a></li>
-                    <li class="nav-item"><a href="#!!/remove-admin" class="nav-link">Remove Admin</a></li>
-                    <li class="nav-item"><a href="#!/remove-user" class="nav-link">Remove User</a></li>
+                    <li class="nav-item"><a href="#!/admin/ulist" class="nav-link">User list</a></li>
+                    <li class="nav-item"><a href="#!/admin/user" class="nav-link">Add Admin</a></li>
+                    <li class="nav-item"><a href="#!/admin/useredit" class="nav-link">Edit Admin</a></li>
+                    <li class="nav-item"><a href="#!/admin/userremove" class="nav-link">Remove User</a></li>
                 </ul>
             </li>
             <li class="nav-item mt-4">
                 <strong>Product Options</strong>
                 <ul class="nav flex-column ms-3">
-                    <li class="nav-item"><a href="#!/add-product" class="nav-link">Add Product</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">Remove Product</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">Edit Product</a></li>
+                    <li class="nav-item"><a href="#!/admin/plist" class="nav-link">Product List</a></li>
+                    <li class="nav-item"><a href="#!/admin/product" class="nav-link">Add Product</a></li>
+                    <li class="nav-item"><a href="#!/admin/productremove" class="nav-link">Remove Product</a></li>
+                    <li class="nav-item"><a href="#!/admin/productedit" class="nav-link">Edit Product</a></li>
                 </ul>
             </li>
         </ul>
@@ -23,7 +25,7 @@
 
     <div class="content">
         <h1 class="display-3">Welcome, Admin</h1>
-        <p class="text-white">In here you can create, delete, and edit product </p>
+        <p class="text-dark">In here you can create, delete, and edit product </p>
         <div class="create-product-form">
             <h2 class="display-5 mb-4">Create Product</h2>
             <form ng-submit="submitCreateProduct()">
