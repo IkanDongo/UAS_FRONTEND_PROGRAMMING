@@ -70,6 +70,10 @@ app.config(function($routeProvider) {
         templateUrl: 'model/modeladmin.html',
         controller: 'controlleradmin'
     })
+    .when('/add-product', {
+        templateUrl: 'model/modeladdproduct.html',
+        controller: 'controlleraddproduct'
+    })
     .otherwise('login');
 });
 
@@ -106,6 +110,38 @@ app.controller('controllerlogin', function($scope, $http, $location) {
     };
 });
 
+app.controller('controlleraddproduct', function($scope, $http, $location, AuthService) {
+    $scope.product = {
+        name: '',
+        category: '',
+        description: '',
+        price: null,
+        stock: null
+    };
+    $scope.errorMessage = '';
+
+    $scope.createProduct = function() {
+        if (!$scope.product.name || !$scope.product.price || !$scope.product.stock) {
+            $scope.errorMessage = 'Name, Price, and Stock are required fields.';
+            return;
+        }
+
+        $http.post('http://localhost:8000/products', $scope.product, {
+            headers: {
+                // 'Content-Type': 'application/json',
+                // 'X-CSRF-TOKEN': CSRF_TOKEN
+            }
+        }).then(function(response) {
+            console.log('Product added successfully:', response.data);
+            $scope.product = { name: '', category: '', description: '', price: null, stock: null };
+            $scope.errorMessage = '';
+            $location.path('/products');
+        }).catch(function(error) {
+            console.error('Failed to add product:', error);
+            $scope.errorMessage = error.data?.message || 'Failed to add product. Please try again.';
+        });
+    };
+});
 
 app.controller('controllerhome', function($scope) {
     $scope.message = "Welcome to the Home Page!";
@@ -154,6 +190,12 @@ app.run(function($rootScope, $document) {
         switch (current.$$route.originalPath) {
             case '/login':
                 cssFile = 'modelstyle/modellogin.css';
+                break;
+            case '/add-product':
+                cssFile = 'modelstyle/modeladdproduct.css';
+                break;
+            case '/admin':
+                cssFile = 'modelstyle/modeladmin.css';
                 break;
             case '/home':
                 cssFile = 'modelstyle/modelhome.css';
