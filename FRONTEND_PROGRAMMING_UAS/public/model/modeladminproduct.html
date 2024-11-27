@@ -1,0 +1,75 @@
+<div class="container">
+    <div class="sidebar">
+        <h3 class="text-center text-white py-3 display-6">Admin Dashboard</h3>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <strong>User Options</strong>
+                <ul class="nav flex-column ms-3">
+                    <li class="nav-item"><a href="#!/add-admin" class="nav-link">Add Admin</a></li>
+                    <li class="nav-item"><a href="#!!/remove-admin" class="nav-link">Remove Admin</a></li>
+                    <li class="nav-item"><a href="#!/remove-user" class="nav-link">Remove User</a></li>
+                </ul>
+            </li>
+            <li class="nav-item mt-4">
+                <strong>Product Options</strong>
+                <ul class="nav flex-column ms-3">
+                    <li class="nav-item"><a href="#!/add-product" class="nav-link">Add Product</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Remove Product</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Edit Product</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <h1 class="display-3">Welcome, Admin</h1>
+        <p class="text-white">In here you can create, delete, and edit product </p>
+        <div class="create-product-form">
+            <h2 class="display-5 mb-4">Create Product</h2>
+            <form ng-submit="submitCreateProduct()">
+                <div class="mb-3">
+                    <label for="productName" class="form-label">Product Name</label>
+                    <input type="text" id="productName" class="form-control" ng-model="product.name" placeholder="Enter product name" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="productDescription" class="form-label">Description</label>
+                    <textarea id="productDescription" class="form-control" ng-model="product.description" placeholder="Enter product description"></textarea>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="productCategory" class="form-label">Category</label>
+                    <select id="productCategory" class="form-select" ng-model="product.category" required>
+                        <option value="" disabled selected>Select category</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Fashion">Fashion</option>
+                        <option value="Home Appliances">Home Appliances</option>
+                        <option value="Books">Books</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="productPrice" class="form-label">Price</label>
+                    <input type="number" id="productPrice" class="form-control" ng-model="product.price" placeholder="Enter price" min="0" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="productStock" class="form-label">Stock</label>
+                    <input type="number" id="productStock" class="form-control" ng-model="product.stock" placeholder="Enter stock quantity" min="0" required>
+                </div>
+        
+                <button type="submit" class="btn btn-primary">Create Product</button>
+            </form>
+        
+            <div class="alert alert-danger mt-3" ng-if="errorMessage">
+                {{ errorMessage }}
+            </div>
+        
+            <div class="alert alert-success mt-3" ng-if="successMessage">
+                {{ successMessage }}
+            </div>
+        </div>
+        
+    </div>
+</div>

@@ -70,9 +70,11 @@ app.config(function($routeProvider) {
         templateUrl: 'model/modeladmin.html',
         controller: 'controlleradmin'
     })
-    .when('/add-product', {
-        templateUrl: 'model/modeladdproduct.html',
-        controller: 'controlleraddproduct'
+ 
+    //Admin Area
+    .when('/admin/product', {
+        templateUrl: 'model/modeladminproduct.html',
+        controller: 'controlleradminproduct'
     })
     .otherwise('login');
 });
@@ -159,6 +161,34 @@ app.controller('controlleradmin', function($scope) {
     $scope.message = "Welcome to the Admin Page!";
 });
 
+app.controller('controlleradminproduct', ['$scope', '$http', function($scope, $http) {
+    $scope.product = {
+        name: '',
+        description: '',
+        category: '',
+        price: '',
+        stock: ''
+    };
+
+    $scope.submitCreateProduct = function() {
+        $http.post('http://localhost:8000/product', $scope.product)
+            .then(function(response) {
+                if (response.data.success) {
+                    console.log("Product created successfully");
+                    $scope.successMessage = "Product created successfully!";
+                    $scope.product = {}; 
+                } else {
+                    console.log("Product creation failed:", response.data.message);
+                    $scope.errorMessage = response.data.message || 'Product creation failed.';
+                }
+            })
+            .catch(function(error) {
+                console.error("Product creation error:", error);
+                $scope.errorMessage = error.data.message || 'An error occurred while creating the product.';
+            });
+    };
+}]);
+
 app.controller('controllercreateuser', function($scope, $http, $location) {
     $scope.createAccountData = {
         name: '',
@@ -184,21 +214,21 @@ app.controller('controllercreateuser', function($scope, $http, $location) {
     };
 });
 
-app.run(function($rootScope, $document) {
+app.run(function($rootScope, $document, $timeout) {
     $rootScope.$on('$routeChangeSuccess', function(event, current) {
         var cssFile = '';
         switch (current.$$route.originalPath) {
             case '/login':
                 cssFile = 'modelstyle/modellogin.css';
                 break;
-            case '/add-product':
-                cssFile = 'modelstyle/modeladdproduct.css';
-                break;
-            case '/admin':
-                cssFile = 'modelstyle/modeladmin.css';
+            case '/createuser':
+                cssFile = 'modelstyle/modelcreate.css';
                 break;
             case '/home':
                 cssFile = 'modelstyle/modelhome.css';
+                break;
+            case '/admin':
+                cssFile = 'modelstyle/modeladmin.css';
                 break;
             case '/product':
                 cssFile = 'modelstyle/modelproduct.css';
@@ -207,12 +237,29 @@ app.run(function($rootScope, $document) {
                 cssFile = 'modelstyle/modelprofile.css';
                 break;
         }
+
         if (cssFile) {
+            // Hapus CSS lama jika ada
             var head = $document[0].head;
-            var link = document.createElement('link');
-            link.rel = 'stylesheet';
-            link.href = cssFile;
-            head.appendChild(link);
+            var oldLinks = head.querySelectorAll('link[rel="stylesheet"][data-dynamic="true"]');
+            oldLinks.forEach(function(link) {
+                head.removeChild(link);
+            });
+
+            // Tambahkan CSS baru dengan delay untuk memastikan sinkronisasi
+            $timeout(function() {
+                var link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = cssFile;
+                link.setAttribute('data-dynamic', 'true'); // Tandai sebagai dinamis
+                head.appendChild(link);
+
+                // Paksa refresh dengan memuat ulang CSS
+                link.onload = function() {
+                    console.log(`${cssFile} loaded successfully.`);
+                };
+            }, 100); // Tambahkan delay (100ms) untuk sinkronisasi
         }
     });
 });
+
