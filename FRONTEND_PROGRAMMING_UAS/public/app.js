@@ -4,6 +4,25 @@ app.config(function($httpProvider) {
     $httpProvider.interceptors.push('csrfInterceptor');
 });
 
+app.service('AuthService', function ($http, $window) {
+    const service = this;
+
+    service.login = function (credentials) {
+        return $http.post('/login', credentials).then(function (response) {
+            if (response.data.success) {
+                $window.localStorage.setItem('is_admin', response.data.data.is_admin);
+                return response.data.data;
+            } else {
+                throw new Error(response.data.message);
+            }
+        });
+    };
+
+    service.isAdmin = function () {
+        return $window.localStorage.getItem('is_admin') === 'true';
+    };
+});
+
 app.factory('csrfInterceptor', function($q) {
     var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
@@ -64,14 +83,17 @@ app.controller('controllerlogin', function($scope, $http, $location) {
     };
 
     $scope.errorMessage = '';
-
     $scope.submitLogin = function() {
         $http.post('http://localhost:8000/login', $scope.loginData)
             .then(function(response) {
                 console.log("Response Data:", response.data);
-
+    
                 if (response.data.success === true) {
-                    $location.path('/home');
+                    if (response.data.user.is_admin) {
+                        $location.path('/admin'); 
+                    } else {
+                        $location.path('/home'); 
+                    }
                 } else {
                     console.log("Login failed:", response.data.message);
                     $scope.errorMessage = response.data.message || 'Login failed. Please try again.';
@@ -79,7 +101,7 @@ app.controller('controllerlogin', function($scope, $http, $location) {
             })
             .catch(function(error) {
                 console.error("Login error:", error);
-                $scope.errorMessage = error.data.message || 'An error occurred during login.';
+                $scope.errorMessage = error.data?.message || 'An error occurred during login.';
             });
     };
 });
