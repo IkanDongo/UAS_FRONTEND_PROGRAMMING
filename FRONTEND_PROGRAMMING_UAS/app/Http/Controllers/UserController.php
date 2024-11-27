@@ -11,8 +11,8 @@ class UserController extends Controller
 {
     public function index()
     {
-        // $users = User::all(['name']);
-        $users = User::select('name', 'email')->get();
+        $users = User::all();
+        // $users = User::select('name', 'email')->get();
         
         return response()->json($users);
     }
@@ -44,4 +44,16 @@ class UserController extends Controller
             'user' => $user
         ], 201);
     }
+
+    public function toggleAdmin($id)
+{
+    $user = User::findOrFail($id);
+    $user->is_admin = !$user->is_admin;
+    $user->save();
+
+    return response()->json([
+        'message' => 'User admin status updated successfully.',
+        'user' => $user
+    ]);
+}
 }

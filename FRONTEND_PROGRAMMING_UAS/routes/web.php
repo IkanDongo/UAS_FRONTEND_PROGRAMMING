@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/users', [UserController::class, 'index']);
+Route::patch('/users/{id}/toggle-admin', [UserController::class, 'toggleAdmin']);
 Route::post('/users', [UserController::class, 'create']);
 
 Route::post('/products', [ProductController::class, 'create']);

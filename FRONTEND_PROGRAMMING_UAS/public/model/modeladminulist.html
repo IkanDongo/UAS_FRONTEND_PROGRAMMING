@@ -1,0 +1,63 @@
+<div class="container">
+    <div class="sidebar">
+        <h3 class="text-center text-white py-3 display-6">Admin Dashboard</h3>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <strong>User Options</strong>
+                <ul class="nav flex-column ms-3">
+                    <li class="nav-item"><a href="#!/admin/ulist" class="nav-link">User list</a></li>
+                    <li class="nav-item"><a href="#!/admin/user" class="nav-link">Add Admin</a></li>
+                    <li class="nav-item"><a href="#!/admin/useredit" class="nav-link">Edit Admin</a></li>
+                    <li class="nav-item"><a href="#!/admin/userremove" class="nav-link">Remove User</a></li>
+                </ul>
+            </li>
+            <li class="nav-item mt-4">
+                <strong>Product Options</strong>
+                <ul class="nav flex-column ms-3">
+                    <li class="nav-item"><a href="#!/admin/plist" class="nav-link">Product List</a></li>
+                    <li class="nav-item"><a href="#!/admin/product" class="nav-link">Add Product</a></li>
+                    <li class="nav-item"><a href="#!/admin/productremove" class="nav-link">Remove Product</a></li>
+                    <li class="nav-item"><a href="#!/admin/productedit" class="nav-link">Edit Product</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div ng-controller="controllerulist">
+        <h1 class="display-3">Welcome, Admin</h1>
+        <p class="text-dark">Here is the list of users:</p>
+    
+        <div ng-if="users.length > 0">
+            <h2>User List</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Admin Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="user in users">
+                        <td>{{ user._id }}</td>
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.is_admin ? 'Admin' : 'Not Admin' }}</td>
+                        <td>
+                            <button class="btn btn-primary" ng-click="toggleAdminStatus(user)">
+                                {{ user.is_admin ? 'Revoke Admin' : 'Make Admin' }}
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div ng-if="users.length === 0">
+            <p>No users found.</p>
+        </div>
+    </div>
+    
+    
+</div>
