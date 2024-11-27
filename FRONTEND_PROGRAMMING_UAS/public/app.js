@@ -206,26 +206,23 @@ app.run(function($rootScope, $document, $timeout) {
         }
 
         if (cssFile) {
-            // Hapus CSS lama jika ada
             var head = $document[0].head;
             var oldLinks = head.querySelectorAll('link[rel="stylesheet"][data-dynamic="true"]');
             oldLinks.forEach(function(link) {
                 head.removeChild(link);
             });
 
-            // Tambahkan CSS baru dengan delay untuk memastikan sinkronisasi
             $timeout(function() {
                 var link = document.createElement('link');
                 link.rel = 'stylesheet';
                 link.href = cssFile;
-                link.setAttribute('data-dynamic', 'true'); // Tandai sebagai dinamis
+                link.setAttribute('data-dynamic', 'true');
                 head.appendChild(link);
 
-                // Paksa refresh dengan memuat ulang CSS
                 link.onload = function() {
                     console.log(`${cssFile} loaded successfully.`);
                 };
-            }, 100); // Tambahkan delay (100ms) untuk sinkronisasi
+            }, 100); 
         }
     });
 });
