@@ -12,6 +12,10 @@ Route::delete('/users/{id}', [UserController::class, 'destroy']);
 
 Route::post('/products', [ProductController::class, 'create']);
 Route::get('/products', [ProductController::class, 'index']);
+Route::delete('/products/{id}', [ProductController::class, 'destroy']);
+Route::put('/products/{id}', [ProductController::class, 'update']);
+
+
 
 
 Route::post('/login', [AuthController::class, 'login'])->middleware(\App\Http\Middleware\CorsMiddleware::class);;

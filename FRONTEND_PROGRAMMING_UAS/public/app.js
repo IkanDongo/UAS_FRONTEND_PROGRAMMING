@@ -84,6 +84,11 @@ app.config(function($routeProvider) {
         templateUrl: 'model/modeladminplist.html',
         controller: 'controlleradminproduct'
     })
+    .when('/admin/product/edit/:id', {
+    templateUrl: 'model/modeladminpedit.html',
+    controller: 'controllerpedit'
+    })
+
     .otherwise('login');
 });
 
@@ -165,18 +170,73 @@ app.controller('controlleradminproduct', ['$scope', '$http', function($scope, $h
 }]);
 
 
-app.controller('controllerplist',function($scope, $http) {
-    $scope.products = [];
-
+app.controller('controllerplist', ['$scope', '$http', '$location', function($scope, $http, $location) {
+    $scope.product = [];
 
     $http.get('http://localhost:8000/products')
         .then(function(response) {
-            $scope.products = response.data; 
+            $scope.products = response.data;
         })
-       .catch(function (error) {
+        .catch(function (error) {
             console.error('Error fetching products:', error);
         });
-});
+
+    $scope.goToEditProduct = function(productsId) {
+        $location.path('/admin/product/edit/' + productsId);
+    };
+
+    $scope.removeProducts = function(productsId) {
+        $http.delete('http://localhost:8000/products/' + productsId)
+            .then(function (response) {
+                $scope.products = $scope.products.filter(p => p._id !== productsId);
+                console.log(response.data.message);
+            })
+            .catch(function (error) {
+                console.error('Error deleting product:', error);
+            });
+    };
+}]);
+app.controller('controllerpedit', ['$scope', '$http', '$routeParams', '$location', function($scope, $http, $routeParams, $location) {
+    const productId = $routeParams.id;
+
+    $scope.products = {
+        name: '',
+        description: '',
+        category: '',
+        price: '',
+        stock: '',
+    };
+
+   
+    $http.get('http://localhost:8000/products/' + productId)
+        .then(function(response) {
+            $scope.product = response.data;
+        })
+        .catch(function(error) {
+            console.error('Error fetching product details:', error);
+        });
+
+    $scope.updateProduct = function() {
+        $http.put('http://localhost:8000/products/' + productId, $scope.products)
+            .then(function(response) {
+                if (response.data.success) {
+                    console.log('Product updated successfully');
+                    $location.path('/admin/plist');
+                } else {
+                    console.error('Product update failed:', response.data.message);
+                }
+            })
+            .catch(function(error) {
+                console.error('Error updating product:', error);
+            });
+    };
+
+    $scope.cancel = function() {
+        $location.path('/admin/plist'); 
+    };
+}]);
+
+
 
 
 app.controller('controllerulist', function($scope, $http) {
