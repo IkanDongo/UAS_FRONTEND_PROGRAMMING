@@ -1,4 +1,28 @@
 <div class="container">
-    <h1>About</h1>
-    <p>{{message}}</p>
+    <div class="sidebar">
+        <h3 class="text-center text-white py-3 display-6">Admin Dashboard</h3>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <strong>User Options</strong>
+                <ul class="nav flex-column ms-3">
+                    <li class="nav-item"><a href="#!/add-admin" class="nav-link">Add Admin</a></li>
+                    <li class="nav-item"><a href="#!!/remove-admin" class="nav-link">Remove Admin</a></li>
+                    <li class="nav-item"><a href="#!/remove-user" class="nav-link">Remove User</a></li>
+                </ul>
+            </li>
+            <li class="nav-item mt-4">
+                <strong>Product Options</strong>
+                <ul class="nav flex-column ms-3">
+                    <li class="nav-item"><a href="#!/admin/product" class="nav-link">Add Product</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Remove Product</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Edit Product</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <h1 class="display-3">Welcome, Admin</h1>
+        <p class="text-white">What are you doing today?</p>
+    </div>
 </div>
