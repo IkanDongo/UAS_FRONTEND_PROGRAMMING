@@ -1,0 +1,63 @@
+<div class="container">
+    <div class="sidebar">
+        <h3 class="text-center text-white py-3 display-6">Admin Dashboard</h3>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <strong>User Options</strong>
+                <ul class="nav flex-column ms-3">
+                    <li class="nav-item"><a href="#!/admin/ulist" class="nav-link">User list</a></li>
+                    <li class="nav-item"><a href="#!/admin/user" class="nav-link">Add Admin</a></li>
+                    <li class="nav-item"><a href="#!/admin/useredit" class="nav-link">Edit Admin</a></li>
+                    <li class="nav-item"><a href="#!/admin/userremove" class="nav-link">Remove User</a></li>
+                </ul>
+            </li>
+            <li class="nav-item mt-4">
+                <strong>Product Options</strong>
+                <ul class="nav flex-column ms-3">
+                    <li class="nav-item"><a href="#!/admin/plist" class="nav-link">Product List</a></li>
+                    <li class="nav-item"><a href="#!/admin/product" class="nav-link">Add Product</a></li>
+                    <li class="nav-item"><a href="#!/admin/productremove" class="nav-link">Remove Product</a></li>
+                    <li class="nav-item"><a href="#!/admin/productedit" class="nav-link">Edit Product</a></li>
+                </ul>
+            </li>
+        </ul>
+            </div>
+                <div class="content">
+                    <h1>Edit Product</h1>
+                    <form ng-submit="updateProduct()">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Product Name</label>
+                            <input type="text" id="name" ng-model="products.name" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea id="description" ng-model="products.description" class="form-control"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="productCategory" class="form-label">Category</label>
+                            <select id="productCategory" class="form-select" ng-model="products.category" required>
+                                <option value="" disabled selected>Select category</option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="Fashion">Fashion</option>
+                                <option value="Home Appliances">Home Appliances</option>
+                                <option value="Books">Books</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="price" class="form-label">Price</label>
+                            <input type="number" id="price" ng-model="products.price" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="stock" class="form-label">Stock</label>
+                            <input type="number" id="stock" ng-model="products.stock" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-success">Update</button>
+                        <button type="button" class="btn btn-secondary" ng-click="cancel()">Cancel</button>
+                    </form>
+         
+                    </div>
+
+    
+    </div>
+
