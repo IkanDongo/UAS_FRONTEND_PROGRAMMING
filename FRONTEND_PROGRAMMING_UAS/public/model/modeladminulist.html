@@ -23,10 +23,9 @@
         </ul>
     </div>
 
-    <div ng-controller="controllerulist">
+    <div class="content" ng-controller="controllerulist">
         <h1 class="display-3">Welcome, Admin</h1>
-        <p class="text-dark">Here is the list of users:</p>
-    
+        <p class="text-dark">What are you doing today?</p>
         <div ng-if="users.length > 0">
             <h2>User List</h2>
             <table class="table table-bordered">
@@ -35,8 +34,8 @@
                         <th>ID</th>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>Admin Status</th>
-                        <th>Action</th>
+                        <th>Created At</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,11 +43,14 @@
                         <td>{{ user._id }}</td>
                         <td>{{ user.name }}</td>
                         <td>{{ user.email }}</td>
-                        <td>{{ user.is_admin ? 'Admin' : 'Not Admin' }}</td>
+                        <td>{{ user.created_at }}</td>
                         <td>
-                            <button class="btn btn-primary" ng-click="toggleAdminStatus(user)">
+                            <button class="btn btn-primary" ng-click="toggleAdmin(user._id)">
                                 {{ user.is_admin ? 'Revoke Admin' : 'Make Admin' }}
                             </button>
+                        </td>
+                        <td>
+                            <button ng-click="removeUser(user._id)" class="btn btn-danger">Remove User</button>
                         </td>
                     </tr>
                 </tbody>
@@ -57,7 +59,5 @@
         <div ng-if="users.length === 0">
             <p>No users found.</p>
         </div>
-    </div>
-    
-    
+    </div>    
 </div>
