@@ -76,6 +76,10 @@ app.config(function($routeProvider) {
         templateUrl: 'model/modeladminproduct.html',
         controller: 'controlleradminproduct'
     })
+    .when('/admin/ulist', {
+        templateUrl: 'model/modeladminulist.html',
+        controller: 'controlleradminproduct'
+    })
     .otherwise('login');
 });
 
@@ -155,6 +159,38 @@ app.controller('controlleradminproduct', ['$scope', '$http', function($scope, $h
             });
     };
 }]);
+
+app.controller('controllerulist', function($scope, $http) {
+    $scope.users = [];
+
+    // Fetch users
+    $http.get('http://localhost:8000/users')
+        .then(function(response) {
+            $scope.users = response.data;
+        })
+        .catch(function(error) {
+            console.error('Error fetching users:', error);
+        });
+
+    // Toggle admin status
+    $scope.toggleAdminStatus = function(user) {
+        const userId = user._id; // Assuming '_id' is the unique identifier
+        $http.patch(`http://localhost:8000/users/${userId}/toggle-admin`)
+            .then(function(response) {
+                const updatedUser = response.data.user;
+                // Update local user data
+                const index = $scope.users.findIndex(u => u._id === userId);
+                if (index !== -1) {
+                    $scope.users[index] = updatedUser;
+                }
+                alert('User admin status updated successfully.');
+            })
+            .catch(function(error) {
+                console.error('Error updating admin status:', error);
+            });
+    };
+});
+
 
 app.controller('controllercreateuser', function($scope, $http, $location) {
     $scope.createAccountData = {
