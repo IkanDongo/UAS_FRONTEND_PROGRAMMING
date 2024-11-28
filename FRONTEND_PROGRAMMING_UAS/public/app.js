@@ -54,6 +54,11 @@ app.config(function($routeProvider) {
         templateUrl: 'model/modelhome.html',
         controller: 'controllerhome'
     })
+    .when('/producthome', {
+        templateUrl: 'model/modelproducthome.html',
+        controller: 'controllerproducthome'
+    })
+
     .when('/product', {
         templateUrl: 'model/modelproduct.html',
         controller: 'controllerproduct'
@@ -140,6 +145,11 @@ app.controller('controllercart', function($scope) {
 app.controller('controlleradmin', function($scope) {
     $scope.message = "Welcome to the Admin Page!";
 });
+
+app.controller('controllerproducthome', function($scope) {
+    $scope.message = "Welcome to the Home Page!";
+});
+
 
 app.controller('controlleradminproduct', ['$scope', '$http', function($scope, $http) {
     $scope.product = {
@@ -323,6 +333,9 @@ app.run(function($rootScope, $document, $timeout) {
                 break;
             case '/profile':
                 cssFile = 'modelstyle/modelprofile.css';
+                break;
+            case '/producthome':
+                cssFile = 'modelstyle/modelproducthome.css';
                 break;
         }
 

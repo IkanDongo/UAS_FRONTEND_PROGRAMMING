@@ -1,27 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container">
+        <a class="navbar-brand title-size" ng-href="#/home" draggable="false">WebStyle</a>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="CSS/product.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Acme&family=Noto+Sans+Telugu:wght@100..900&family=Poiret+One&display=swap"
-        rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-    <script src="JS/model.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://kit.fontawesome.com/1975de5d56.js" crossorigin="anonymous"></script>
-    <title>SOMETHING WEBSITE - Home Page</title>
-</head>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-<body ng-app="myApp">
-    <navbar-model></navbar-model>
-    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="nav navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link nav-text-size" ng-href="#!/home" draggable="false">Home Page</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-text-size" ng-href="#!/producthome" draggable="false">Product Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-text-size" ng-href="#/cart" draggable="false">Cart Page</a>
+                </li>
+                <li class="nav-item m-0 p-0">
+                    <a class="nav-link nav-text-size" ng-href="#/profile" draggable="false"><i
+                            class="icon-size fa-regular fa-user color-white" draggable="false"></i></a>
+                </li>
+                <li class="nav-item m-0 p-0">
+                    <a class="nav-link nav-text-size" ng-href="#/login" draggable="false"><i
+                            class="icon-size fa-solid fa-right-to-bracket color-white" draggable="false"></i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <img src="IMG/mensfashion.gif" class="d-block w-100" alt="Men's Fashion">
@@ -174,10 +182,3 @@
         <h2 class="text-center mb-4 text-white">Featured Product</h2>
     </div>
 
-
-    <script src="JS/footerModel/footer-model.js"></script>
-    <footer-model></footer-model>
-
-</body>
-
-</html>
