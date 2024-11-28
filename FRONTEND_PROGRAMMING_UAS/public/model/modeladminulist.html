@@ -6,9 +6,6 @@
                 <strong>User Options</strong>
                 <ul class="nav flex-column ms-3">
                     <li class="nav-item"><a href="#!/admin/ulist" class="nav-link">User list</a></li>
-                    <li class="nav-item"><a href="#!/admin/user" class="nav-link">Add Admin</a></li>
-                    <li class="nav-item"><a href="#!/admin/useredit" class="nav-link">Edit Admin</a></li>
-                    <li class="nav-item"><a href="#!/admin/userremove" class="nav-link">Remove User</a></li>
                 </ul>
             </li>
             <li class="nav-item mt-4">
@@ -45,12 +42,12 @@
                         <td>{{ user.email }}</td>
                         <td>{{ user.created_at }}</td>
                         <td>
-                            <button class="btn btn-primary" ng-click="toggleAdmin(user._id)">
-                                {{ user.is_admin ? 'Revoke Admin' : 'Make Admin' }}
+                            <button class="btn custom-button btn-primary" ng-click="toggleAdmin(user._id)">
+                                {{ user.is_admin ? 'RM Admin' : 'MK Admin' }}
                             </button>
                         </td>
                         <td>
-                            <button ng-click="removeUser(user._id)" class="btn btn-danger">Remove User</button>
+                            <button ng-click="removeUser(user._id)" class="btn custom-button btn-danger">RM User</button>
                         </td>
                     </tr>
                 </tbody>

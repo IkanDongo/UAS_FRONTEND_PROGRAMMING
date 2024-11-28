@@ -1,0 +1,86 @@
+.sidebar {
+    height: 100vh;
+    min-width: 300px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    
+    background: linear-gradient(to bottom, #343a40, #252f3a);
+    color: white;
+    padding-top: 20px;
+}
+
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    transition: 0.3s ease-in-out;
+}
+
+.sidebar a:hover {
+    background-color: #575d63;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.content {
+    margin-left: 260px;
+    padding: 20px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+}
+
+.table th,
+.table td {
+    padding: 0.75rem;
+    text-align: left;
+    border: 1px solid #dee2e6;
+}
+
+.table th {
+    background-color: #f8f9fa;
+}
+
+.custom-button {
+    width: 70px !important;
+}
+
+@media (max-width: 768px) {
+    .table {
+        display: block;
+    }
+
+    .table thead {
+        display: none;
+    }
+
+    .table tbody tr {
+        display: block;
+        margin-bottom: 1rem;
+        border: 1px solid #dee2e6;
+    }
+
+    .table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem;
+        border: none;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .table td:last-child {
+        border-bottom: none;
+    }
+
+    .table td::before {
+        content: attr(data-label); /* Tambahkan label untuk kolom */
+        font-weight: bold;
+        margin-right: 0.5rem;
+        color: #495057;
+    }
+}
