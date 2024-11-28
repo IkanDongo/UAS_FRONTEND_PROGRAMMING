@@ -318,6 +318,9 @@ app.run(function($rootScope, $document, $timeout) {
             case '/admin':
                 cssFile = 'modelstyle/modeladmin.css';
                 break;
+            case '/admin/ulist':
+                cssFile = 'modelstyle/modeladminulist.css';
+                break;
             case '/product':
                 cssFile = 'modelstyle/modelproduct.css';
                 break;

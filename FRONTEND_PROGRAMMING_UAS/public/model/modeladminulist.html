@@ -1,3 +1,4 @@
+<button class="hamburger" onclick="toggleSidebar()">☰</button>
 <div class="container">
     <div class="sidebar">
         <h3 class="text-center text-white py-3 display-6">Admin Dashboard</h3>
@@ -28,33 +29,35 @@
         <p class="text-dark">What are you doing today?</p>
         <div ng-if="users.length > 0">
             <h2>User List</h2>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Created At</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="user in users">
-                        <td>{{ user._id }}</td>
-                        <td>{{ user.name }}</td>
-                        <td>{{ user.email }}</td>
-                        <td>{{ user.created_at }}</td>
-                        <td>
-                            <button class="btn btn-primary" ng-click="toggleAdmin(user._id)">
-                                {{ user.is_admin ? 'Revoke Admin' : 'Make Admin' }}
-                            </button>
-                        </td>
-                        <td>
-                            <button ng-click="removeUser(user._id)" class="btn btn-danger">Remove User</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Created At</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="user in users" class="place-item-center">
+                            <td>{{ user._id }}</td>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.created_at }}</td>
+                            <td>
+                                <button class="btn btn-primary custom-button" ng-click="toggleAdmin(user._id)">
+                                    {{ user.is_admin ? 'RM Admin' : 'MK Admin' }}
+                                </button>
+                            </td>
+                            <td>
+                                <button ng-click="removeUser(user._id)" class="btn btn-danger custom-button">RM User</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div ng-if="users.length === 0">
             <p>No users found.</p>
