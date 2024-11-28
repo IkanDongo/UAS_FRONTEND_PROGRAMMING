@@ -48,39 +48,3 @@
 .custom-button {
     width: 70px !important;
 }
-
-@media (max-width: 768px) {
-    .table {
-        display: block;
-    }
-
-    .table thead {
-        display: none;
-    }
-
-    .table tbody tr {
-        display: block;
-        margin-bottom: 1rem;
-        border: 1px solid #dee2e6;
-    }
-
-    .table td {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0.5rem;
-        border: none;
-        border-bottom: 1px solid #dee2e6;
-    }
-
-    .table td:last-child {
-        border-bottom: none;
-    }
-
-    .table td::before {
-        content: attr(data-label); /* Tambahkan label untuk kolom */
-        font-weight: bold;
-        margin-right: 0.5rem;
-        color: #495057;
-    }
-}
