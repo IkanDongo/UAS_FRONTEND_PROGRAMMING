@@ -54,6 +54,11 @@ app.config(function($routeProvider) {
         templateUrl: 'model/modelhome.html',
         controller: 'controllerhome'
     })
+    .when('/producthome', {
+        templateUrl: 'model/modelproducthome.html',
+        controller: 'controllerproducthome'
+    })
+
     .when('/product', {
         templateUrl: 'model/modelproduct.html',
         controller: 'controllerproduct'
@@ -69,6 +74,10 @@ app.config(function($routeProvider) {
     .when('/admin', {
         templateUrl: 'model/modeladmin.html',
         controller: 'controlleradmin'
+    })
+    .when('/product/edit/:id', {
+    templateUrl: 'model/modeladminpedit.html',
+    controller: 'controllerp'
     })
  
     //Admin Area
@@ -140,6 +149,25 @@ app.controller('controllercart', function($scope) {
 app.controller('controlleradmin', function($scope) {
     $scope.message = "Welcome to the Admin Page!";
 });
+
+app.controller('controllerproducthome', ['$scope', '$http', '$location', function($scope, $http, $location) {
+    $scope.products = [];
+    $scope.maxProducts = 6; 
+
+    $http.get('http://localhost:8000/products')
+        .then(function(response) {
+            $scope.products = response.data;
+        })
+        .catch(function(error) {
+            console.error('Error fetching products:', error);
+        });
+
+    $scope.loadMore = function() {
+        $scope.maxProducts += 6;
+    };
+}]);
+
+
 
 app.controller('controlleradminproduct', ['$scope', '$http', function($scope, $http) {
     $scope.product = {
@@ -326,6 +354,9 @@ app.run(function($rootScope, $document, $timeout) {
                 break;
             case '/profile':
                 cssFile = 'modelstyle/modelprofile.css';
+                break;
+            case '/producthome':
+                cssFile = 'modelstyle/modelproducthome.css';
                 break;
         }
 

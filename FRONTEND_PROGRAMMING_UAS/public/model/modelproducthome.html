@@ -1,61 +1,71 @@
-<!DOCTYPE html>
-<html lang="en">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container">
+        <a class="navbar-brand title-size" ng-href="#/home" draggable="false">WebStyle</a>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="CSS/product.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Acme&family=Noto+Sans+Telugu:wght@100..900&family=Poiret+One&display=swap"
-        rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-    <script src="JS/model.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://kit.fontawesome.com/1975de5d56.js" crossorigin="anonymous"></script>
-    <title>SOMETHING WEBSITE - Home Page</title>
-</head>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-<body ng-app="myApp">
-    <navbar-model></navbar-model>
-    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="IMG/mensfashion.gif" class="d-block w-100" alt="Men's Fashion">
-            </div>
-            <div class="carousel-item">
-                <img src="IMG/womensfashion.gif" class="d-block w-100" alt="Women's Fashion">
-            </div>
-            <div class="carousel-item">
-                <img src="IMG/kidsfashion.gif" class="d-block w-100" alt="Kids' Fashion">
-            </div>
-            <div class="carousel-item">
-                <img src="IMG/beauty.gif" class="d-block w-100" alt="Beauty">
-            </div>
-            <div class="carousel-item">
-                <img src="IMG/sportwear.jpg" class="d-block w-100" alt="Sportwear">
-            </div>
-            <div class="carousel-item">
-                <img src="IMG/lifestyle.gif" class="d-block w-100" alt="Lifestyle">
-            </div>
-            <div class="carousel-item">
-                <img src="IMG/luxury.jpg" class="d-block w-100" alt="Luxury">
-            </div>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="nav navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link nav-text-size" ng-href="#!/home" draggable="false">Home Page</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-text-size" ng-href="#!/producthome" draggable="false">Product Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-text-size" ng-href="#/cart" draggable="false">Cart Page</a>
+                </li>
+                <li class="nav-item m-0 p-0">
+                    <a class="nav-link nav-text-size" ng-href="#/profile" draggable="false"><i
+                            class="icon-size fa-regular fa-user color-white" draggable="false"></i></a>
+                </li>
+                <li class="nav-item m-0 p-0">
+                    <a class="nav-link nav-text-size" ng-href="#/login" draggable="false"><i
+                            class="icon-size fa-solid fa-right-to-bracket color-white" draggable="false"></i></a>
+                </li>
+            </ul>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
     </div>
+</nav>
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="image/bannerimg/mensfashion.gif" class="d-block w-100" alt="Men's Fashion">
+        </div>
+        <div class="carousel-item">
+            <img src="image/bannerimg/womensfashion.gif" class="d-block w-100" alt="Women's Fashion">
+        </div>
+        <div class="carousel-item">
+            <img src="image/bannerimg/kidsfashion.gif" class="d-block w-100" alt="Kids' Fashion">
+        </div>
+        <div class="carousel-item">
+            <img src="image/bannerimg/beauty.gif" class="d-block w-100" alt="Beauty">
+        </div>
+        <div class="carousel-item">
+            <img src="image/bannerimg/sportwear.jpg" class="d-block w-100" alt="Sportwear">
+        </div>
+        <div class="carousel-item">
+            <img src="image/bannerimg/lifestyle.gif" class="d-block w-100" alt="Lifestyle">
+        </div>
+        <div class="carousel-item">
+            <img src="image/bannerimg/luxury.jpg" class="d-block w-100" alt="Luxury">
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+        data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+        data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
 
     <div class="container py-5">
         <div class="row">
@@ -66,7 +76,7 @@
         <div class="row">
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card">
-                    <img src="IMG/image1.jpg" class="card-img-top" alt="image1">
+                    <img src="image/modelimg/image1.jpg" class="card-img-top" alt="image1">
                     <div class="card-body">
                         <h3 class="card-title">Elegansi Modern</h3>
                         <p class="card-text">Koleksi modern kami mengusung semangat elegansi,
@@ -90,7 +100,7 @@
             </div>
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card">
-                    <img src="IMG/image2.jpg" class="card-img-top" alt="image2">
+                    <img src="image/modelimg/image2.jpg" class="card-img-top" alt="image2">
                     <div class="card-body">
                         <h3 class="card-title ">Kenyamanan Kasual</h3>
                         <p class="card-text">Kenyamanan tanpa usaha, didefinisikan ulang. Pakaian kasual kami dirancang
@@ -111,7 +121,7 @@
             </div>
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card">
-                    <img src="IMG/image3.jpg" class="card-img-top" alt="image3">
+                    <img src="image/modelimg/image3.jpg" class="card-img-top" alt="image3">
                     <div class="card-body">
                         <h3 class="card-title">Berani & Bergaya</h3>
                         <p class="card-text">Dengan penuh keberanian, koleksi ini dirancang untuk mereka yang berani
@@ -136,7 +146,7 @@
         <h2 class="text-center mb-4 text-white">Tips & Tricks of The Week</h2>
         <div class="row g-4">
 
-            <div class="card text-black" style="background-image: url('/Image/test123.jpg'); background-size: cover;">
+            <div class="card text-black" style="background-image: url('image/tipsimg/test123.jpg'); background-size: cover;">
                 <div class="card-body">
                     <blockquote class="blockquote">
                         <p>"Pilih pakaian dengan bahan yang nyaman, terutama saat musim panas..."</p>
@@ -146,7 +156,7 @@
 
             </div>
 
-            <div class="card text-black" style="background-image: url('/Image/test1234.jpg'); background-size: cover;">
+            <div class="card text-black" style="background-image: url('image/tipsimg/test1234.jpg'); background-size: cover;">
                 <div class="card-body">
                     <blockquote class="blockquote">
                         <p>"Investasikan pada sepatu kulit berkualitas, karena bisa digunakan dalam berbagai acara..."
@@ -157,7 +167,7 @@
 
             </div>
 
-            <div class="card text-black" style="background-image: url('/Image/test12345.jpg'); background-size: cover;">
+            <div class="card text-black" style="background-image: url('image/tipsimg/test12345.jpg'); background-size: cover;">
                 <div class="card-body">
                     <blockquote class="blockquote">
                         <p>"Aksesori seperti jam tangan atau cincin dapat meningkatkan penampilan..."</p>
@@ -169,15 +179,29 @@
         </div>
     </div>
 
-
-    <div class="container my-5">
-        <h2 class="text-center mb-4 text-white">Featured Product</h2>
+<div class="container my-5">
+    <h2 class="text-center mb-4 text-white">Featured Product</h2>
+    <div class="row" ng-if="products.length > 0">
+        <div class="col-md-4 mb-4" ng-repeat="product in products | limitTo: maxProducts">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">
+                        <strong>Price:</strong> ${{ product.price }}
+                    </p>
+                    <a href="/product/{{ product.id }}" class="btn btn-primary">
+                        View Product
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
+    <div ng-if="products.length === 0">
+        <p>No products found.</p>
+    </div>
+    <div class="text-center mt-4" ng-if="products.length > maxProducts">
+        <button class="btn btn-secondary" ng-click="loadMore()">Load More</button>
+    </div>
+</div>
 
 
-    <script src="JS/footerModel/footer-model.js"></script>
-    <footer-model></footer-model>
-
-</body>
-
-</html>
