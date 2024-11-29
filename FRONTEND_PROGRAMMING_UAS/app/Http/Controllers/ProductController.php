@@ -21,20 +21,33 @@ class ProductController extends Controller
      */
     public function create(Request $request)
     {
+
+        
+        
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'category' => 'required|string',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
+            'image' => 'image|file|max:1024',
         ]);
 
-        $product = Products::create($validatedData);
+        if ($request->hasFile('image')) {
+        $imagePath = $request->file('image')->store('image');
+        $validatedData['image'] = basename($imagePath);
+        }
 
-        return response()->json([
-            'message' => 'Products created successfully',
-            'product' => $product,
-        ], 201);
+
+        $product = Products::create($validatedData);
+        $product->image = $product->image ? asset('storage/image/' . $product->image) : null;
+
+
+    return response()->json([
+    'message' => 'Products created successfully',
+    'product' => $product,
+    ], 201);
+
     }
 
     /**
@@ -68,7 +81,9 @@ class ProductController extends Controller
             'category' => 'sometimes|required|string',
             'price' => 'sometimes|required|numeric|min:0',
             'stock' => 'sometimes|required|integer|min:0',
+            
         ]);
+        
 
         $product->update($validatedData);
 

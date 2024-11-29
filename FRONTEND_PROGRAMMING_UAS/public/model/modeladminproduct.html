@@ -29,6 +29,7 @@
         <div class="create-product-form">
             <h2 class="display-5 mb-4">Create Product</h2>
             <form ng-submit="submitCreateProduct()">
+                
                 <div class="mb-3">
                     <label for="productName" class="form-label">Product Name</label>
                     <input type="text" id="productName" class="form-control" ng-model="product.name" placeholder="Enter product name" required>
@@ -60,6 +61,13 @@
                     <label for="productStock" class="form-label">Stock</label>
                     <input type="number" id="productStock" class="form-control" ng-model="product.stock" placeholder="Enter stock quantity" min="0" required>
                 </div>
+                
+                <div class="mb-3">
+                    <label for="productImages" class="form-label">Upload Image:</label>
+                    <input class="form-control" type="file" id="image" onchange="angular.element(this).scope().setImageFile(this)"
+                        required>
+                </div>
+
         
                 <button type="submit" class="btn btn-primary">Create Product</button>
             </form>
