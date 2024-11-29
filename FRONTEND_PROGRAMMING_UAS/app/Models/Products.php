@@ -13,6 +13,7 @@ class Products extends Model
         'category',
         'price',
         'stock',
+        'image',
     ];
 
     // public function ratings()

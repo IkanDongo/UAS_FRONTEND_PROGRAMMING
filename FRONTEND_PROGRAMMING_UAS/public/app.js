@@ -177,23 +177,38 @@ app.controller('controlleradminproduct', ['$scope', '$http', function($scope, $h
         price: '',
         stock: ''
     };
+    
+    $scope.imageFile = null; 
+
+    $scope.setImageFile = function(element) {
+        $scope.imageFile = element.files[0];
+    };
 
     $scope.submitCreateProduct = function() {
-        $http.post('http://localhost:8000/products', $scope.product)
-            .then(function(response) {
-                if (response.data.success) {
-                    console.log("Product created successfully");
-                    $scope.successMessage = "Product created successfully!";
-                    $scope.product = {}; 
-                } else {
-                    console.log("Product creation failed:", response.data.message);
-                    $scope.errorMessage = response.data.message || 'Product creation failed.';
-                }
-            })
-            .catch(function(error) {
-                console.error("Product creation error:", error);
-                $scope.errorMessage = error.data.message || 'An error occurred while creating the product.';
-            });
+        let formData = new FormData();
+        formData.append('name', $scope.product.name);
+        formData.append('description', $scope.product.description || '');
+        formData.append('category', $scope.product.category);
+        formData.append('price', $scope.product.price);
+        formData.append('stock', $scope.product.stock);
+        if ($scope.imageFile) {
+            formData.append('image', $scope.imageFile);
+        }
+
+        $http.post('http://localhost:8000/products', formData, {
+            headers: { 'Content-Type': undefined }, 
+            transformRequest: angular.identity
+        })
+        .then(function(response) {
+            console.log("Product created successfully:", response.data);
+            $scope.successMessage = "Product created successfully!";
+            $scope.product = {}; 
+            $scope.imageFile = null; 
+        })
+        .catch(function(error) {
+            console.error("Product creation error:", error);
+            $scope.errorMessage = error.data.message || 'An error occurred while creating the product.';
+        });
     };
 }]);
 
@@ -233,6 +248,7 @@ app.controller('controllerpedit', ['$scope', '$http', '$routeParams', '$location
         category: '',
         price: '',
         stock: '',
+        image: ''
     };
 
    
@@ -245,19 +261,20 @@ app.controller('controllerpedit', ['$scope', '$http', '$routeParams', '$location
         });
 
     $scope.updateProduct = function() {
-        $http.put('http://localhost:8000/products/' + productId, $scope.products)
-            .then(function(response) {
-                if (response.data.success) {
-                    console.log('Product updated successfully');
-                    $location.path('/admin/plist');
-                } else {
-                    console.error('Product update failed:', response.data.message);
-                }
-            })
-            .catch(function(error) {
-                console.error('Error updating product:', error);
-            });
-    };
+    $http.put('http://localhost:8000/products/' + productId, $scope.products)
+        .then(function(response) {
+            if (response.data.success || response.data.message === 'Products updated successfully') {
+                console.log('Product updated successfully');
+                $location.path('/admin/plist');
+            } else {
+                console.error('Product update failed:', response.data.message);
+            }
+        })
+        .catch(function(error) {
+            console.error('Error updating product:', error);
+        });
+};
+
 
     $scope.cancel = function() {
         $location.path('/admin/plist'); 
