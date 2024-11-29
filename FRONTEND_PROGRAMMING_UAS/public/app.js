@@ -142,8 +142,15 @@ app.controller('controllerprofile', function($scope) {
     $scope.message = "Welcome to the Profile Page!";
 });
 
-app.controller('controllercart', function($scope) {
-    $scope.message = "Welcome to the Admin Page!";
+app.controller('controllercart', function($scope, $http) {
+    $scope.cart = [];
+
+    $scope.getCart = function() {
+        $http.get('http://localhost:8000/carts').then(function(response) {
+            $scope.cart = response.data;
+        });
+    };
+
 });
 
 app.controller('controlleradmin', function($scope) {
