@@ -179,8 +179,29 @@
         </div>
     </div>
 
-
-    <div class="container my-5">
-        <h2 class="text-center mb-4 text-white">Featured Product</h2>
+<div class="container my-5">
+    <h2 class="text-center mb-4 text-white">Featured Product</h2>
+    <div class="row" ng-if="products.length > 0">
+        <div class="col-md-4 mb-4" ng-repeat="product in products | limitTo: maxProducts">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">
+                        <strong>Price:</strong> ${{ product.price }}
+                    </p>
+                    <a href="/product/{{ product.id }}" class="btn btn-primary">
+                        View Product
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
+    <div ng-if="products.length === 0">
+        <p>No products found.</p>
+    </div>
+    <div class="text-center mt-4" ng-if="products.length > maxProducts">
+        <button class="btn btn-secondary" ng-click="loadMore()">Load More</button>
+    </div>
+</div>
+
 
