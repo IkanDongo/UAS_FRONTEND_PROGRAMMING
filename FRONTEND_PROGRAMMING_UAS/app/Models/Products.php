@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-// use Illuminate\Database\Eloquent\Model;
 use MongoDB\Laravel\Eloquent\Model;
+use App\Models\Carts;
 
 class Products extends Model
 {
@@ -16,8 +16,9 @@ class Products extends Model
         'image',
     ];
 
-    // public function ratings()
-    // {
-    //     return $this->hasMany(Rating::class);
-    // }
+    public function carts()
+    {
+        return $this->belongsToMany(Carts::class, 'cart_products', 'product_id', 'cart_id')
+                    ->withPivot('quantity');
+    }
 }

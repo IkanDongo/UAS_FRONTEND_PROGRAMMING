@@ -1,4 +1,9 @@
-<div class="container">
-    <h1>About</h1>
-    <p>{{message}}</p>
+<div ng-app="cartApp" ng-controller="controllercart">
+    <!-- <button ng-click="addItemToCart({id: 1, name: 'Product 1', price: 100})">Add Product 1 to Cart</button> -->
+
+    <ul>
+        <li ng-repeat="item in cart">
+            {{item.product.name}} - {{item.quantity}} - ${{item.price}}
+        </li>
+    </ul>
 </div>
