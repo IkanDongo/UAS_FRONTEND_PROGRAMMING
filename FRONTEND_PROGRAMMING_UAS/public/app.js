@@ -98,8 +98,8 @@ app.config(function($routeProvider) {
         controller: 'controlleradminproduct'
     })
     .when('/admin/product/edit/:id', {
-    templateUrl: 'model/modeladminpedit.html',
-    controller: 'controllerpedit'
+        templateUrl: 'model/modeladminpedit.html',
+        controller: 'controllerpedit'
     })
 
     .otherwise('login');
@@ -151,7 +151,6 @@ app.controller('controllercart', function($scope, $http) {
     $scope.cart = []; 
 
     var userId = localStorage.getItem('user_id');
-    console.log('User ID:', userId);  
 
     $scope.getCart = function() {
         $http.get('http://localhost:8000/carts/' + userId).then(function(response) {
@@ -165,6 +164,7 @@ app.controller('controllercart', function($scope, $http) {
         });    
     };
     $scope.getCart();
+    
 
     $scope.removeItem = function (item) {
         var itemId = item.product.product_id;
@@ -174,12 +174,12 @@ app.controller('controllercart', function($scope, $http) {
                 $scope.cart = $scope.cart.filter(function (cartItem) {
                     return cartItem.product.product_id !== itemId;
                 });
+                $scope.getCart();
             })
             .catch(function (error) {
                 console.log('Error removing item:', error);
             });
         };
-        
 });
 
 app.controller('controlleradmin', function($scope) {

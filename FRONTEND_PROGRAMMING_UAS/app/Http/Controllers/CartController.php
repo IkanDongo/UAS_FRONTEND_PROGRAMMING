@@ -26,7 +26,7 @@ class CartController extends Controller
         return response()->json($item);
     }
 
-    public function removeItem($userId, $productId)
+    public function removeCart($userId, $productId)
     {
         $deleted = Carts::where('user_id', $userId)
                     ->where('product_id', $productId)
