@@ -58,6 +58,10 @@ app.config(function($routeProvider) {
         templateUrl: 'model/modelproducthome.html',
         controller: 'controllerproducthome'
     })
+    .when('/productdetail', {
+        templateUrl: 'model/modelproductdetail.html',
+        controller: ''
+    })
 
     .when('/product', {
         templateUrl: 'model/modelproduct.html',
@@ -79,7 +83,7 @@ app.config(function($routeProvider) {
     templateUrl: 'model/modeladminpedit.html',
     controller: 'controllerp'
     })
- 
+
     //Admin Area
     .when('/admin/product', {
         templateUrl: 'model/modeladminproduct.html',
@@ -274,7 +278,6 @@ app.controller('controllerpedit', ['$scope', '$http', '$routeParams', '$location
         image: ''
     };
 
-   
     $http.get('http://localhost:8000/products/' + productId)
         .then(function(response) {
             $scope.product = response.data;
@@ -397,6 +400,12 @@ app.run(function($rootScope, $document, $timeout) {
                 break;
             case '/producthome':
                 cssFile = 'modelstyle/modelproducthome.css';
+                break;
+            case '/productdetail':
+                cssFile = 'modelstyle/modelproductdetail.css';
+                break;
+            case '/profile':
+                cssFile = 'modelstyle/modelprofile.css';
                 break;
         }
 
