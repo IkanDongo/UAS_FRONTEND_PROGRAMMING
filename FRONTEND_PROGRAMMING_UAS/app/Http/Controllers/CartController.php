@@ -25,19 +25,29 @@ class CartController extends Controller
 
         return response()->json($item);
     }
+
+    public function removeItem($userId, $productId)
+    {
+        $deleted = Carts::where('user_id', $userId)
+                    ->where('product_id', $productId)
+                    ->delete();
+
+        if ($deleted) {
+            return response()->json(['message' => 'Item removed successfully'], 200);
+        }
+
+        return response()->json(['message' => 'Item not found or could not be deleted'], 404);
+    }
+
     
     public function getCart($user_id)
     {
-        // Mengambil semua data cart berdasarkan user_id, termasuk relasi dengan produk
         $cart = Carts::where('user_id', $user_id)->with('product')->get();
     
-        // Cek apakah data cart ada
         if ($cart->isEmpty()) {
-            \Log::warning('No cart found for user_id: ' . $user_id);
             return response()->json(['message' => 'Cart not found'], 404);
         }
     
-        // Siapkan array untuk menyimpan data cart dengan produk
         $cartData = $cart->map(function ($cartItem) {
             return [
                 'cart_id' => $cartItem->id,
@@ -50,9 +60,7 @@ class CartController extends Controller
                 ]
             ];
         });
-    
-        \Log::info('Cart data for user_id ' . $user_id . ': ' . $cartData);
-    
+        
         return response()->json([
             'message' => 'Cart found.',
             'cart_data' => $cartData
