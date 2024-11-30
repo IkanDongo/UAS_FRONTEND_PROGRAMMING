@@ -37,5 +37,16 @@ class DatabaseSeeder extends Seeder
             'created_at' => now()->toDateTimeString(),
             'updated_at' => now()->toDateTimeString(),
         ]);
+
+        // $user = \App\Models\User::first();
+        // $product = \App\Models\Products::first(); 
+
+        // DB::table('carts')->insert([
+        //     'user_id' => $user->id,
+        //     'product_id' => $product->id,
+        //     'quantity' => 2,
+        //     'created_at' => now(),
+        //     'updated_at' => now(),
+        // ]);
     }
 }
