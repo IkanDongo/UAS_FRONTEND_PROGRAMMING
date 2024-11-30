@@ -178,32 +178,66 @@
             </div>
         </div>
     </div>
-    <div class="container my-5">
-        <h2 class="text-center mb-4 text-white">Featured Product</h2>
-        <div class="row" ng-if="products.length > 0">
-            <div class="col-md-4 mb-4" ng-repeat="product in products | limitTo: maxProducts">
-                <div class="card h-100">
-                    <img ng-src="storage/image/{{ product.image }}" alt="{{ product.name }}" class="card-img-top"
-                        style="max-height: 200px; object-fit: cover;">
-    
-                    <div class="card-body text-center">
-                        <h5 class="card-title">{{ product.name }}</h5>
-                        <p class="card-text">
-                            <strong>Price:</strong> ${{ product.price }}
-                        </p>
-                        <a href="/product/{{ product.id }}" class="btn btn-primary">
-                            View Product
-                        </a>
-                    </div>
+<div class="container my-5">
+    <h2 class="text-center mb-4 text-white">Featured Product</h2>
+    <div class="row" ng-if="products.length > 0">
+        <div class="col-6 col-md-4 col-lg-2 mb-4" ng-repeat="product in products | limitTo: maxProducts">
+            <div class="card h-100">
+                <img ng-src="storage/image/{{ product.image }}" alt="{{ product.name }}" class="card-img-top"
+                    style="max-height: 200px; object-fit: cover;">
+
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">
+                        <strong>Price:</strong> ${{ product.price }}
+                    </p>
+                    <a href="/product/{{ product.id }}" class="btn btn-primary">
+                        View Product
+                    </a>
                 </div>
             </div>
         </div>
-        <div ng-if="products.length === 0">
-            <p>No products found.</p>
-        </div>
+    </div>
+    <div ng-if="products.length === 0">
+        <p>No products found.</p>
+    </div>
+</div>
+
         <div class="text-center mt-4" ng-if="products.length > maxProducts">
             <button class="btn btn-secondary" ng-click="loadMore()">Load More</button>
         </div>
     </div>
-
-
+    <footer class="bg-dark text-white pt-4">
+        <div class="container">
+            <div class="row py-3">
+                <div class="col-md-4 mb-4">
+                    <h5>About Us</h5>
+                    <p>
+                        We are a passionate community dedicated to delivering high-quality content and services. Join us and
+                        be part of something amazing.
+                    </p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white text-decoration-none">Home</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Services</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Contact</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Contact Us</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-map-marker-alt me-2"></i>123 Main Street, City, Country</li>
+                        <li><i class="fas fa-phone-alt me-2"></i>(+123) 456-7890</li>
+                        <li><i class="fas fa-envelope me-2"></i>info@example.com</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="bg-light">
+            <div class="text-center py-3">
+                <p class="mb-0">© 2024 Your Company. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
