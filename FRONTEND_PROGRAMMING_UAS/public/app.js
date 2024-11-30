@@ -115,6 +115,7 @@ app.controller('controllerlogin', function($scope, $http, $location) {
         $http.post('http://localhost:8000/login', $scope.loginData)
             .then(function(response) {
                 console.log("Response Data:", response.data);
+                localStorage.setItem('user_id', response.data.user.id);
     
                 if (response.data.success === true) {
                     if (response.data.user.is_admin) {
@@ -143,15 +144,30 @@ app.controller('controllerprofile', function($scope) {
 });
 
 app.controller('controllercart', function($scope, $http) {
-    $scope.cart = [];
+    $scope.cart = [];  // Array untuk menyimpan data cart
+
+    var userId = localStorage.getItem('user_id');
+    console.log('User ID:', userId);  // Cek apakah user_id ada di localStorage
 
     $scope.getCart = function() {
-        $http.get('http://localhost:8000/carts').then(function(response) {
-            $scope.cart = response.data;
+        // Memanggil API untuk mendapatkan data cart berdasarkan user_id
+        $http.get('http://localhost:8000/carts/' + userId).then(function(response) {
+            // Pastikan data cart ditemukan dan set data ke $scope.cart
+            if (response.data.cart_data && response.data.cart_data.length > 0) {
+                $scope.cart = response.data.cart_data;
+            } else {
+                console.log('Cart is empty or not found.');
+            }
+        }).catch(function(error) {
+            console.log('Error:', error);
         });
     };
 
+    // Panggil fungsi getCart saat controller diinisialisasi
+    $scope.getCart();
 });
+
+
 
 app.controller('controlleradmin', function($scope) {
     $scope.message = "Welcome to the Admin Page!";

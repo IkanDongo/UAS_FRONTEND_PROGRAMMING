@@ -18,7 +18,7 @@ Route::put('/products/{id}', [ProductController::class, 'update']);
 
 // Route::post('/cart/add', [CartController::class, 'addToCart']);
 // Route::post('/cart/remove', [CartController::class, 'removeFromCart']);
-Route::get('/cart', [CartController::class, 'getCart']);
+Route::get('/carts/{user_id}', [CartController::class, 'getCart']);
 // Route::middleware('auth')->get('/carts', [CartController::class, 'getCart']);
 
 Route::post('/login', [AuthController::class, 'login'])->middleware(\App\Http\Middleware\CorsMiddleware::class);;

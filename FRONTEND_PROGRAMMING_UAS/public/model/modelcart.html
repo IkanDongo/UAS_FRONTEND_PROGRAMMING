@@ -1,9 +1,16 @@
 <div ng-app="cartApp" ng-controller="controllercart">
-    <!-- <button ng-click="addItemToCart({id: 1, name: 'Product 1', price: 100})">Add Product 1 to Cart</button> -->
+    <!-- Tampilkan header -->
+    <h1>Cart Details</h1>
 
+    <!-- Daftar item cart -->
     <ul>
         <li ng-repeat="item in cart">
-            {{item.product.name}} - {{item.quantity}} - ${{item.price}}
+            <!-- Tampilkan user_id, quantity, dan product_id masing-masing item -->
+            <p>Quantity: {{ item.quantity }}</p>
+            <p>Product ID: {{ item.product.product_id }}</p> <!-- Asumsi data produk ada dalam 'product' -->
+            <p>Product Name: {{ item.product.name }}</p>
+            <p>Price: ${{ item.product.price }}</p>
+            <p>Stock: {{ item.product.stock }}</p>
         </li>
     </ul>
 </div>
