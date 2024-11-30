@@ -57,6 +57,25 @@ body {
 
 }
 
+i.icon-size {
+    padding: 10px;
+    border: 1px solid #f5f5f5;
+    border-radius: 50%;
+}
+
+.nav-text-size {
+    font-family: "Rajdhani", sans-serif;
+}
+
+.navbar-nav {
+    display: flex;
+    align-items: center; 
+}
+
+.nav-item {
+    margin: 0 10px;
+}
+
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
     background-color: rgba(0, 0, 0, 0.5);

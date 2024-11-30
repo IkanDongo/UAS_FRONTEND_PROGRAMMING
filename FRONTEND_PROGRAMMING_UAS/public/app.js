@@ -401,6 +401,9 @@ app.run(function($rootScope, $document, $timeout) {
             case '/admin/ulist':
                 cssFile = 'modelstyle/modeladminulist.css';
                 break;
+            case '/admin/plist':
+                cssFile = 'modelstyle/modeladminplist.css';
+                break;
             case '/product':
                 cssFile = 'modelstyle/modelproduct.css';
                 break;

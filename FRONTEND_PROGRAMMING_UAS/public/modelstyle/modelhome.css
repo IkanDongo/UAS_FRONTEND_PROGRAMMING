@@ -1,10 +1,6 @@
-body {
-    /* overflow-x: hidden; */
-}
-
 .card-bg {
     background-color: rgba(147, 147, 147, 0.27);
-    width: 500px;  /* Set width to 300px */
+    width: 500px; 
 }
 
 .custom-shadow {
@@ -161,14 +157,14 @@ body {
     border-bottom: 1px solid #f5f5f5;
 }
 
-.row p {
+.text-transition {
     text-align: justify;
-    color: #7b7b7b;
-    transition: 0.3s ease-in-out;
+    color: #7b7b7b !important;
+    transition: 0.3s ease-in-out !important;
 }
 
-.row p:hover {
-    color: #f5f5f5;
+.text-transition:hover {
+    color: #f5f5f5 !important;
 }
 
 .card p {
