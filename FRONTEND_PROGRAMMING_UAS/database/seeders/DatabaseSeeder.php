@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'Admin@example.com',
             'password' => Hash::make('Admin123!'),
-            'is_admin' => true, // Set as admin
+            'is_admin' => true,
             'email_verified_at' => now()->toDateTimeString(),
             'remember_token' => Str::random(10),
             'created_at' => now()->toDateTimeString(),
