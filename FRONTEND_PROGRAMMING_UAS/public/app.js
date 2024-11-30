@@ -144,15 +144,13 @@ app.controller('controllerprofile', function($scope) {
 });
 
 app.controller('controllercart', function($scope, $http) {
-    $scope.cart = [];  // Array untuk menyimpan data cart
+    $scope.cart = []; 
 
     var userId = localStorage.getItem('user_id');
-    console.log('User ID:', userId);  // Cek apakah user_id ada di localStorage
+    console.log('User ID:', userId);  
 
     $scope.getCart = function() {
-        // Memanggil API untuk mendapatkan data cart berdasarkan user_id
         $http.get('http://localhost:8000/carts/' + userId).then(function(response) {
-            // Pastikan data cart ditemukan dan set data ke $scope.cart
             if (response.data.cart_data && response.data.cart_data.length > 0) {
                 $scope.cart = response.data.cart_data;
             } else {
@@ -160,14 +158,25 @@ app.controller('controllercart', function($scope, $http) {
             }
         }).catch(function(error) {
             console.log('Error:', error);
-        });
+        });    
     };
-
-    // Panggil fungsi getCart saat controller diinisialisasi
     $scope.getCart();
+
+    $scope.removeItem = function (item) {
+        var itemId = item.product.product_id;
+        $http.delete('http://localhost:8000/carts/' + userId + '/' + itemId)
+            .then(function (response) {
+                console.log('Item removed successfully:', response.data);
+                $scope.cart = $scope.cart.filter(function (cartItem) {
+                    return cartItem.product.product_id !== itemId;
+                });
+            })
+            .catch(function (error) {
+                console.log('Error removing item:', error);
+            });
+        };
+        
 });
-
-
 
 app.controller('controlleradmin', function($scope) {
     $scope.message = "Welcome to the Admin Page!";
