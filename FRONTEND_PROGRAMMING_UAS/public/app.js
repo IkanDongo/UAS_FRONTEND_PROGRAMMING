@@ -186,22 +186,66 @@ app.controller('controlleradmin', function($scope) {
     $scope.message = "Welcome to the Admin Page!";
 });
 
-app.controller('controllerproducthome', ['$scope', '$http', '$location', function($scope, $http, $location) {
+app.controller('controllerproducthome', ['$scope', '$http', function($scope, $http) {
     $scope.products = [];
-    $scope.maxProducts = 6; 
+    $scope.filteredProducts = []; 
+    $scope.maxProducts = 6;
+
+    
+    $scope.sortField = 'name'; 
+    $scope.sortReverse = false;
+    $scope.searchQuery = ''; 
 
     $http.get('http://localhost:8000/products')
         .then(function(response) {
             $scope.products = response.data;
+            $scope.filterAndSort(); 
         })
         .catch(function(error) {
             console.error('Error fetching products:', error);
         });
 
+    
+    $scope.filterAndSort = function() {
+        let filtered = $scope.products;
+
+        
+        if ($scope.searchQuery) {
+            filtered = filtered.filter(product =>
+                product.name.toLowerCase().includes($scope.searchQuery.toLowerCase())
+            );
+        }
+
+        
+        filtered = filtered.sort((a, b) => {
+            const valueA = a[$scope.sortField];
+            const valueB = b[$scope.sortField];
+
+            if (valueA < valueB) return $scope.sortReverse ? 1 : -1;
+            if (valueA > valueB) return $scope.sortReverse ? -1 : 1;
+            return 0;
+        });
+
+        $scope.filteredProducts = filtered;
+    };
+
+    
+    $scope.toggleSort = function(field) {
+        if ($scope.sortField === field) {
+            $scope.sortReverse = !$scope.sortReverse;
+        } else {
+            $scope.sortField = field;
+            $scope.sortReverse = false;
+        }
+        $scope.filterAndSort();
+    };
+
+    
     $scope.loadMore = function() {
         $scope.maxProducts += 6;
     };
 }]);
+
 
 
 
