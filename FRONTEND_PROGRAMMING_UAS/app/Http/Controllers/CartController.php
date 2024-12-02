@@ -26,7 +26,7 @@ class CartController extends Controller
         return response()->json($item);
     }
 
-    public function removeItem($userId, $productId)
+    public function removeCart($userId, $productId)
     {
         $deleted = Carts::where('user_id', $userId)
                     ->where('product_id', $productId)
@@ -67,6 +67,31 @@ class CartController extends Controller
             'cart_data' => $cartData
         ]);
     }
-    
-    
+
+    public function updateQuantity(Request $request, $userId, $productId)
+    {
+        $validated = $request->validate([
+            'quantity' => 'required|integer|min:1',
+        ]);
+
+        $cartItem = Carts::where('user_id', $userId)
+                        ->where('product_id', $productId)
+                        ->first();
+
+        if (!$cartItem) {
+            return response()->json(['message' => 'Item not found in cart'], 404);
+        }
+
+        $product = Products::find($productId);
+        if ($validated['quantity'] > $product->stock) {
+            return response()->json(['message' => 'Requested quantity exceeds available stock'], 400);
+        }
+
+        $cartItem->update(['quantity' => $validated['quantity']]);
+
+        return response()->json([
+            'message' => 'Cart item quantity updated successfully',
+            'cart_item' => $cartItem,
+        ]);
+    }
 }

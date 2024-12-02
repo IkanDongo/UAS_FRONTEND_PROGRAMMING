@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use MongoDB\Laravel\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
@@ -51,5 +50,10 @@ class User extends Authenticatable
     public function carts()
     {
         return $this->hasMany(Carts::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comments::class);
     }
 }
