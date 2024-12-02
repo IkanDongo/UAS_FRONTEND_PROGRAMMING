@@ -15,7 +15,14 @@ return Application::configure(basePath: dirname(__DIR__))
             \App\Http\Middleware\CorsMiddleware::class
         ]);
         $middleware->validateCsrfTokens(except:[
-            'login', 'users', 'products', '/users/*/toggleAdmin', '/users/*','products/*', '/carts/*/*',
+            'login',
+            'users', 
+            'products', 
+            '/users/*/toggleAdmin', 
+            '/users/*',
+            'products/*', 
+            '/carts/*/*',
+            '/comments'
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

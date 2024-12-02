@@ -62,7 +62,6 @@ app.config(function($routeProvider) {
         templateUrl: 'model/modelproductdetail.html',
         controller: ''
     })
-
     .when('/product', {
         templateUrl: 'model/modelproduct.html',
         controller: 'controllerproduct'
@@ -163,8 +162,8 @@ app.controller('controllercart', function($scope, $http) {
             console.log('Error:', error);
         });    
     };
-    $scope.getCart();
     
+    $scope.getCart();
 
     $scope.removeItem = function (item) {
         var itemId = item.product.product_id;
@@ -179,7 +178,26 @@ app.controller('controllercart', function($scope, $http) {
             .catch(function (error) {
                 console.log('Error removing item:', error);
             });
-        };
+    };
+
+    $scope.changeQuantity = function(item, newQuantity) {
+        if (newQuantity < 1) {
+            alert("Quantity cannot be less than 1.");
+            return;
+        }
+
+        var itemId = item.product.product_id;
+
+        $http.patch('http://localhost:8000/cart/' + userId + '/' + itemId + '/quantity', {
+            quantity: newQuantity
+        }).then(function(response) {
+            console.log('Quantity updated successfully:', response.data);
+            item.quantity = newQuantity;
+        }).catch(function(error) {
+            console.log('Error updating quantity:', error);
+            alert('Failed to update quantity. Please try again.');
+        });
+    };
 });
 
 app.controller('controlleradmin', function($scope) {
@@ -202,6 +220,49 @@ app.controller('controllerproducthome', ['$scope', '$http', '$location', functio
         $scope.maxProducts += 6;
     };
 }]);
+
+app.controller('RatingController', function($scope, $http, $location) {
+    console.log("Rating controller loaded");
+
+    $scope.productId = localStorage.getItem('productId');
+    $scope.ratings = [];
+    $scope.ratingValue = 0;
+    $scope.successMessage = '';
+    $scope.errorMessage = '';
+
+    $scope.getRatings = function() {
+        $http.get('http://localhost:8000/api/ratings/product/' + $scope.productId)
+            .then(function(response) {
+                $scope.ratings = response.data;
+            }).catch(function(error) {
+                console.error("Error fetching ratings:", error);
+                $scope.errorMessage = "Gagal mengambil rating produk.";
+            });
+    };
+
+    $scope.submitRating = function() {
+        if (!$scope.ratingValue || $scope.ratingValue < 1 || $scope.ratingValue > 5) {
+            $scope.errorMessage = "Pilih rating antara 1 sampai 5.";
+            return;
+        }
+
+        var ratingData = {
+            product_id: $scope.productId,
+            rating: $scope.ratingValue,
+            user_id: localStorage.getItem('user_id')
+        };
+
+        $http.post('http://localhost:8000/ratings', ratingData)
+            .then(function(response) {
+                $scope.successMessage = "Rating berhasil ditambahkan!";
+                $scope.getRatings();
+            }).catch(function(error) {
+                console.error("Error submitting rating:", error);
+                $scope.errorMessage = "Gagal mengirim rating.";
+            });
+    };
+    $scope.getRatings();
+});
 
 
 
