@@ -58,14 +58,9 @@ app.config(function($routeProvider) {
         templateUrl: 'model/modelproducthome.html',
         controller: 'controllerproducthome'
     })
-    .when('/productdetail', {
+    .when('/productdetail/:id', {
         templateUrl: 'model/modelproductdetail.html',
-        controller: ''
-    })
-
-    .when('/product', {
-        templateUrl: 'model/modelproduct.html',
-        controller: 'controllerproduct'
+        controller: 'controllerProductDetail'
     })
     .when('/profile', {
         templateUrl: 'model/modelprofile.html',
@@ -123,9 +118,9 @@ app.controller('controllerlogin', function($scope, $http, $location) {
     
                 if (response.data.success === true) {
                     if (response.data.user.is_admin) {
-                        $location.path('/admin'); 
+                        $location.path('/admin');
                     } else {
-                        $location.path('/home'); 
+                        $location.path('/home');
                     }
                 } else {
                     console.log("Login failed:", response.data.message);
@@ -162,7 +157,7 @@ app.controller('controllercart', function($scope, $http) {
             }
         }).catch(function(error) {
             console.log('Error:', error);
-        });    
+        });
     };
     $scope.getCart();
 
@@ -188,7 +183,7 @@ app.controller('controlleradmin', function($scope) {
 
 app.controller('controllerproducthome', ['$scope', '$http', '$location', function($scope, $http, $location) {
     $scope.products = [];
-    $scope.maxProducts = 6; 
+    $scope.maxProducts = 6;
 
     $http.get('http://localhost:8000/products')
         .then(function(response) {
@@ -203,7 +198,20 @@ app.controller('controllerproducthome', ['$scope', '$http', '$location', functio
     };
 }]);
 
+app.controller('controllerproductdetail', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
+    $scope.products = {};
 
+    var productId = $routeParams.id;
+
+    $http.get('http://localhost:8000/products/' + productId)
+        .then(function(response) {
+            $scope.products = response.data;
+        })
+        .catch(function(error) {
+            console.error('Error fetching product details:', error);
+            $scope.errorMessage = 'Failed to load product details. Please try again later.';
+        });
+}]);
 
 app.controller('controlleradminproduct', ['$scope', '$http', function($scope, $http) {
     $scope.product = {
@@ -363,7 +371,6 @@ app.controller('controllercreateuser', function($scope, $http, $location) {
         email: '',
         password: ''
     };
-
     $scope.submitCreateAccount = function() {
         $http.post('http://localhost:8000/users', $scope.createAccountData)
             .then(function(response) {
@@ -427,7 +434,6 @@ app.run(function($rootScope, $document, $timeout) {
             oldLinks.forEach(function(link) {
                 head.removeChild(link);
             });
-
             $timeout(function() {
                 var link = document.createElement('link');
                 link.rel = 'stylesheet';
@@ -438,7 +444,7 @@ app.run(function($rootScope, $document, $timeout) {
                 link.onload = function() {
                     console.log(`${cssFile} loaded successfully.`);
                 };
-            }, 100); 
+            }, 100);
         }
     });
 });

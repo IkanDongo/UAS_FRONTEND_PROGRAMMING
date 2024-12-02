@@ -7,6 +7,7 @@ use App\Models\Carts;
 
 class Products extends Model
 {
+    protected $connection = 'mongodb';
     protected $fillable = [
         'name',
         'description',
@@ -15,6 +16,12 @@ class Products extends Model
         'stock',
         'image',
     ];
+    
+    public function index()
+{
+    $products = Product::all();
+    return response()->json($products);
+}
 
     public function carts()
     {
