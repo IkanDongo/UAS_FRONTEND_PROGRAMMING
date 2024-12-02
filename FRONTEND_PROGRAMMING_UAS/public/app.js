@@ -310,6 +310,7 @@ app.controller('RatingController', function($scope, $http, $location) {
 
 
 
+
 app.controller('controlleradminproduct', ['$scope', '$http', function($scope, $http) {
     $scope.product = {
         name: '',
