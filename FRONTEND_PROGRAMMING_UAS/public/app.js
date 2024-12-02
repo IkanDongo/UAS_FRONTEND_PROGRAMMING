@@ -60,7 +60,7 @@ app.config(function($routeProvider) {
     })
     .when('/productdetail/:id', {
         templateUrl: 'model/modelproductdetail.html',
-        controller: 'controllerProductDetail'
+        controller: 'controllerproductdetail'
     })
     .when('/profile', {
         templateUrl: 'model/modelprofile.html',
@@ -259,14 +259,14 @@ app.controller('controlleradminproduct', ['$scope', '$http', function($scope, $h
         }
 
         $http.post('http://localhost:8000/products', formData, {
-            headers: { 'Content-Type': undefined }, 
+            headers: { 'Content-Type': undefined },
             transformRequest: angular.identity
         })
         .then(function(response) {
             console.log("Product created successfully:", response.data);
             $scope.successMessage = "Product created successfully!";
-            $scope.product = {}; 
-            $scope.imageFile = null; 
+            $scope.product = {};
+            $scope.imageFile = null;
         })
         .catch(function(error) {
             console.error("Product creation error:", error);
