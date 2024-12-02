@@ -107,7 +107,7 @@
     </style>
 
     <body>
-        <div ng-controller="ProfileController" class="profile-container">
+        <div ng-controller="controllerprofile" class="profile-container">
             <div class="profile-header text-center">
                 <h1 class="profile-title">Profile Settings</h1>
                 <p class="profile-subtitle">Manage your personal information</p>
@@ -119,15 +119,15 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Name</label>
-                    <div class="view-field">{{profile.name}}</div>
+                    <div class="view-field">{{user.name}}</div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Email</label>
-                    <div class="view-field">{{profile.email}}</div>
+                    <div class="view-field">{{user.email}}</div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Phone Number</label>
-                    <div class="view-field">{{profile.phone}}</div>
+                    <!-- <div class="view-field">{{profile.phone}}</div> -->
                 </div>
                 <div class="buttons-container">
                     <button class="btn btn-success w-100" ng-click="toggleEdit()">Edit Profile</button>
