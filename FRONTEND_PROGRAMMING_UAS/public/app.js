@@ -261,6 +261,7 @@ app.controller('controllerproducthome', ['$scope', '$http', function($scope, $ht
     $scope.products = [];
     $scope.filteredProducts = []; 
     $scope.maxProducts = 6;
+
     
     $scope.sortField = 'name'; 
     $scope.sortReverse = false;
@@ -333,12 +334,12 @@ app.controller('RatingController', function($scope, $http, $location) {
                 console.error("Error fetching ratings:", error);
                 $scope.errorMessage = "Gagal mengambil rating produk.";
             });
-    };
 
-    $scope.loadMore = function() {
-        $scope.maxProducts += 6;
-    };
-});
+        $scope.loadMore = function () {
+            $scope.maxProducts += 6;
+        };
+    },
+]);
 
 app.controller("controllerproductdetail", [
     "$scope",
@@ -361,6 +362,18 @@ app.controller("controllerproductdetail", [
             });
     },
 ]);
+
+app.controller("controlleradminproduct", [
+    "$scope",
+    "$http",
+    function ($scope, $http) {
+        $scope.product = {
+            name: "",
+            description: "",
+            category: "",
+            price: "",
+            stock: "",
+        };
 
 app.controller('controlleradminproduct', ['$scope', '$http', function($scope, $http) {
     $scope.product = {
