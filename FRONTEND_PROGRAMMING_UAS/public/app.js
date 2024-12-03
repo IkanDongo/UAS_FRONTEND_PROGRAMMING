@@ -257,82 +257,21 @@ app.controller("controlleradmin", function ($scope) {
     $scope.message = "Welcome to the Admin Page!";
 });
 
-app.controller('controllerproducthome', ['$scope', '$http', function($scope, $http) {
-    $scope.products = [];
-    $scope.filteredProducts = []; 
-    $scope.maxProducts = 6;
+app.controller("controllerproducthome", [
+    "$scope",
+    "$http",
+    "$location",
+    function ($scope, $http, $location) {
+        $scope.products = [];
+        $scope.maxProducts = 6;
 
-    
-    $scope.sortField = 'name'; 
-    $scope.sortReverse = false;
-    $scope.searchQuery = ''; 
-
-    $http.get('http://localhost:8000/products')
-        .then(function(response) {
-            $scope.products = response.data;
-            $scope.filterAndSort(); 
-        })
-        .catch(function(error) {
-            console.error('Error fetching products:', error);
-        });
-
-    
-    $scope.filterAndSort = function() {
-        let filtered = $scope.products;
-
-        
-        if ($scope.searchQuery) {
-            filtered = filtered.filter(product =>
-                product.name.toLowerCase().includes($scope.searchQuery.toLowerCase())
-            );
-        }
-
-        
-        filtered = filtered.sort((a, b) => {
-            const valueA = a[$scope.sortField];
-            const valueB = b[$scope.sortField];
-
-            if (valueA < valueB) return $scope.sortReverse ? 1 : -1;
-            if (valueA > valueB) return $scope.sortReverse ? -1 : 1;
-            return 0;
-        });
-
-        $scope.filteredProducts = filtered;
-    };
-
-    
-    $scope.toggleSort = function(field) {
-        if ($scope.sortField === field) {
-            $scope.sortReverse = !$scope.sortReverse;
-        } else {
-            $scope.sortField = field;
-            $scope.sortReverse = false;
-        }
-        $scope.filterAndSort();
-    };
-
-    
-    $scope.loadMore = function() {
-        $scope.maxProducts += 6;
-    };
-}]);
-
-app.controller('RatingController', function($scope, $http, $location) {
-    console.log("Rating controller loaded");
-
-    $scope.productId = localStorage.getItem('productId');
-    $scope.ratings = [];
-    $scope.ratingValue = 0;
-    $scope.successMessage = '';
-    $scope.errorMessage = '';
-
-    $scope.getRatings = function() {
-        $http.get('http://localhost:8000/api/ratings/product/' + $scope.productId)
-            .then(function(response) {
-                $scope.ratings = response.data;
-            }).catch(function(error) {
-                console.error("Error fetching ratings:", error);
-                $scope.errorMessage = "Gagal mengambil rating produk.";
+        $http
+            .get("http://localhost:8000/products")
+            .then(function (response) {
+                $scope.products = response.data;
+            })
+            .catch(function (error) {
+                console.error("Error fetching products:", error);
             });
 
         $scope.loadMore = function () {
@@ -375,53 +314,7 @@ app.controller("controlleradminproduct", [
             stock: "",
         };
 
-app.controller('controlleradminproduct', ['$scope', '$http', function($scope, $http) {
-    $scope.product = {
-        name: '',
-        description: '',
-        category: '',
-        price: '',
-        stock: ''
-    };
-    
-    $scope.imageFile = null; 
-
-    $scope.setImageFile = function(element) {
-        $scope.imageFile = element.files[0];
-    };
-
-    $scope.submitCreateProduct = function() {
-        let formData = new FormData();
-        formData.append('name', $scope.product.name);
-        formData.append('description', $scope.product.description || '');
-        formData.append('category', $scope.product.category);
-        formData.append('price', $scope.product.price);
-        formData.append('stock', $scope.product.stock);
-        if ($scope.imageFile) {
-            formData.append('image', $scope.imageFile);
-        }
-
-        $http.post('http://localhost:8000/products', formData, {
-            headers: { 'Content-Type': undefined }, 
-            transformRequest: angular.identity
-        })
-        .then(function(response) {
-            console.log("Product created successfully:", response.data);
-            $scope.successMessage = "Product created successfully!";
-            $scope.product = {}; 
-            $scope.imageFile = null; 
-        })
-        .catch(function(error) {
-            console.error("Product creation error:", error);
-            $scope.errorMessage = error.data.message || 'An error occurred while creating the product.';
-        });
-    };
-}]);
-
-
-app.controller('controllerplist', ['$scope', '$http', '$location', function($scope, $http, $location) {
-    $scope.product = [];
-
+        $scope.imageFile = null;
 
         $scope.setImageFile = function (element) {
             $scope.imageFile = element.files[0];
