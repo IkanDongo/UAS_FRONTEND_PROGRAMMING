@@ -247,28 +247,71 @@ app.controller("controlleradmin", function ($scope) {
     $scope.message = "Welcome to the Admin Page!";
 });
 
-app.controller("controllerproducthome", [
-    "$scope",
-    "$http",
-    "$location",
-    function ($scope, $http, $location) {
-        $scope.products = [];
-        $scope.maxProducts = 6;
+app.controller('controllerproducthome', ['$scope', '$http', function($scope, $http) {
+    $scope.products = [];
+    $scope.filteredProducts = [];
+    $scope.maxProducts = 6;
+    
+    $scope.sortField = 'name'; 
+    $scope.sortReverse = false;
+    $scope.searchQuery = ''; 
 
-        $http
-            .get("http://localhost:8000/products")
-            .then(function (response) {
-                $scope.products = response.data;
-            })
-            .catch(function (error) {
-                console.error("Error fetching products:", error);
-            });
+    $http.get('http://localhost:8000/products')
+        .then(function(response) {
+            $scope.products = response.data;
+            $scope.filterAndSort(); 
+        })
+        .catch(function(error) {
+            console.error('Error fetching products:', error);
+        });
 
-        $scope.loadMore = function () {
-            $scope.maxProducts += 6;
-        };
-    },
-]);
+
+    $scope.filterAndSort = function() {
+        let filtered = $scope.products;
+        
+
+        if ($scope.searchQuery) {
+            filtered = filtered.filter(product =>
+                product.name.toLowerCase().includes($scope.searchQuery.toLowerCase())
+            );
+        }
+        
+
+       filtered = filtered.sort((a, b) => {
+            let valueA = a[$scope.sortField];
+            let valueB = b[$scope.sortField];
+
+            
+            if ($scope.sortField === 'price') {
+                valueA = parseFloat(valueA) || 0; 
+                valueB = parseFloat(valueB) || 0;
+            }
+
+            if (valueA < valueB) return $scope.sortReverse ? 1 : -1;
+            if (valueA > valueB) return $scope.sortReverse ? -1 : 1;
+            return 0;
+        });
+
+        $scope.filteredProducts = filtered.slice(0, $scope.maxProducts); 
+    };
+
+
+    $scope.toggleSort = function(field) {
+        if ($scope.sortField === field) {
+            $scope.sortReverse = !$scope.sortReverse;
+        } else {
+            $scope.sortField = field;
+            $scope.sortReverse = false;
+        }
+        $scope.filterAndSort();
+    };
+    
+    $scope.loadMore = function() {
+        $scope.maxProducts += 6;
+        $scope.filterAndSort();
+    };
+}]);
+
 
 app.controller("controllerproductdetail", [
     "$scope",
