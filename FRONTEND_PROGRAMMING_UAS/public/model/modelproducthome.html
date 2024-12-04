@@ -176,9 +176,20 @@
     <div class="container my-5">
         <h2 class="text-center mb-4 text-white">Featured Product</h2>
     
-        <div class="mb-4">
+    <div class="d-flex align-items-center gap-3 mb-4">
+
             <input type="text" class="form-control" placeholder="Search products..." ng-model="searchQuery"
                 ng-change="filterAndSort()">
+  
+        
+            <select class="form-control" ng-model="selectedCategory" ng-change="filterAndSort()">
+                <option value="" disabled selected>Select category</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Fashion">Fashion</option>
+                <option value="Home Appliances">Home Appliances</option>
+                <option value="Books">Books</option>
+                <option value="Other">Other</option>
+            </select>
         </div>
     
         <div class="mb-4 text-center">
@@ -189,6 +200,7 @@
                 Sort by Price <span ng-if="sortField === 'price'">{{ sortReverse ? '▲' : '▼' }}</span>
             </button>
         </div>
+
     
         <div class="row" ng-if="filteredProducts.length > 0">
             <div class="col-6 col-md-4 col-lg-2 mb-4" ng-repeat="product in filteredProducts | limitTo: maxProducts">
