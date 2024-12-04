@@ -504,6 +504,54 @@ app.controller("controllercreateuser", function ($scope, $http, $location) {
     };
 });
 
+app.controller("controllerprofile", function ($scope, $http) {
+    console.log("Profile controller loaded");
+
+    $scope.message = "Welcome to the Profile Page!";
+    $scope.user = {};
+    $scope.errorMessage = "";
+
+    const userId = localStorage.getItem("user_id");
+
+    if (userId) {
+        $http
+            .get(`http://localhost:8000/users/${userId}`)
+            .then(function (response) {
+                console.log("User Data:", response.data);
+                $scope.user = response.data;
+            })
+            .catch(function (error) {
+                console.error("Error fetching user data:", error);
+                $scope.errorMessage =
+                    error.data?.message || "Unable to fetch user data.";
+            });
+    } else {
+        $scope.errorMessage = "User ID not found in localStorage.";
+    }
+});
+
+app.controller("controllerproductdetail", [
+    "$scope",
+    "$http",
+    "$routeParams",
+    function ($scope, $http, $routeParams) {
+        $scope.products = {};
+
+        var productId = $routeParams.id;
+
+        $http
+            .get("http://localhost:8000/products/" + productId)
+            .then(function (response) {
+                $scope.products = response.data;
+            })
+            .catch(function (error) {
+                console.error("Error fetching product details:", error);
+                $scope.errorMessage =
+                    "Failed to load product details. Please try again later.";
+            });
+    },
+]);
+
 app.run(function ($rootScope, $document, $timeout) {
     $rootScope.$on("$routeChangeSuccess", function (event, current) {
         var cssFile = "";
