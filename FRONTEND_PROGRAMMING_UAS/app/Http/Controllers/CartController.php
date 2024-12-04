@@ -68,30 +68,26 @@ class CartController extends Controller
         ]);
     }
 
-    public function updateQuantity(Request $request, $userId, $productId)
+    public function updateQuantity(Request $request, $userId, $itemId)
     {
-        $validated = $request->validate([
+        // Validasi input
+        $validatedData = $request->validate([
             'quantity' => 'required|integer|min:1',
         ]);
 
+        // Temukan item di cart
         $cartItem = Carts::where('user_id', $userId)
-                        ->where('product_id', $productId)
-                        ->first();
+                         ->where('product_id', $itemId)
+                         ->first();
 
         if (!$cartItem) {
-            return response()->json(['message' => 'Item not found in cart'], 404);
+            return response()->json(['message' => 'Cart item not found.'], 404);
         }
 
-        $product = Products::find($productId);
-        if ($validated['quantity'] > $product->stock) {
-            return response()->json(['message' => 'Requested quantity exceeds available stock'], 400);
-        }
+        // Update quantity
+        $cartItem->quantity = $validatedData['quantity'];
+        $cartItem->save();
 
-        $cartItem->update(['quantity' => $validated['quantity']]);
-
-        return response()->json([
-            'message' => 'Cart item quantity updated successfully',
-            'cart_item' => $cartItem,
-        ]);
+        return response()->json(['message' => 'Quantity updated successfully.', 'data' => $cartItem]);
     }
 }

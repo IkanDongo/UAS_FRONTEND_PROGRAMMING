@@ -222,35 +222,25 @@ app.controller("controllercart", function ($scope, $http) {
                 console.log("Error removing item:", error);
             });
     };
-
-    $scope.changeQuantity = function (item, newQuantity) {
+    $scope.changeQuantity = function(item, newQuantity) {
         if (newQuantity < 1) {
             alert("Quantity cannot be less than 1.");
             return;
         }
-
+    
         var itemId = item.product.product_id;
-
-        $http
-            .patch(
-                "http://localhost:8000/cart/" +
-                    userId +
-                    "/" +
-                    itemId +
-                    "/quantity",
-                {
-                    quantity: newQuantity,
-                }
-            )
-            .then(function (response) {
-                console.log("Quantity updated successfully:", response.data);
-                item.quantity = newQuantity;
-            })
-            .catch(function (error) {
-                console.log("Error updating quantity:", error);
-                alert("Failed to update quantity. Please try again.");
-            });
+    
+        $http.patch('http://localhost:8000/carts/' + userId + '/' + itemId, {
+            quantity: newQuantity
+        }).then(function(response) {
+            console.log('Quantity updated successfully:', response.data);
+            item.quantity = newQuantity;
+        }).catch(function(error) {
+            console.log('Error updating quantity:', error);
+            alert('Failed to update quantity. Please try again.');
+        });
     };
+
 });
 
 app.controller("controlleradmin", function ($scope) {
