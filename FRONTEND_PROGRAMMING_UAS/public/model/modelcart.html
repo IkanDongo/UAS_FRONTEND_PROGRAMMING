@@ -1,24 +1,20 @@
 <div ng-controller="controllercart" class="container mt-5">
     <h1 class="text-center mb-4 display-4">Your Cart</h1>
     <div class="row">
-        <!-- Cart Items Section -->
         <div class="col-lg-8">
             <div class="list-group">
                 <div class="list-group-item shadow-sm mb-3" 
                      ng-repeat="item in cart" 
                      style="background-color: #f8f9fa; border-radius: 10px;">
                     <div class="d-flex align-items-center">
-                        <!-- Product Image -->
                         <img class="img-fluid" src="{{ item.product.image }}" alt="Product Image" 
                              style="width: 100px; height: 100px; object-fit: cover; margin-right: 15px; border-radius: 8px;">
                         <div class="flex-grow-1">
-                            <!-- Product Name and Price -->
                             <h5 class="mb-1">{{ item.product.name }}</h5>
                             <p class="mb-1">
                                 <strong>Price:</strong> ${{ item.product.price }} 
                                 | <strong>Stock:</strong> {{ item.product.stock }}
                             </p>
-                            <!-- Quantity Input -->
                             <div class="d-flex align-items-center mt-2">
                                 <label for="quantity-{{ $index }}" class="form-label mr-2">Quantity:</label>
                                 <input type="number" id="quantity-{{ $index }}" class="form-control text-dark border-1" 
@@ -27,16 +23,13 @@
                                        style="width: 80px;">
                             </div>
                         </div>
-                        <!-- Remove Button -->
                         <button class="btn btn-danger btn-sm ml-3" ng-click="removeItem(item)">
                             <i class="bi bi-trash"></i> Remove
                         </button>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- Cart Summary Section -->
+        </div>        
         <div class="col-lg-4 mt-4 mt-lg-0">
             <div class="card shadow-lg">
                 <div class="card-header bg-primary text-white text-center">
