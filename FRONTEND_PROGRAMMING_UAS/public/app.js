@@ -276,6 +276,12 @@ app.controller('controllerproducthome', ['$scope', '$http', function($scope, $ht
             );
         }
         
+        if ($scope.selectedCategory) {
+            filtered = filtered.filter(product =>
+                product.category === $scope.selectedCategory
+            );
+        }
+
 
        filtered = filtered.sort((a, b) => {
             let valueA = a[$scope.sortField];
