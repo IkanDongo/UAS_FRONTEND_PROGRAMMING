@@ -173,34 +173,50 @@
                 </div>
         </div>
     </div>
-<div class="container my-5">
-    <h2 class="text-center mb-4 text-white">Featured Product</h2>
-    <div class="row" ng-if="products.length > 0">
-        <div class="col-6 col-md-4 col-lg-2 mb-4" ng-repeat="product in products | limitTo: maxProducts">
-            <div class="card h-100">
-                <img ng-src="storage/image/{{ product.image }}" alt="{{ product.name }}" class="card-img-top"
-                    style="max-height: 200px; object-fit: cover;">
-
-                <div class="card-body text-center">
-                    <h5 class="card-title">{{ product.name }}</h5>
-                    <p class="card-text">
-                        <strong>Price:</strong> ${{ product.price }}
-                    </p>
-                    <a href="#!/productdetail/{{ product._id }}" class="btn btn-primary">
-                        View Product
-                    </a>
+    <div class="container my-5">
+        <h2 class="text-center mb-4 text-white">Featured Product</h2>
+    
+        <div class="mb-4">
+            <input type="text" class="form-control" placeholder="Search products..." ng-model="searchQuery"
+                ng-change="filterAndSort()">
+        </div>
+    
+        <div class="mb-4 text-center">
+            <button class="btn btn-outline-light" ng-click="toggleSort('name')">
+                Sort by Name <span ng-if="sortField === 'name'">{{ sortReverse ? '▲' : '▼' }}</span>
+            </button>
+            <button class="btn btn-outline-light" ng-click="toggleSort('price')">
+                Sort by Price <span ng-if="sortField === 'price'">{{ sortReverse ? '▲' : '▼' }}</span>
+            </button>
+        </div>
+    
+        <div class="row" ng-if="filteredProducts.length > 0">
+            <div class="col-6 col-md-4 col-lg-2 mb-4" ng-repeat="product in filteredProducts | limitTo: maxProducts">
+                <div class="card h-100">
+                    <img ng-src="storage/image/{{ product.image }}" alt="{{ product.name }}" class="card-img-top"
+                        style="max-height: 200px; object-fit: cover;">
+    
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text">
+                            <strong>Price:</strong> ${{ product.price }}
+                        </p>
+                        <a href="/product/{{ product.id }}" class="btn btn-primary">
+                            View Product
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div ng-if="products.length === 0">
-        <p>No products found.</p>
-    </div>
-</div>
-
-        <div class="text-center mt-4" ng-if="products.length > maxProducts">
-            <button class="btn btn-secondary" ng-click="loadMore()">Load More</button>
+        <div ng-if="filteredProducts.length === 0">
+            <p>No products found.</p>
         </div>
+    
+        <div class="text-center mt-4">
+            <button class="btn btn-primary" ng-click="loadMore()">Load More</button>
+        </div>
+    </div>
+
     </div>
     <footer class="bg-dark text-white pt-4">
         <div class="container">
