@@ -152,8 +152,8 @@ app.controller("controllerhome", function ($scope) {
     $scope.message = "Welcome to the Home Page!";
 });
 
-app.controller("controllerprofile", function ($scope, $http) {
-    console.log("Profile controller loaded");
+// app.controller("controllerprofile", function ($scope, $http) {
+//     console.log("Profile controller loaded");
 
     $scope.message = "Welcome to the Profile Page!";
     $scope.user = {}; 
@@ -544,6 +544,8 @@ app.controller("controllercreateuser", function ($scope, $http, $location) {
         name: "",
         email: "",
         password: "",
+        phoneno: "",
+        address: "",
     };
     $scope.submitCreateAccount = function () {
         $http
