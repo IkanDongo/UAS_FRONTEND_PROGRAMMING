@@ -154,29 +154,34 @@ app.controller("controllerhome", function ($scope) {
 
 // app.controller("controllerprofile", function ($scope, $http) {
 //     console.log("Profile controller loaded");
+// app.controller("controllerprofile", function ($scope, $http) {
+//     console.log("Profile controller loaded");
 
-    $scope.message = "Welcome to the Profile Page!";
-    $scope.user = {}; 
-    $scope.errorMessage = "";
+//     $scope.message = "Welcome to the Profile Page!";
+//     $scope.user = {}; // Placeholder untuk data pengguna
+//     $scope.errorMessage = "";
 
-    const userId = localStorage.getItem("user_id");
+//     // Ambil user_id dari localStorage
+//     const userId = localStorage.getItem("user_id");
 
-    if (userId) {
-        $http
-            .get(`http://localhost:8000/users/${userId}`)
-            .then(function (response) {
-                console.log("User Data:", response.data);
-                $scope.user = response.data;
-            })
-            .catch(function (error) {
-                console.error("Error fetching user data:", error);
-                $scope.errorMessage =
-                    error.data?.message || "Unable to fetch user data.";
-            });
-    } else {
-        $scope.errorMessage = "User ID not found in localStorage.";
-    }
-});
+//     // Periksa apakah user_id tersedia
+//     if (userId) {
+//         // Lakukan HTTP request ke backend untuk mendapatkan data user
+//         $http
+//             .get(`http://localhost:8000/users/${userId}`)
+//             .then(function (response) {
+//                 console.log("User Data:", response.data);
+//                 $scope.user = response.data; // Simpan data user ke $scope.user
+//             })
+//             .catch(function (error) {
+//                 console.error("Error fetching user data:", error);
+//                 $scope.errorMessage =
+//                     error.data?.message || "Unable to fetch user data.";
+//             });
+//     } else {
+//         $scope.errorMessage = "User ID not found in localStorage.";
+//     }
+// });
 
 
 app.controller("controllercart", function ($scope, $http) {
@@ -218,21 +223,20 @@ app.controller("controllercart", function ($scope, $http) {
                 console.log("Error removing item:", error);
             });
     };
-    
     $scope.changeQuantity = function(item, newQuantity) {
         if (newQuantity < 1) {
             alert("Quantity cannot be less than 1.");
             return;
         }
-    
+
         var itemId = item.product.product_id;
     
-        $http.patch('http://localhost:8000/carts/' + user_id + '/' + itemId, {
+        $http.patch('http://localhost:8000/carts/' + userId + '/' + itemId, {
             quantity: newQuantity
-        }).then(function(response) {
+        }).then(function (response) {
             console.log('Quantity updated successfully:', response.data);
             item.quantity = newQuantity;
-        }).catch(function(error) {
+        }).catch(function (error) {
             console.log('Error updating quantity:', error);
             alert('Failed to update quantity. Please try again.');
         });
@@ -245,35 +249,35 @@ app.controller("controlleradmin", function ($scope) {
     $scope.message = "Welcome to the Admin Page!";
 });
 
-app.controller('controllerproducthome', ['$scope', '$http', function($scope, $http) {
+app.controller('controllerproducthome', ['$scope', '$http', function ($scope, $http) {
     $scope.products = [];
     $scope.filteredProducts = [];
     $scope.maxProducts = 6;
-    
-    $scope.sortField = 'name'; 
+
+    $scope.sortField = 'name';
     $scope.sortReverse = false;
-    $scope.searchQuery = ''; 
+    $scope.searchQuery = '';
 
     $http.get('http://localhost:8000/products')
-        .then(function(response) {
+        .then(function (response) {
             $scope.products = response.data;
-            $scope.filterAndSort(); 
+            $scope.filterAndSort();
         })
-        .catch(function(error) {
+        .catch(function (error) {
             console.error('Error fetching products:', error);
         });
 
 
-    $scope.filterAndSort = function() {
+    $scope.filterAndSort = function () {
         let filtered = $scope.products;
-        
+
 
         if ($scope.searchQuery) {
             filtered = filtered.filter(product =>
                 product.name.toLowerCase().includes($scope.searchQuery.toLowerCase())
             );
         }
-        
+
         if ($scope.selectedCategory) {
             filtered = filtered.filter(product =>
                 product.category === $scope.selectedCategory
@@ -281,13 +285,13 @@ app.controller('controllerproducthome', ['$scope', '$http', function($scope, $ht
         }
 
 
-       filtered = filtered.sort((a, b) => {
+        filtered = filtered.sort((a, b) => {
             let valueA = a[$scope.sortField];
             let valueB = b[$scope.sortField];
 
-            
+
             if ($scope.sortField === 'price') {
-                valueA = parseFloat(valueA) || 0; 
+                valueA = parseFloat(valueA) || 0;
                 valueB = parseFloat(valueB) || 0;
             }
 
@@ -296,11 +300,11 @@ app.controller('controllerproducthome', ['$scope', '$http', function($scope, $ht
             return 0;
         });
 
-        $scope.filteredProducts = filtered.slice(0, $scope.maxProducts); 
+        $scope.filteredProducts = filtered.slice(0, $scope.maxProducts);
     };
 
 
-    $scope.toggleSort = function(field) {
+    $scope.toggleSort = function (field) {
         if ($scope.sortField === field) {
             $scope.sortReverse = !$scope.sortReverse;
         } else {
@@ -309,8 +313,8 @@ app.controller('controllerproducthome', ['$scope', '$http', function($scope, $ht
         }
         $scope.filterAndSort();
     };
-    
-    $scope.loadMore = function() {
+
+    $scope.loadMore = function () {
         $scope.maxProducts += 6;
         $scope.filterAndSort();
     };
@@ -337,24 +341,8 @@ app.controller("controllerproductdetail", [
                 $scope.errorMessage =
                     "Failed to load product details. Please try again later.";
             });
-
-        $scope.addItemToCart = function (product, quantity) {
-            const cartData = {
-                product_id: product._id,
-                quantity: quantity
-            };
-            console.log(product_id),
-
-            $http.post('http://localhost:8000/carts/'+ userId + '', cartData).then(function (response) {
-                alert("Product added to cart successfully!");
-            }, function (error) {
-                alert("Failed to add product to cart.");
-                console.error(error);
-            });
-        };
-    }
+    },
 ]);
-
 
 app.controller("controlleradminproduct", [
     "$scope",
@@ -477,7 +465,7 @@ app.controller("controllerpedit", [
                     if (
                         response.data.success ||
                         response.data.message ===
-                            "Products updated successfully"
+                        "Products updated successfully"
                     ) {
                         console.log("Product updated successfully");
                         $location.path("/admin/plist");
@@ -544,6 +532,8 @@ app.controller("controllercreateuser", function ($scope, $http, $location) {
         name: "",
         email: "",
         password: "",
+        phoneno: "",
+        address: "",
         phoneno: "",
         address: "",
     };
