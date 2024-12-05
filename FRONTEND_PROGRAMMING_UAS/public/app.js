@@ -273,13 +273,13 @@ app.controller("controllerproductdetail", [
     "$http",
     "$routeParams",
     function ($scope, $http, $routeParams) {
-        $scope.products = {};
-        $scope.quantity = 1;
+        $scope.comments = [];
+        $scope.comment = "";
+        $scope.rating = 0;
+        $scope.userId = localStorage.getItem("user_id"); 
+        var productId = $routeParams.id; 
 
-        var product_id = $routeParams.id;
-        const userId = localStorage.getItem("user_id");
-
-        $http.get("http://localhost:8000/products/" + product_id)
+        $http.get("http://localhost:8000/products/" + productId)
             .then(function (response) {
                 $scope.products = response.data;
             })
@@ -294,41 +294,59 @@ app.controller("controllerproductdetail", [
                 product_id: product._id,
                 quantity: quantity
             };
-            console.log(product_id),
+            console.log(productId),
 
-            $http.post('http://localhost:8000/carts/'+ userId + '', cartData).then(function (response) {
+            $http.post('http://localhost:8000/carts/'+ $scope.userId, cartData).then(function (response) {
                 alert("Product added to cart successfully!");
             }, function (error) {
                 alert("Failed to add product to cart.");
                 console.error(error);
             });
         };
-        
-        $scope.submitRatingAndComment = function () {
-            if (!$scope.rating || !$scope.comment.trim()) {
-                alert("Please provide a valid rating and comment.");
-                return;
-            }
 
-            const feedbackData = {
-                product_id: product_id,
-                user_id: userId,
-                rating: $scope.rating,
-                comment: $scope.comment,
-            };
-
+        $scope.loadComments = function () {
             $http
-                .post("http://localhost:8000/feedbacks", feedbackData)
+                .get(`http://localhost:8000/comments/${productId}`)
                 .then(function (response) {
-                    alert("Thank you for your feedback!");
-                    $scope.rating = null; // Reset rating
-                    $scope.comment = ""; // Reset comment
+                    if (response.data.success) {
+                        $scope.comments = response.data.comments;
+                    }
                 })
                 .catch(function (error) {
-                    console.error("Error submitting feedback:", error);
-                    alert("Failed to submit feedback. Please try again.");
+                    console.error("Error fetching comments:", error);
                 });
         };
+        
+        $scope.commentRating = function () {
+            if (!$scope.comment && !$scope.rating) {
+                alert("Minimal salah satu, komentar atau rating, harus diisi.");
+                return;
+            }
+    
+            const commentData = {
+                user_id: $scope.userId,
+                product_id: productId,
+                comment: $scope.comment,
+                rating: $scope.rating,
+            };
+    
+            $http.post("http://localhost:8000/comments/" + $scope.userId, commentData)
+                .then(function (response) {
+                    if (response.data.success) {
+                        alert("Komentar berhasil ditambahkan!");
+                        $scope.comment = "";
+                        $scope.rating = 0;
+                        // $scope.loadComments(); 
+                    }
+                })
+                .catch(function (error) {
+                    alert("Gagal mengirim komentar.");
+                    console.error(error);
+                });
+        };
+    
+        // Load comments saat halaman dimuat
+        // $scope.loadComments();
     }
 ]);
 

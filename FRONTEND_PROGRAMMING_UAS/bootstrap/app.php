@@ -24,7 +24,8 @@ return Application::configure(basePath: dirname(__DIR__))
             '/carts/*/*',
             '/comments',
             '/carts',
-            '/carts/*/'
+            '/carts/*/',
+            '/comments/*'
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
