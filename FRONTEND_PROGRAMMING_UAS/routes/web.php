@@ -22,7 +22,7 @@ Route::put('/products/{id}', [ProductController::class, 'update']);
 Route::post('/carts/{user_id}/', [CartController::class, 'addItem']);
 Route::patch('/carts/{user_id}/{product_id}', [CartController::class, 'updateQuantity']);
 Route::get('/carts/{user_id}', action: [CartController::class, 'getCart']);
-Route::delete('/carts/{user_id}/{product_id}', [CartController::class, 'removeCart']);
+Route::delete('/carts/{user_id}/{cart_id}', [CartController::class, 'removeCart']);
 
 Route::post('/login', [AuthController::class, 'login'])->middleware(\App\Http\Middleware\CorsMiddleware::class);;
 

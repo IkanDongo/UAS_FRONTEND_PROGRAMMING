@@ -182,11 +182,11 @@ app.controller("controllerprofile", function ($scope, $http) {
 app.controller("controllercart", function ($scope, $http) {
     $scope.cart = [];
 
-    var userId = localStorage.getItem("user_id");
+    var user_id = localStorage.getItem("user_id");
 
     $scope.getCart = function () {
         $http
-            .get("http://localhost:8000/carts/" + userId)
+            .get("http://localhost:8000/carts/" + user_id)
             .then(function (response) {
                 if (
                     response.data.cart_data &&
@@ -202,16 +202,15 @@ app.controller("controllercart", function ($scope, $http) {
             });
     };
 
-    $scope.getCart();
-
-    $scope.removeItem = function (item) {
-        var itemId = item.product.product_id;
-        $http
-            .delete("http://localhost:8000/carts/" + userId + "/" + itemId)
+    $scope.removeItem = function (cart) {
+        console.log(cart);
+        var cart_id = cart.cart_id;
+        console.log(cart_id);
+        $http.delete("http://localhost:8000/carts/" + user_id + "/" + cart_id)
             .then(function (response) {
                 console.log("Item removed successfully:", response.data);
                 $scope.cart = $scope.cart.filter(function (cartItem) {
-                    return cartItem.product.product_id !== itemId;
+                    return cartItem.cart_id !== cart_id;
                 });
                 $scope.getCart();
             })
@@ -219,6 +218,7 @@ app.controller("controllercart", function ($scope, $http) {
                 console.log("Error removing item:", error);
             });
     };
+    
     $scope.changeQuantity = function(item, newQuantity) {
         if (newQuantity < 1) {
             alert("Quantity cannot be less than 1.");
@@ -227,7 +227,7 @@ app.controller("controllercart", function ($scope, $http) {
     
         var itemId = item.product.product_id;
     
-        $http.patch('http://localhost:8000/carts/' + userId + '/' + itemId, {
+        $http.patch('http://localhost:8000/carts/' + user_id + '/' + itemId, {
             quantity: newQuantity
         }).then(function(response) {
             console.log('Quantity updated successfully:', response.data);
@@ -238,6 +238,7 @@ app.controller("controllercart", function ($scope, $http) {
         });
     };
 
+    $scope.getCart();
 });
 
 app.controller("controlleradmin", function ($scope) {
@@ -278,8 +279,7 @@ app.controller("controllerproductdetail", [
         var product_id = $routeParams.id;
         const userId = localStorage.getItem("user_id");
 
-        $http
-            .get("http://localhost:8000/products/" + product_id)
+        $http.get("http://localhost:8000/products/" + product_id)
             .then(function (response) {
                 $scope.products = response.data;
             })

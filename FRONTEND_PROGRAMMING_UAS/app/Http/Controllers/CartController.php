@@ -23,7 +23,7 @@ class CartController extends Controller
             return response()->json(['message' => 'Product not found'], 404);
         }
     
-        $existingCartItem = Carts::where('user_id', auth()->id())
+        $existingCartItem = Carts::where('user_id', $user_id)
             ->where('product_id', $validated['product_id'])
             ->first();
     
@@ -50,10 +50,10 @@ class CartController extends Controller
     }
     
 
-    public function removeCart($userId, $productId)
+    public function removeCart($user_id, $cart_id)
     {
-        $deleted = Carts::where('user_id', $userId)
-                    ->where('product_id', $productId)
+        $deleted = Carts::where('user_id', $user_id)
+                    ->where('_id', $cart_id)
                     ->delete();
 
         if ($deleted) {
