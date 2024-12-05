@@ -289,10 +289,21 @@ app.controller("controllerproductdetail", [
                     "Failed to load product details. Please try again later.";
             });
 
+            // $scope.fetchComments = function () {
+            //     $http.get("http://localhost:8000/comments/" + product_id + "/show")
+            //         .then(function (response) {
+            //             $scope.comments = response.data; // Should be an array of comments in JSON
+            //             console.log($scope.comments); // This should show JSON data in the console
+            //         })
+            //         .catch(function (error) {
+            //             console.error("Error fetching comments:", error);
+            //         });
+            // };
+
         $scope.addItemToCart = function (product, quantity) {
             const cartData = {
                 product_id: product._id,
-                quantity: quantity
+                quantity: quantity,
             };
             console.log(productId),
 
@@ -328,6 +339,7 @@ app.controller("controllerproductdetail", [
                 product_id: productId,
                 comment: $scope.comment,
                 rating: $scope.rating,
+                rating: $scope.rating,
             };
     
             $http.post("http://localhost:8000/comments/" + $scope.userId, commentData)
@@ -349,7 +361,6 @@ app.controller("controllerproductdetail", [
         // $scope.loadComments();
     }
 ]);
-
 
 app.controller("controlleradminproduct", [
     "$scope",
@@ -443,6 +454,7 @@ app.controller("controllerpedit", [
     "$location",
     function ($scope, $http, $routeParams, $location) {
         const productId = $routeParams.id;
+
 
         $scope.products = {
             name: "",

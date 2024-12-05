@@ -35,6 +35,7 @@ class CommentController extends Controller
             'rating' => 'nullable|integer|min:1|max:5',
         ]);
     
+    
         if (empty($validated['comment']) && empty($validated['rating'])) {
             return response()->json([
                 'success' => false,
@@ -44,7 +45,10 @@ class CommentController extends Controller
     
         $validated['user_id'] = $user_id;
     
+        $validated['user_id'] = $user_id;
+    
         $comment = Comments::create($validated);
+    
     
         return response()->json([
             'success' => true,
