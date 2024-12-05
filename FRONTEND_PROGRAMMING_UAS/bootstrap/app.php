@@ -28,6 +28,7 @@ return Application::configure(basePath: dirname(__DIR__))
             '/comments/*',
             '/tips-trik/*',
             '/tips-trik',
+            '/forget-password',
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

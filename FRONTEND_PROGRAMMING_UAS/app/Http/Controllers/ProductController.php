@@ -21,9 +21,6 @@ class ProductController extends Controller
      */
     public function create(Request $request)
     {
-
-        
-        
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -79,9 +76,7 @@ class ProductController extends Controller
             'category' => 'sometimes|required|string',
             'price' => 'sometimes|required|numeric|min:0',
             'stock' => 'sometimes|required|integer|min:0',
-            
         ]);
-        
 
         $product->update($validatedData);
 
