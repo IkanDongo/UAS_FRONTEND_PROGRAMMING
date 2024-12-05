@@ -24,6 +24,10 @@ class UserController extends Controller
             'phoneno' => 'required|string|min:8',
             'address' => 'required|string|max:50',
             
+            'password' => 'required|string|min:8',
+            'phoneno' => 'required|string|min:8',
+            'address' => 'required|string|max:50',
+            
         ]);
 
         if ($validator->fails()) {
@@ -37,6 +41,8 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
+        $user->phoneno = $request->phoneno;
+        $user->address = $request->address;
         $user->phoneno = $request->phoneno;
         $user->address = $request->address;
         $user->save();

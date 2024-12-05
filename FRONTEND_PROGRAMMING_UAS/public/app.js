@@ -152,14 +152,12 @@ app.controller("controllerhome", function ($scope) {
     $scope.message = "Welcome to the Home Page!";
 });
 
-// app.controller("controllerprofile", function ($scope, $http) {
-//     console.log("Profile controller loaded");
-// app.controller("controllerprofile", function ($scope, $http) {
-//     console.log("Profile controller loaded");
+app.controller("controllerprofile", function ($scope, $http) {
+    console.log("Profile controller loaded");
 
-//     $scope.message = "Welcome to the Profile Page!";
-//     $scope.user = {}; // Placeholder untuk data pengguna
-//     $scope.errorMessage = "";
+    $scope.message = "Welcome to the Profile Page!";
+    $scope.user = {}; // Placeholder untuk data pengguna
+    $scope.errorMessage = "";
 
 //     // Ambil user_id dari localStorage
 //     const userId = localStorage.getItem("user_id");
@@ -532,10 +530,6 @@ app.controller("controllercreateuser", function ($scope, $http, $location) {
         name: "",
         email: "",
         password: "",
-        phoneno: "",
-        address: "",
-        phoneno: "",
-        address: "",
     };
     $scope.submitCreateAccount = function () {
         $http
