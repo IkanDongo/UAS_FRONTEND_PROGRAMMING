@@ -1,189 +1,100 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container">
+        <a class="navbar-brand title-size" ng-href="#/home" draggable="false">WebStyle</a>
 
-  
-    <style>
-        body {
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    font-family: 'Noto Sans Telugu', sans-serif;
-}
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-.profile-container {
-    max-width: 600px;
-    width: 100%;
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    padding: 30px;
-    transition: transform 0.3s ease;
-}
-
-.profile-container:hover {
-    transform: translateY(-5px);
-}
-
-.profile-image {
-    width: 50%;
-    height: 50%;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid white;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-}
-
-.profile-image:hover {
-    transform: scale(1.05);
-}
-
-.view-field {
-    padding: 12px 16px;
-    background: #f8f9fa;
-    border-radius: 8px;
-    font-size: 1rem;
-    color: #333;
-}
-
-.buttons-container {
-    display: flex;
-    gap: 10px;
-    margin-top: 30px;
-}
-
-.fade-enter {
-    opacity: 0;
-    transform: translateY(20px);
-}
-
-.fade-enter.fade-enter-active {
-    opacity: 1;
-    transform: translateY(0);
-    transition: all 0.3s ease;
-}
-
-.profile-title {
-    color: #333;
-    font-size: 1.8rem;
-    margin-bottom: 10px;
-    font-weight: 700;
-}
-
-.profile-subtitle {
-    color: #666;
-    font-size: 1rem;
-    margin-bottom: 30px;
-}
-
-.ng-invalid.ng-touched {
-    border-color: #f44336;
-}
-
-.error-message {
-    color: #f44336;
-    font-size: 0.8rem;
-    margin-top: 5px;
-    display: block;
-}
-    </style>
-
- 
-        <div ng-controller="controllerprofile" class="profile-container">
-            <div class="profile-header text-center">
-                <h1 class="profile-title">Profile Settings</h1>
-                <p class="profile-subtitle">Manage your personal information</p>
-            </div>
-
-            <div ng-if="!editMode" class="fade-enter fade-enter-active">
-                <div class="profile-image-container d-flex justify-content-center mb-4">
-                    <img ng-src="{{profile.imageUrl}}" alt="Profile Picture" class="profile-image">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Name</label>
-                    <div class="view-field">{{user.name}}</div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Email</label>
-                    <div class="view-field">{{user.email}}</div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Phone Number</label>
-                    <div class="view-field">{{user.phoneno}}</div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Email</label>
-                    <div class="view-field">{{user.address}}</div>
-                </div>
-                <div class="buttons-container">
-                    <button class="btn btn-success w-100" ng-click="toggleEdit()">Edit Profile</button>
-                </div>
-            </div>
-
-            <form ng-if="editMode" ng-submit="saveChanges()" class="fade-enter fade-enter-active">
-                <div class="mb-3">
-                    <label class="form-label">Name</label>
-                    <input type="text" ng-model="editProfile.name" required ng-pattern="/^[a-zA-Z\s]*$/" name="name" class="form-control">
-                    <span class="error-message" ng-show="editForm.name.$error.pattern">
-                    Name can only contain letters and spaces
-                </span>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Email</label>
-                    <input type="email" ng-model="editProfile.email" required name="email" class="form-control">
-                    <span class="error-message" ng-show="editForm.email.$error.email">
-                    Please enter a valid email address
-                </span>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Phone Number</label>
-                    <input type="phone" ng-model="editProfile.phone" required name="phone" class="form-control">
-                    <span class="error-message" ng-show="editForm.phone.$error.phone">
-                    Please enter a valid Phone Number
-                </span>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Password</label>
-                    <input type="password" ng-model="editProfile.password" required ng-minlength="8" name="password" class="form-control">
-                    <span class="error-message" ng-show="editForm.password.$error.minlength">
-                    Password must be at least 8 characters long
-                </span>
-                </div>
-                <div class="buttons-container">
-                    <button type="submit" class="btn btn-success w-50">Save Changes</button>
-                    <button type="button" class="btn btn-danger w-50" ng-click="cancelEdit()">Cancel</button>
-                </div>
-            </form>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="nav navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link nav-text-size" ng-href="#!/home" draggable="false">Home Page</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-text-size" ng-href="#!/producthome" draggable="false">Product Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-text-size" ng-href="#!/cart" draggable="false">Cart Page</a>
+                </li>
+                <li class="nav-item m-0 p-0">
+                    <a class="nav-link nav-text-size" ng-href="#!/profile" draggable="false"><i
+                            class="icon-size fa-regular fa-user color-white" draggable="false"></i></a>
+                </li>
+                <li class="nav-item m-0 p-0">
+                    <a class="nav-link nav-text-size" ng-href="#/login" draggable="false"><i
+                            class="icon-size fa-solid fa-right-to-bracket color-white" draggable="false"></i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>       
+<div style="display: flex; flex-direction: columns; justify-content: center; align-items: center;">
+    <div ng-controller="controllerprofile" class="profile-container">
+        <div class="profile-header text-center">
+            <h1 class="profile-title">Profile Settings</h1>
+            <p class="profile-subtitle">Manage your personal information</p>
         </div>
 
-        <script>
-            angular.module('profileApp', [])
-                .controller('ProfileController', function($scope) {
-                    $scope.profile = {
-                        name: 'John Doe',
-                        email: 'john@example.com',
-                        phone: '0812-XXXX-XXXX',
-                        password: '',
-                        imageUrl: 'https://placehold.co/150'
-                    };
+        <div ng-if="!editMode" class="fade-enter fade-enter-active">
+            <div class="profile-image-container d-flex justify-content-center mb-4">
+                <img ng-src="{{profile.imageUrl}}" alt="Profile Picture" class="profile-image">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <div class="view-field">{{user.name}}</div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <div class="view-field">{{user.email}}</div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Phone Number</label>
+                <div class="view-field">{{user.phoneno}}</div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <div class="view-field">{{user.address}}</div>
+            </div>
+            <div class="buttons-container">
+                <button class="btn btn-success w-100" ng-click="toggleEdit()">Edit Profile</button>
+            </div>
+        </div>
 
-                    $scope.editMode = false;
-
-                    $scope.toggleEdit = function() {
-                        $scope.editMode = true;
-                        $scope.editProfile = angular.copy($scope.profile);
-                    };
-
-                    $scope.saveChanges = function() {
-                        if ($scope.editForm.$valid) {
-                            $scope.profile = angular.copy($scope.editProfile);
-                            $scope.editMode = false;
-                        }
-                    };
-
-                    $scope.cancelEdit = function() {
-                        $scope.editMode = false;
-                    };
-                });
-        </script>
+        <form ng-if="editMode" ng-submit="saveChanges()" class="fade-enter fade-enter-active">
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text" ng-model="editProfile.name" required ng-pattern="/^[a-zA-Z\s]*$/" name="name" class="form-control">
+                <span class="error-message" ng-show="editForm.name.$error.pattern">
+                Name can only contain letters and spaces
+            </span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" ng-model="editProfile.email" required name="email" class="form-control">
+                <span class="error-message" ng-show="editForm.email.$error.email">
+                Please enter a valid email address
+            </span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Phone Number</label>
+                <input type="phone" ng-model="editProfile.phone" required name="phone" class="form-control">
+                <span class="error-message" ng-show="editForm.phone.$error.phone">
+                Please enter a valid Phone Number
+            </span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input type="password" ng-model="editProfile.password" required ng-minlength="8" name="password" class="form-control">
+                <span class="error-message" ng-show="editForm.password.$error.minlength">
+                Password must be at least 8 characters long
+            </span>
+            </div>
+            <div class="buttons-container">
+                <button type="submit" class="btn btn-success w-50">Save Changes</button>
+                <button type="button" class="btn btn-danger w-50" ng-click="cancelEdit()">Cancel</button>
+            </div>
+        </form>
+    </div>
+        </div>
