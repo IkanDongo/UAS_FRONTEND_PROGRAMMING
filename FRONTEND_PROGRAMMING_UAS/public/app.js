@@ -96,11 +96,11 @@ app.config(function ($routeProvider) {
         })
         .when("/admin/ulist", {
             templateUrl: "model/modeladminulist.html",
-            controller: "controlleradminproduct",
+            controller: "controllerulist",
         })
         .when("/admin/plist", {
             templateUrl: "model/modeladminplist.html",
-            controller: "controlleradminproduct",
+            controller: "controllerplist",
         })
         .when("/admin/product/edit/:id", {
             templateUrl: "model/modeladminpedit.html",
@@ -631,6 +631,7 @@ app.controller("controllerprofile", function ($scope, $http) {
 
     $scope.message = "Welcome to the Profile Page!";
     $scope.user = {};
+    $scope.editUser = {};
     $scope.errorMessage = "";
 
     const userId = localStorage.getItem("user_id");
@@ -640,17 +641,51 @@ app.controller("controllerprofile", function ($scope, $http) {
             .get(`http://localhost:8000/users/${userId}`)
             .then(function (response) {
                 console.log("User Data:", response.data);
-                $scope.user = response.data;
+                if (response.data.status) {
+                    $scope.user = response.data.user;
+                } else {
+                    $scope.errorMessage = "User data could not be fetched.";
+                }
             })
             .catch(function (error) {
                 console.error("Error fetching user data:", error);
-                $scope.errorMessage =
-                    error.data?.message || "Unable to fetch user data.";
+                $scope.errorMessage = error.data?.message || "Unable to fetch user data.";
             });
     } else {
         $scope.errorMessage = "User ID not found in localStorage.";
     }
+
+  
+    $scope.toggleEdit = function () {
+        $scope.editUser = angular.copy($scope.user); 
+        const modal = new bootstrap.Modal(document.getElementById("editProfileModal"));
+        modal.show();
+    };
+
+    
+  $scope.saveProfile = function () {
+    $http
+        .put(`http://localhost:8000/users/${userId}`, $scope.editUser)
+        .then(function (response) {
+            if (response.status === 200 && response.data.success) {
+                alert("Profile updated successfully!");
+                window.location.reload();
+            } else {
+                alert("Failed to update profile.");
+            }
+        })
+        .catch(function (error) {
+            console.error("Error updating profile:", error);
+            alert(error.data?.message || "An error occurred while updating the profile.");
+        });
+
+    const modal = bootstrap.Modal.getInstance(document.getElementById("editProfileModal"));
+    modal.hide();
+};
+
 });
+
+
 
 // app.controller("controllerproductdetail", [
 //     "$scope",

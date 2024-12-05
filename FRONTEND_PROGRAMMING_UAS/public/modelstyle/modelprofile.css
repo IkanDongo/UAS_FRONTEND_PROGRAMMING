@@ -1,4 +1,4 @@
-body {
+/* body {
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     min-height: 100vh;
     display: flex;
@@ -6,7 +6,7 @@ body {
     justify-content: center;
     padding: 20px;
     font-family: 'Noto Sans Telugu', sans-serif;
-}
+} */
 
 .profile-container {
     max-width: 600px;
@@ -34,6 +34,25 @@ body {
 
 .profile-image:hover {
     transform: scale(1.05);
+}
+
+i.icon-size {
+    padding: 10px;
+    border: 1px solid #f5f5f5;
+    border-radius: 50%;
+}
+
+.nav-text-size {
+    font-family: "Rajdhani", sans-serif;
+}
+
+.navbar-nav {
+    display: flex;
+    align-items: center;
+}
+
+.nav-item {
+    margin: 0 10px;
 }
 
 .view-field {
