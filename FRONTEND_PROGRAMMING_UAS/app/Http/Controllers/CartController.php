@@ -10,6 +10,63 @@ use Illuminate\Support\Facades\Log;
 
 class CartController extends Controller
 {
+    public function checkout(Request $request)
+    {
+        $user_id = $request->user_id;
+        $cart = $request->cart;
+    
+        \Log::info('Checkout initiated for user ID: ' . $user_id); // Log untuk memulai proses checkout
+    
+        foreach ($cart as $item) {
+            // Log setiap item dalam keranjang
+            \Log::info('Processing item: ', $item);
+    
+            // Cari produk berdasarkan ID
+            $product = Products::find($item['product']['product_id']);
+            
+            if (!$product) {
+                \Log::error('Product not found for ID: ' . $item['product']['product_id']);
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Product not found for ID ' . $item['product']['product_id']
+                ], 404);
+            }
+        
+            // Log stok produk sebelum pengecekan
+            \Log::info('Available stock for product ' . $product->name . ': ' . $product->stock);
+    
+            if ($product->stock < $item['quantity']) {
+                \Log::error('Insufficient stock for product: ' . $product->name);
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Insufficient stock for ' . $product->name
+                ], 400);
+            }
+    
+            // Kurangi stok produk
+            $product->stock -= $item['quantity'];
+            $product->save(); // Simpan perubahan stok
+    
+            // Log stok setelah diperbarui
+            \Log::info('Updated stock for product ' . $product->name . ': ' . $product->stock);
+        
+            // Hapus item dari keranjang
+            Carts::where('user_id', $user_id)
+                ->where('product_id', $item['product']['product_id'])
+                ->delete();
+        
+            // Log bahwa item telah dihapus dari keranjang
+            \Log::info('Item removed from cart for user ID: ' . $user_id . ' and product ID: ' . $item['product']['product_id']);
+        }
+    
+        // Berikan respons sukses
+        \Log::info('Checkout completed successfully for user ID: ' . $user_id);
+        return response()->json([
+            'success' => true,
+            'message' => 'Checkout completed successfully!'
+        ]);
+    }
+
     public function addItem(Request $request, $user_id)
     {
         $validated = $request->validate([

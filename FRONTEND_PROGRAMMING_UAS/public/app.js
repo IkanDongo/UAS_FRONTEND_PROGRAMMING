@@ -361,6 +361,8 @@ app.controller("controllerprofile", function ($scope, $http) {
 
 app.controller("controllercart", function ($scope, $http) {
     $scope.cart = [];
+    $scope.totalItems = 0;
+    $scope.totalPrices = 0;
 
     var user_id = localStorage.getItem("user_id");
 
@@ -373,8 +375,13 @@ app.controller("controllercart", function ($scope, $http) {
                     response.data.cart_data.length > 0
                 ) {
                     $scope.cart = response.data.cart_data;
+                    $scope.countTotalItems();
+                    $scope.countTotalPrices();
                 } else {
                     console.log("Cart is empty or not found.");
+                    $scope.cart = [];
+                    $scope.totalItems = 0;
+                    $scope.totalPrices = 0;
                 }
             })
             .catch(function (error) {
@@ -392,6 +399,8 @@ app.controller("controllercart", function ($scope, $http) {
                 $scope.cart = $scope.cart.filter(function (cartItem) {
                     return cartItem.cart_id !== cart_id;
                 });
+                $scope.countTotalItems();
+                $scope.countTotalPrices();
                 $scope.getCart();
             })
             .catch(function (error) {
@@ -412,10 +421,62 @@ app.controller("controllercart", function ($scope, $http) {
         }).then(function(response) {
             console.log('Quantity updated successfully:', response.data);
             item.quantity = newQuantity;
+            $scope.countTotalItems();
+            $scope.countTotalPrices();
         }).catch(function(error) {
             console.log('Error updating quantity:', error);
             alert('Failed to update quantity. Please try again.');
         });
+    };
+
+    $scope.checkoutCart = function () {
+        if ($scope.cart.length === 0) {
+            alert("Your cart is empty. Please add items to the cart before checking out.");
+            return;
+        }
+    
+        const checkoutData = {
+            user_id: user_id,
+            cart: $scope.cart.map(item => ({
+                product: { product_id: item.product.product_id },
+                quantity: item.quantity
+            }))
+        };
+    
+        console.log("Checkout Data:", checkoutData);
+    
+        $http.post("http://localhost:8000/checkout", checkoutData)
+            .then(function (response) {
+                console.log("Checkout successful:", response.data);
+                alert("Checkout successful!");
+                $scope.cart = [];
+                $scope.totalItems = 0;
+                $scope.totalPrices = 0;
+            })
+            .catch(function (error) {
+                console.error("Checkout failed:", error);
+    
+                if (error.data && error.data.message) {
+                    alert("Checkout failed: " + error.data.message);
+                } else {
+                    alert("Checkout failed. Please try again.");
+                }
+            });
+    };
+    
+    
+    
+
+    $scope.countTotalItems = function () {
+        $scope.totalItems = $scope.cart.reduce(function (total, item) {
+            return total + item.quantity; 
+        }, 0);
+    };
+
+    $scope.countTotalPrices = function () {
+        $scope.totalPrices = $scope.cart.reduce(function (price, item) {
+            return price + (item.product.price * item.quantity); 
+        }, 0);
     };
 
     $scope.getCart();
@@ -555,11 +616,9 @@ app.controller("controllerproductdetail", [
                         alert("Komentar berhasil ditambahkan!");
                         $scope.comment = "";
                         $scope.rating = 0;
-                        $scope.loadComments(); 
                     }
                 })
                 .catch(function (error) {
-                    alert("Gagal mengirim komentar.");
                     console.error(error);
                 });
         };
