@@ -39,7 +39,7 @@
                      ng-repeat="item in cart" 
                      style="background-color: #f8f9fa; border-radius: 10px;">
                     <div class="d-flex align-items-center">
-                        <img class="img-fluid" src="{{ item.product.image }}" alt="Product Image" 
+                        <img class="img-fluid" src="storage/image/{{ products.image }}" alt="Product Image" 
                              style="width: 100px; height: 100px; object-fit: cover; margin-right: 15px; border-radius: 8px;">
                         <div class="flex-grow-1">
                             <h5 class="mb-1">{{ item.product.name }}</h5>
@@ -64,15 +64,13 @@
         </div>        
         <div class="col-lg-4 mt-4 mt-lg-0">
             <div class="card shadow-lg">
-                <div class="card-header bg-primary text-white text-center">
+                <div class="card-header bg-dark text-white text-center">
                     <h4><i class="bi bi-cart4"></i> Cart Summary</h4>
                 </div>
                 <div class="card-body">
-                    <p><strong>Total Items:</strong> {{ getTotalItems() }}</p>
-                    <p><strong>Total Price:</strong> ${{ getTotalPrice() }}</p>
-                    <button class="btn btn-success btn-lg w-100" ng-click="checkout()">
-                        <i class="bi bi-credit-card"></i> Proceed to Checkout
-                    </button>
+                    <p><strong>Total Items:</strong> {{ totalItems }}</p>
+                    <p><strong>Total Price:</strong> ${{ totalPrices }}</p>
+                    <button class="btn btn-success btn-lg w-100" ng-click="checkoutCart()">Checkout</button>
                 </div>
             </div>
         </div>

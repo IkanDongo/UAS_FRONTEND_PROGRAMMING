@@ -43,6 +43,7 @@
             <h1>{{ products.name }}</h1>
             <h2>$ {{ products.price }}</h2>
             <p>{{ products.description }}</p>
+            <p> stock: {{ products.stock }}</p>
 
             <form ng-submit="addItemToCart(products, quantity)">
                 <div class="d-flex gap-3 mb-3 align-items-center">
