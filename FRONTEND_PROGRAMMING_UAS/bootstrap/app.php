@@ -12,7 +12,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->web(append: [
-            \App\Http\Middleware\CorsMiddleware::class
+            \App\Http\Middleware\CorsMiddleware::class,
         ]);
         $middleware->validateCsrfTokens(except:[
             'login',
@@ -25,7 +25,7 @@ return Application::configure(basePath: dirname(__DIR__))
             '/comments',
             '/carts',
             '/carts/*/',
-            '/comments/*'
+            '/comments/*',
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
