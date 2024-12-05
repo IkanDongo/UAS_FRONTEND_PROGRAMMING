@@ -152,34 +152,34 @@ app.controller("controllerhome", function ($scope) {
     $scope.message = "Welcome to the Home Page!";
 });
 
-app.controller("controllerprofile", function ($scope, $http) {
-    console.log("Profile controller loaded");
+// app.controller("controllerprofile", function ($scope, $http) {
+//     console.log("Profile controller loaded");
 
-    $scope.message = "Welcome to the Profile Page!";
-    $scope.user = {}; // Placeholder untuk data pengguna
-    $scope.errorMessage = "";
+//     $scope.message = "Welcome to the Profile Page!";
+//     $scope.user = {}; // Placeholder untuk data pengguna
+//     $scope.errorMessage = "";
 
-    // Ambil user_id dari localStorage
-    const userId = localStorage.getItem("user_id");
+//     // Ambil user_id dari localStorage
+//     const userId = localStorage.getItem("user_id");
 
-    // Periksa apakah user_id tersedia
-    if (userId) {
-        // Lakukan HTTP request ke backend untuk mendapatkan data user
-        $http
-            .get(`http://localhost:8000/users/${userId}`)
-            .then(function (response) {
-                console.log("User Data:", response.data);
-                $scope.user = response.data; // Simpan data user ke $scope.user
-            })
-            .catch(function (error) {
-                console.error("Error fetching user data:", error);
-                $scope.errorMessage =
-                    error.data?.message || "Unable to fetch user data.";
-            });
-    } else {
-        $scope.errorMessage = "User ID not found in localStorage.";
-    }
-});
+//     // Periksa apakah user_id tersedia
+//     if (userId) {
+//         // Lakukan HTTP request ke backend untuk mendapatkan data user
+//         $http
+//             .get(`http://localhost:8000/users/${userId}`)
+//             .then(function (response) {
+//                 console.log("User Data:", response.data);
+//                 $scope.user = response.data; // Simpan data user ke $scope.user
+//             })
+//             .catch(function (error) {
+//                 console.error("Error fetching user data:", error);
+//                 $scope.errorMessage =
+//                     error.data?.message || "Unable to fetch user data.";
+//             });
+//     } else {
+//         $scope.errorMessage = "User ID not found in localStorage.";
+//     }
+// });
 
 
 app.controller("controllercart", function ($scope, $http) {
@@ -529,6 +529,8 @@ app.controller("controllercreateuser", function ($scope, $http, $location) {
         name: "",
         email: "",
         password: "",
+        phoneno: "",
+        address: "",
     };
     $scope.submitCreateAccount = function () {
         $http
