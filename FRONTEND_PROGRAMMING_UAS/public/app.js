@@ -303,6 +303,32 @@ app.controller("controllerproductdetail", [
                 console.error(error);
             });
         };
+        
+        $scope.submitRatingAndComment = function () {
+            if (!$scope.rating || !$scope.comment.trim()) {
+                alert("Please provide a valid rating and comment.");
+                return;
+            }
+
+            const feedbackData = {
+                product_id: product_id,
+                user_id: userId,
+                rating: $scope.rating,
+                comment: $scope.comment,
+            };
+
+            $http
+                .post("http://localhost:8000/feedbacks", feedbackData)
+                .then(function (response) {
+                    alert("Thank you for your feedback!");
+                    $scope.rating = null; // Reset rating
+                    $scope.comment = ""; // Reset comment
+                })
+                .catch(function (error) {
+                    console.error("Error submitting feedback:", error);
+                    alert("Failed to submit feedback. Please try again.");
+                });
+        };
     }
 ]);
 
