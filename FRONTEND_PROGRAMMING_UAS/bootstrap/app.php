@@ -22,7 +22,9 @@ return Application::configure(basePath: dirname(__DIR__))
             '/users/*',
             'products/*', 
             '/carts/*/*',
-            '/comments'
+            '/comments',
+            '/carts',
+            '/carts/*/'
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

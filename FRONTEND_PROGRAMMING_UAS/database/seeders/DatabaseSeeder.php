@@ -16,7 +16,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Menambahkan pengguna biasa
         DB::table('users')->insert([
             'name' => 'User',
             'email' => 'User@example.com',

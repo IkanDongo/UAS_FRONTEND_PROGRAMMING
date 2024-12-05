@@ -68,15 +68,19 @@ class UserController extends Controller
         return response()->json(['message' => 'User removed successfully'], 200);
     }
 
-    // Tambahkan di UserController.php
-public function show($id)
-{
-    try {
-        $user = User::findOrFail($id); // Cari user berdasarkan ID
-        return response()->json($user);
-    } catch (ModelNotFoundException $e) {
-        return response()->json(['message' => 'User not found'], 404);
-    }
-}
+    public function show($id)
+    {
+        $user = User::find($id);
 
+        if(!$user) {
+            return response()->json([
+                'status' => false,
+            ]);
+        }
+
+        return response()->json([
+            'status' => true,
+            'user' => $user
+        ]);
+    }
 }

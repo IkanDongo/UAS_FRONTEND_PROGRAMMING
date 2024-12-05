@@ -23,7 +23,7 @@ class CartSeeder extends Seeder
             'user_id' => $user->id,
             'product_id' => $product->id,
             'quantity' => 2,
-            'image' => 'voKsqww9owgKmUc2VY5pVGlZFu8uu2HF0ExKKmQd.jpg',
+            'image' => 'TSLEuEvwpfRjmxNdLGD0suh7jxZhZi7AaWHyGkLi.svg',
             'created_at' => now(),
             'updated_at' => now(),
         ]);

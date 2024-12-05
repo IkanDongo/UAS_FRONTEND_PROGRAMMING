@@ -19,7 +19,7 @@ class Products extends Model
     
     public function index()
 {
-    $products = Product::all();
+    $products = Products::all();
     return response()->json($products);
 }
 

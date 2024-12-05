@@ -6,30 +6,54 @@ use App\Models\Carts;
 use App\Models\Products;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class CartController extends Controller
 {
-    public function addItem(Request $request)
+    public function addItem(Request $request, $user_id)
     {
-        $product = Products::find($request->product_id);
+        $validated = $request->validate([
+            'product_id' => 'required|exists:products,_id',
+            'quantity' => 'required|integer|min:1',
+        ]);
+    
+        $product = Products::find($validated['product_id']);
         
         if (!$product) {
             return response()->json(['message' => 'Product not found'], 404);
         }
-
-        $item = Carts::create([
-            'user_id' => auth()->id(),
-            'product_id' => $request->product_id,
-            'quantity' => $request->quantity,
+    
+        $existingCartItem = Carts::where('user_id', $user_id)
+            ->where('product_id', $validated['product_id'])
+            ->first();
+    
+        if ($existingCartItem) {
+            $existingCartItem->quantity += $validated['quantity'];
+            $existingCartItem->save();
+    
+            return response()->json([
+                'message' => 'Cart updated successfully!',
+                'cart_item' => $existingCartItem,
+            ], 200);
+        }
+    
+        $cartItem = Carts::create([
+            'user_id' => $user_id,
+            'product_id' => $validated['product_id'],
+            'quantity' => $validated['quantity'],
         ]);
-
-        return response()->json($item);
+    
+        return response()->json([
+            'message' => 'Item added to cart successfully!',
+            'cart_item' => $cartItem,
+        ], 201);
     }
+    
 
-    public function removeCart($userId, $productId)
+    public function removeCart($user_id, $cart_id)
     {
-        $deleted = Carts::where('user_id', $userId)
-                    ->where('product_id', $productId)
+        $deleted = Carts::where('user_id', $user_id)
+                    ->where('_id', $cart_id)
                     ->delete();
 
         if ($deleted) {
@@ -70,21 +94,16 @@ class CartController extends Controller
 
     public function updateQuantity(Request $request, $userId, $itemId)
     {
-        // Validasi input
         $validatedData = $request->validate([
             'quantity' => 'required|integer|min:1',
         ]);
 
-        // Temukan item di cart
-        $cartItem = Carts::where('user_id', $userId)
-                         ->where('product_id', $itemId)
-                         ->first();
+        $cartItem = Carts::where('user_id', $userId)->where('product_id', $itemId)->first(['cart_id']);
 
         if (!$cartItem) {
             return response()->json(['message' => 'Cart item not found.'], 404);
         }
 
-        // Update quantity
         $cartItem->quantity = $validatedData['quantity'];
         $cartItem->save();
 
