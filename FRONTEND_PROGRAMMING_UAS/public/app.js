@@ -181,7 +181,6 @@ app.controller("controllerprofile", function ($scope, $http) {
 //     }
 // });
 
-
 app.controller("controllercart", function ($scope, $http) {
     $scope.cart = [];
 

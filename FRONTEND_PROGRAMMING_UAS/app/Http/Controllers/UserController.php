@@ -88,7 +88,6 @@ class UserController extends Controller
                 'status' => false,
             ]);
         }
-
         return response()->json([
             'status' => true,
             'user' => $user
