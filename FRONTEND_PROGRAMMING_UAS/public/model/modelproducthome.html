@@ -73,113 +73,93 @@
                 <h2 class="text-white">Handpicked by Our Designer</h2>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card">
-                    <img src="image/modelimg/image1.jpg" class="card-img-top" alt="image1">
-                    <div class="card-body">
-                        <h3 class="card-title">Elegansi Modern</h3>
-                        <p class="card-text">Koleksi modern kami mengusung semangat elegansi,
-                            dirancang dengan hati-hati untuk mereka yang memancarkan kepercayaan diri dan kecanggihan di
-                            setiap momen.
-                            Dengan perhatian pada detail, setiap potongan mencerminkan perpaduan sempurna antara gaya
-                            kontemporer dan
-                            keanggunan abadi, memungkinkan Anda bertransisi dengan mudah dari siang ke malam, apa pun
-                            acaranya. Apakah
-                            itu acara santai atau formal, pakaian ini memastikan Anda tampil menonjol dengan kualitas
-                            dan gaya yang tak
-                            tertandingi.</p>
+    <div class="row">
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card">
+                <img src="image/modelimg/image1.jpg" class="card-img-top" alt="image1">
+                <div class="card-body">
+                    <h3 class="card-title">Modern Elegance</h3>
+                    <p class="card-text">Our modern collection embodies the spirit of elegance, carefully crafted for those
+                        who exude confidence and sophistication in every moment. With attention to detail, each piece
+                        reflects the perfect blend of contemporary style and timeless grace, allowing you to seamlessly
+                        transition from day to night, no matter the occasion. Whether it's a casual or formal event, these
+                        outfits ensure you stand out with unmatched quality and style.</p>
+                    <p class="card-text"><strong>Testimonial:</strong> "I love how this collection brings a modern twist to
+                        classic pieces. Every time I wear one of these outfits, I feel polished and confident." - Sarah L.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card">
+                <img src="image/modelimg/image2.jpg" class="card-img-top" alt="image2">
+                <div class="card-body">
+                    <h3 class="card-title">Casual Comfort</h3>
+                    <p class="card-text">Effortless comfort, redefined. Our casual wear is designed for those who value
+                        style without sacrificing comfort. Made from the softest fabrics, each piece is crafted to provide
+                        flexibility and breathability, making it perfect for your dynamic lifestyle. Whether you're
+                        shopping, meeting friends, or simply relaxing at home, our casual wear integrates seamlessly into
+                        your daily activities, allowing you to move with ease and grace.</p>
+                    <p class="card-text"><strong>Testimonial:</strong> "This is the most comfortable fashion I've ever
+                        owned. The fit is perfect and it looks great, whether I'm out with friends or just relaxing at
+                        home." - Mark D.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card">
+                <img src="image/modelimg/image3.jpg" class="card-img-top" alt="image3">
+                <div class="card-body">
+                    <h3 class="card-title">Bold & Stylish</h3>
+                    <p class="card-text">With boldness at its core, this collection is designed for those who dare to make a
+                        statement. Whether you're dressing up for a special occasion or simply elevating your everyday look,
+                        these striking accessories and garments are sure to draw attention. Crafted from premium materials,
+                        each item is a testament to craftsmanship, featuring intricate details and standout designs that
+                        push the boundaries of conventional fashion. Embrace your uniqueness and redefine your style with a
+                        touch of boldness.</p>
+                    <p class="card-text"><strong>Testimonial:</strong> "Every time I wear this fashion, I always receive
+                        compliments. It's bold, elegant, and adds the perfect finishing touch to any outfit!" - Alex M.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container my-5" ng-controller="controlleradminttlist">
+    <h2 class="text-center mb-4 text-white">Tips & Tricks of The Week</h2>
+    <div class="row g-4" ng-if="tipstriks.length > 0">
+        <div class="col-md-4" ng-repeat="tipstrik in tipstriks">
+            <div class="fashion-card" style="background-image: url('storage/image/{{ tipstrik.image }}'); background-size: cover;">
+                <div class="fashion-card-body">
+                    <blockquote class="fashion-blockquote">
+                        <strong>{{ tipstrik.title }}</strong>
+                        <p>{{ tipstrik.content }}</p>
+                        <cite class="fashion-cite">{{ tipstrik.name }}</cite>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-if="tipstriks.length === 0" class="text-center text-white">
+        <p>No tips found.</p>
+    </div>
+</div>
 
-                        <p class="card-text"><strong>Testimoni:</strong> "Saya suka koleksi ini menghadirkan sentuhan
-                            modern pada potongan
-                            klasik. Setiap kali saya mengenakan salah satu pakaian ini, saya merasa tampil rapi dan
-                            percaya diri." -
-                            Sarah L.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card">
-                    <img src="image/modelimg/image2.jpg" class="card-img-top" alt="image2">
-                    <div class="card-body">
-                        <h3 class="card-title ">Kenyamanan Kasual</h3>
-                        <p class="card-text">Kenyamanan tanpa usaha, didefinisikan ulang. Pakaian kasual kami dirancang
-                            untuk mereka yang menghargai gaya
-                            tanpa mengorbankan kenyamanan. Dibuat dari kain terlembut, setiap potongan dirancang untuk
-                            memberikan
-                            fleksibilitas dan breathability, menjadikannya sempurna untuk gaya hidup dinamis Anda.
-                            Apakah Anda sedang
-                            berbelanja, bertemu teman, atau sekadar bersantai di rumah, pakaian kasual kami berintegrasi
-                            dengan mulus ke
-                            dalam aktivitas sehari-hari Anda, memungkinkan Anda bergerak dengan mudah dan anggun.</p>
-                        <p class="card-text"><strong>Testimoni:</strong> "Fashion ini adalah yang paling nyaman yang
-                            pernah saya miliki. Fit-nya sempurna
-                            dan tampak bagus, baik saat saya bersama teman maupun hanya bersantai di rumah."- Mark D.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card">
-                    <img src="image/modelimg/image3.jpg" class="card-img-top" alt="image3">
-                    <div class="card-body">
-                        <h3 class="card-title">Berani & Bergaya</h3>
-                        <p class="card-text">Dengan penuh keberanian, koleksi ini dirancang untuk mereka yang berani
-                            membuat pernyataan. Apakah Anda
-                            sedang berpakaian untuk acara spesial atau hanya ingin meningkatkan tampilan sehari-hari
-                            Anda, aksesori dan
-                            pakaian yang mencolok ini pasti akan menarik perhatian. Dibuat dari bahan premium, setiap
-                            item adalah bukti
-                            dari keahlian, dengan detail rumit dan desain yang menonjol yang mendorong batas-batas
-                            fashion konvensional.
-                            Rangkul keunikan Anda dan redefinisikan gaya Anda dengan sentuhan keberanian.</p>
-                        <p class="card-text"><strong>Testimoni:</strong>"Setiap kali saya memakai fashion ini, saya
-                            selalu mendapat pujian. Fashion ini
-                            berani, elegan, dan menambahkan sentuhan akhir sempurna pada setiap pakaian!" - Alex M.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container my-5">
-        <h2 class="text-center mb-4 text-white">Tips & Tricks of The Week</h2>
-        <div class="row g-4">
-                <div class="fashion-card" style="background-image: url('image/tipsimg/test123.jpg'); background-size: cover;">
-                    <div class="fashion-card-body">
-                        <blockquote class="fashion-blockquote">
-                            <p>"Pilih pakaian dengan bahan yang nyaman, terutama saat musim panas..."</p>
-                            <cite class="fashion-cite">Ahli Fashion A</cite>
-                        </blockquote>
-                    </div>
-                </div>
-                
-                <div class="fashion-card" style="background-image: url('image/tipsimg/test1234.jpg'); background-size: cover;">
-                    <div class="fashion-card-body">
-                        <blockquote class="fashion-blockquote">
-                            <p>"Investasikan pada sepatu kulit berkualitas, karena bisa digunakan dalam berbagai acara..."</p>
-                            <cite class="fashion-cite">Ahli Fashion B</cite>
-                        </blockquote>
-                    </div>
-                </div>
-                
-                <div class="fashion-card" style="background-image: url('image/tipsimg/test12345.jpg'); background-size: cover;">
-                    <div class="fashion-card-body">
-                        <blockquote class="fashion-blockquote">
-                            <p>"Aksesori seperti jam tangan atau cincin dapat meningkatkan penampilan..."</p>
-                            <cite class="fashion-cite">Ahli Fashion C</cite>
-                        </blockquote>
-                    </div>
-                </div>
-        </div>
-    </div>
 <div class="container my-5">
         <h2 class="text-center mb-4 text-white">Featured Product</h2>
     
-        <div class="mb-4">
-            <input type="text" class="form-control" placeholder="Search products..." ng-model="searchQuery"
+        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+            <input type="text" class="form-control search-box me-3" placeholder="Search products..." ng-model="searchQuery"
                 ng-change="filterAndSort()">
+            <select class="form-control filter-box" ng-model="selectedCategory" ng-change="filterAndSort()">
+                <option value="" disabled selected>Select category</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Fashion">Fashion</option>
+                <option value="Home Appliances">Home Appliances</option>
+                <option value="Books">Books</option>
+                <option value="Other">Other</option>
+            </select>
         </div>
+
     
         <div class="mb-4 text-center">
             <button class="btn btn-outline-light" ng-click="toggleSort('name')">
@@ -188,16 +168,6 @@
             <button class="btn btn-outline-light" ng-click="toggleSort('price')">
                 Sort by Price <span ng-if="sortField === 'price'">{{ sortReverse ? '▲' : '▼' }}</span>
             </button>
-        </div>
-        <div class="mb-4">
-            <select class="form-control" ng-model="selectedCategory" ng-change="filterAndSort()">
-                <option value="" disabled selected>Select category</option>
-                <option value="Electronics">Electronics</option>
-                <option value="Fashion">Fashion</option>
-                <option value="Home Appliances">Home Appliances</option>
-                <option value="Books">Books</option>
-                <option value="Other">Other</option>
-            </select>
         </div>
 
     

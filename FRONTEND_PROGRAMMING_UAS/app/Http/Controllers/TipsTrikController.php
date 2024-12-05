@@ -110,11 +110,11 @@ class TipsTrikController extends Controller
         $tipsTrik = TipsTriks::find($id);
 
         if (!$tipsTrik) {
-            return response()->json(['message' => 'Tips dan Trik tidak ditemukan.'], 404);
+            return response()->json(['message' => 'Tips and Trik not found.'], 404);
         }
 
         $tipsTrik->delete();
 
-        return response()->json(['message' => 'Tips dan Trik berhasil dihapus.'], 200);
+        return response()->json(['message' => 'Tips and Trik deleted successfully.'], 200);
     }
 }

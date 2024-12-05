@@ -13,7 +13,7 @@ class CommentController extends Controller
         if (!User::where('_id', $user_id)->exists()) {
             return response()->json([
                 'success' => false,
-                'message' => 'User tidak ditemukan.',
+                'message' => 'User not found.',
             ], 404);
         }
 
@@ -26,7 +26,7 @@ class CommentController extends Controller
         if (empty($validated['comment']) && empty($validated['rating'])) {
             return response()->json([
                 'success' => false,
-                'message' => 'Minimal salah satu, komentar atau rating, harus diisi.',
+                'message' => 'At least one of them, comment or rating, must be filled in.',
             ], 422);
         }
 
