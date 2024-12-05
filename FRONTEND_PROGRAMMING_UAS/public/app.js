@@ -178,7 +178,6 @@ app.controller("controllerprofile", function ($scope, $http) {
     }
 });
 
-
 app.controller("controllercart", function ($scope, $http) {
     $scope.cart = [];
 
@@ -274,6 +273,12 @@ app.controller('controllerproducthome', ['$scope', '$http', function($scope, $ht
             );
         }
         
+        if ($scope.selectedCategory) {
+            filtered = filtered.filter(product =>
+                product.category === $scope.selectedCategory
+            );
+        }
+
 
        filtered = filtered.sort((a, b) => {
             let valueA = a[$scope.sortField];
@@ -538,6 +543,8 @@ app.controller("controllercreateuser", function ($scope, $http, $location) {
         name: "",
         email: "",
         password: "",
+        phoneno: "",
+        address: "",
     };
     $scope.submitCreateAccount = function () {
         $http
