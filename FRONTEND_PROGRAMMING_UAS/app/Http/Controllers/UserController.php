@@ -15,6 +15,50 @@ class UserController extends Controller
         return response()->json($users);
     }
 
+    public function forget(Request $request)
+    {    
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|exists:users,email',
+            'password' => 'required|string|min:8',
+            'confirm_password' => 'required|string|min:8',
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()
+            ], 400);
+        }
+    
+        if ($request->password !== $request->confirm_password) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Passwords do not match.'
+            ], 400);
+        }
+
+        $user = User::where('email', $request->email)->first();
+    
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'User not found.'
+            ], 404);
+        }
+    
+        $hashedPassword = Hash::make($request->password);
+    
+        $user->password = $hashedPassword;
+        $user->save();
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'Password updated successfully.'
+        ], 200);
+    }
+    
+    
+
     public function create(Request $request)
     {
         $validator = Validator::make($request->all(), [

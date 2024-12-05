@@ -26,6 +26,7 @@ Route::post('/carts/{user_id}/', [CartController::class, 'addItem']);
 Route::patch('/carts/{user_id}/{product_id}', [CartController::class, 'updateQuantity']);
 Route::get('/carts/{user_id}', [CartController::class, 'getCart']);
 Route::delete('/carts/{user_id}/{cart_id}', [CartController::class, 'removeCart']);
+Route::post('/forget-password', [UserController::class, 'forget']);
 
 Route::get('/tips-trik', [TipsTrikController::class, 'index'])->name('tips-trik.index');
 Route::post('/tips-trik', [TipsTrikController::class, 'store'])->name('tips-trik.store'); 
