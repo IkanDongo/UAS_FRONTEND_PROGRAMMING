@@ -14,7 +14,7 @@ Route::patch('/users/{id}/toggleAdmin', [UserController::class, 'toggleAdmin']);
 Route::post('/users', [UserController::class, 'create']);
 Route::delete('/users/{id}', [UserController::class, 'destroy']);
 Route::put('/users/{id}', [UserController::class, 'update']);
-
+Route::post('/forget-password', [UserController::class, 'forget']);
 
 Route::post('/products', [ProductController::class, 'create']);
 Route::get('/products', [ProductController::class, 'index']);
@@ -22,11 +22,11 @@ Route::get('/products/{id}', [ProductController::class, 'find']);
 Route::delete('/products/{id}', [ProductController::class, 'destroy']);
 Route::put('/products/{id}', [ProductController::class, 'update']);
 
+Route::post('/checkout', [CartController::class, 'checkout']);
 Route::post('/carts/{user_id}/', [CartController::class, 'addItem']);
 Route::patch('/carts/{user_id}/{product_id}', [CartController::class, 'updateQuantity']);
 Route::get('/carts/{user_id}', [CartController::class, 'getCart']);
 Route::delete('/carts/{user_id}/{cart_id}', [CartController::class, 'removeCart']);
-Route::post('/forget-password', [UserController::class, 'forget']);
 
 Route::get('/tips-trik', [TipsTrikController::class, 'index']);
 Route::post('/tips-trik', [TipsTrikController::class, 'store']); 
