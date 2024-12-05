@@ -76,6 +76,10 @@ i.icon-size {
     margin: 0 10px;
 }
 
+.form-control{
+    width: 49%;
+}
+
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
     background-color: rgba(0, 0, 0, 0.5);

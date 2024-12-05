@@ -20,7 +20,7 @@ class AuthController extends Controller
         if ($user && Hash::check($request->password, $user->password)) {
             return response()->json([
                 'success' => true,
-                'message' => 'Login berhasil',
+                'message' => 'Login successfully',
                 'user' => [
                     'id' => $user->id,
                     'email' => $user->email,
@@ -31,7 +31,7 @@ class AuthController extends Controller
 
         return response()->json([
             'success' => false,
-            'message' => 'Email atau password salah',
+            'message' => 'Email or password is wrong',
         ], 401);
     }
 
@@ -39,7 +39,7 @@ class AuthController extends Controller
     {
         return response()->json([
             'success' => true,
-            'message' => 'Logout berhasil',
+            'message' => 'Logout successfully',
         ]);
     }
 }

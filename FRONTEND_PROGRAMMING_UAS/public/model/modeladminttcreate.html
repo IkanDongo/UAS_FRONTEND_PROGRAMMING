@@ -53,6 +53,13 @@
             </div>
             <button type="submit" class="btn btn-primary">Tambah Tips</button>
         </form>
+        <div class="alert alert-danger mt-3" ng-if="errorMessage">
+            {{ errorMessage }}
+        </div>
+        
+        <div class="alert alert-success mt-3" ng-if="successMessage">
+            {{ successMessage }}
+        </div>
     </div>
 
 </div>

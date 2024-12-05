@@ -180,7 +180,7 @@ app.controller("controlleradmintipstrik", [
                 })
                 .then(function (response) {
                     console.log("tips-trick created successfully:", response.data);
-                    $scope.successMessage = "Tips & Trik berhasil dibuat!";
+                    $scope.successMessage = "Tips & Trik created successfully!";
                     $scope.tipstriks = {};
                     $scope.imageFile = null;
                     document.getElementById("image").value = ""; 
@@ -188,7 +188,7 @@ app.controller("controlleradmintipstrik", [
                 .catch(function (error) {
                     console.error("Error creating tips-trick:", error);
                     $scope.errorMessage =
-                        error.data?.message || "Terjadi kesalahan saat membuat Tips & Trik.";
+                        error.data?.message || "An error occurred while creating the Tips & Trik.";
                 });
         };
     },
@@ -598,7 +598,7 @@ app.controller("controllerproductdetail", [
 
         $scope.commentRating = function () {
             if (!$scope.comment && !$scope.rating) {
-                alert("Minimal salah satu, komentar atau rating, harus diisi.");
+                alert("At least one of them, comment or rating, must be filled in.");
                 return;
             }
     
@@ -613,12 +613,13 @@ app.controller("controllerproductdetail", [
             $http.post("http://localhost:8000/comments/" + $scope.userId, commentData)
                 .then(function (response) {
                     if (response.data.success) {
-                        alert("Komentar berhasil ditambahkan!");
+                        alert("Komentar created successfully!");
                         $scope.comment = "";
                         $scope.rating = 0;
                     }
                 })
                 .catch(function (error) {
+                    alert("An error occurred while creating the Comment.");
                     console.error(error);
                 });
         };
