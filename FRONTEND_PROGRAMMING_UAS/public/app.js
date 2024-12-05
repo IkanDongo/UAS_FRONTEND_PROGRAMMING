@@ -275,9 +275,12 @@ app.controller("controllerproductdetail", [
     function ($scope, $http, $routeParams) {
         $scope.products = {};
         $scope.quantity = 1;
-
+        $scope.rating = 0;
+        $scope.comment = "";
+        $scope.comments = [];
+        
+        $scope.userId = localStorage.getItem("user_id");
         var product_id = $routeParams.id;
-        const userId = localStorage.getItem("user_id");
 
         $http.get("http://localhost:8000/products/" + product_id)
             .then(function (response) {
@@ -289,49 +292,60 @@ app.controller("controllerproductdetail", [
                     "Failed to load product details. Please try again later.";
             });
 
+            // $scope.fetchComments = function () {
+            //     $http.get("http://localhost:8000/comments/" + product_id + "/show")
+            //         .then(function (response) {
+            //             $scope.comments = response.data; // Should be an array of comments in JSON
+            //             console.log($scope.comments); // This should show JSON data in the console
+            //         })
+            //         .catch(function (error) {
+            //             console.error("Error fetching comments:", error);
+            //         });
+            // };
+
         $scope.addItemToCart = function (product, quantity) {
             const cartData = {
                 product_id: product._id,
-                quantity: quantity
-            };
-            console.log(product_id),
-
-            $http.post('http://localhost:8000/carts/'+ userId + '', cartData).then(function (response) {
-                alert("Product added to cart successfully!");
-            }, function (error) {
-                alert("Failed to add product to cart.");
-                console.error(error);
-            });
-        };
-        
-        $scope.submitRatingAndComment = function () {
-            if (!$scope.rating || !$scope.comment.trim()) {
-                alert("Please provide a valid rating and comment.");
-                return;
-            }
-
-            const feedbackData = {
-                product_id: product_id,
-                user_id: userId,
-                rating: $scope.rating,
-                comment: $scope.comment,
+                quantity: quantity,
             };
 
-            $http
-                .post("http://localhost:8000/feedbacks", feedbackData)
+            $http.post("http://localhost:8000/carts/" + $scope.userId, cartData)
                 .then(function (response) {
-                    alert("Thank you for your feedback!");
-                    $scope.rating = null; // Reset rating
-                    $scope.comment = ""; // Reset comment
+                    alert("Product added to cart successfully!");
                 })
                 .catch(function (error) {
-                    console.error("Error submitting feedback:", error);
-                    alert("Failed to submit feedback. Please try again.");
+                    alert("Failed to add product to cart.");
+                    console.error(error);
                 });
         };
-    }
-]);
 
+        $scope.submitRating = function () {
+            if (!$scope.comment && !$scope.rating) {
+                alert("Please provide a comment or rating.");
+                return;
+            }
+        
+            const ratingData = {
+                user_id: $scope.userId,
+                product_id: product_id,
+                comment: $scope.comment,
+                rating: $scope.rating,
+            };
+        
+            $http.post("http://localhost:8000/comments/" + $scope.userId, ratingData)
+                .then(function (response) {
+                    alert("Rating and comment submitted successfully!");
+                    $scope.comment = "";
+                    $scope.rating = 0;
+                })
+                .catch(function (error) {
+                    alert("Failed to submit rating and comment.");
+                    console.error(error);
+                });
+        };
+        $scope.fetchComments();
+    },
+]);
 
 app.controller("controlleradminproduct", [
     "$scope",
@@ -425,6 +439,7 @@ app.controller("controllerpedit", [
     "$location",
     function ($scope, $http, $routeParams, $location) {
         const productId = $routeParams.id;
+
 
         $scope.products = {
             name: "",
