@@ -156,20 +156,17 @@ app.controller("controllerprofile", function ($scope, $http) {
     console.log("Profile controller loaded");
 
     $scope.message = "Welcome to the Profile Page!";
-    $scope.user = {}; // Placeholder untuk data pengguna
+    $scope.user = {}; 
     $scope.errorMessage = "";
 
-    // Ambil user_id dari localStorage
     const userId = localStorage.getItem("user_id");
 
-    // Periksa apakah user_id tersedia
     if (userId) {
-        // Lakukan HTTP request ke backend untuk mendapatkan data user
         $http
             .get(`http://localhost:8000/users/${userId}`)
             .then(function (response) {
                 console.log("User Data:", response.data);
-                $scope.user = response.data; // Simpan data user ke $scope.user
+                $scope.user = response.data;
             })
             .catch(function (error) {
                 console.error("Error fetching user data:", error);
@@ -276,11 +273,13 @@ app.controller("controllerproductdetail", [
     "$routeParams",
     function ($scope, $http, $routeParams) {
         $scope.products = {};
+        $scope.quantity = 1;
 
-        var productId = $routeParams.id;
+        var product_id = $routeParams.id;
+        const userId = localStorage.getItem("user_id");
 
         $http
-            .get("http://localhost:8000/products/" + productId)
+            .get("http://localhost:8000/products/" + product_id)
             .then(function (response) {
                 $scope.products = response.data;
             })
@@ -289,8 +288,24 @@ app.controller("controllerproductdetail", [
                 $scope.errorMessage =
                     "Failed to load product details. Please try again later.";
             });
-    },
+
+        $scope.addItemToCart = function (product, quantity) {
+            const cartData = {
+                product_id: product._id,
+                quantity: quantity
+            };
+            console.log(product_id),
+
+            $http.post('http://localhost:8000/carts/'+ userId + '', cartData).then(function (response) {
+                alert("Product added to cart successfully!");
+            }, function (error) {
+                alert("Failed to add product to cart.");
+                console.error(error);
+            });
+        };
+    }
 ]);
+
 
 app.controller("controlleradminproduct", [
     "$scope",
@@ -530,27 +545,27 @@ app.controller("controllerprofile", function ($scope, $http) {
     }
 });
 
-app.controller("controllerproductdetail", [
-    "$scope",
-    "$http",
-    "$routeParams",
-    function ($scope, $http, $routeParams) {
-        $scope.products = {};
+// app.controller("controllerproductdetail", [
+//     "$scope",
+//     "$http",
+//     "$routeParams",
+//     function ($scope, $http, $routeParams) {
+//         $scope.products = {};
 
-        var productId = $routeParams.id;
+//         var productId = $routeParams.id;
 
-        $http
-            .get("http://localhost:8000/products/" + productId)
-            .then(function (response) {
-                $scope.products = response.data;
-            })
-            .catch(function (error) {
-                console.error("Error fetching product details:", error);
-                $scope.errorMessage =
-                    "Failed to load product details. Please try again later.";
-            });
-    },
-]);
+//         $http
+//             .get("http://localhost:8000/products/" + productId)
+//             .then(function (response) {
+//                 $scope.products = response.data;
+//             })
+//             .catch(function (error) {
+//                 console.error("Error fetching product details:", error);
+//                 $scope.errorMessage =
+//                     "Failed to load product details. Please try again later.";
+//             });
+//     },
+// ]);
 
 app.run(function ($rootScope, $document, $timeout) {
     $rootScope.$on("$routeChangeSuccess", function (event, current) {

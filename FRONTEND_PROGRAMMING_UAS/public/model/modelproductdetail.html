@@ -1,62 +1,60 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-        <div class="container">
-            <a class="navbar-brand title-size" ng-href="#/home" draggable="false">WebStyle</a>
+    <div class="container">
+        <a class="navbar-brand title-size" ng-href="#/home" draggable="false">WebStyle</a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="nav navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link nav-text-size" ng-href="#!/home" draggable="false">Home Page</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link nav-text-size" ng-href="#!/producthome" draggable="false">Product Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link nav-text-size" href="#!/cart" draggable="false">Cart Page</a>
-                    </li>
-                    <li class="nav-item m-0 p-0">
-                        <a class="nav-link nav-text-size" ng-href="#!/profile" draggable="false"><i
-                                class="icon-size fa-regular fa-user color-white" draggable="false"></i></a>
-                    </li>
-                    <li class="nav-item m-0 p-0">
-                        <a class="nav-link nav-text-size" ng-href="#/login" draggable="false"><i
-                                class="icon-size fa-solid fa-right-to-bracket color-white" draggable="false"></i></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-
-    <div class="container mt-5" ng-controller="controllerproductdetail">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="gradient-wrapper">
-                    <img src="storage/image/{{ products.image }}" 
-                    class="custom-image full-image mb-3" 
-                    alt="{{ products.image }}" 
-                    style="height: 400px; width: 600px;">
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <h1 class="custom-h1 text-black">{{ products.name }}</h1>
-                <h2 class="display-1 mb-4">Rp. {{ products.price }}</h2>
-                <p class="content-paragraph">{{ products.description }}</p>
-
-                <div class="d-flex gap-3 mb-4">
-                    <div class="input-group" style="width: 150px;">
-                        <button class="btn btn-outline-dark">-</button>
-                        <input type="number" class="form-control text-center" value="1" min="1">
-                        <button class="btn btn-outline-dark">+</button>
-                    </div>
-                    <button class="btn btn-dark flex-grow-1">Add to Cart</button>
-                </div>
-            </div>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="nav navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link nav-text-size" ng-href="#!/home" draggable="false">Home Page</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-text-size" ng-href="#!/producthome" draggable="false">Product Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-text-size" ng-href="#!/cart" draggable="false">Cart Page</a>
+                </li>
+                <li class="nav-item m-0 p-0">
+                    <a class="nav-link nav-text-size" ng-href="#!/profile" draggable="false"><i
+                            class="icon-size fa-regular fa-user color-white" draggable="false"></i></a>
+                </li>
+                <li class="nav-item m-0 p-0">
+                    <a class="nav-link nav-text-size" ng-href="#/login" draggable="false"><i
+                            class="icon-size fa-solid fa-right-to-bracket color-white" draggable="false"></i></a>
+                </li>
+            </ul>
         </div>
     </div>
+</nav>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<div class="container mt-5" ng-controller="controllerproductdetail">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="gradient-wrapper">
+                <img src="storage/image/{{ products.image }}" 
+                class="custom-image full-image mb-3" 
+                alt="{{ products.image }}" 
+                style="height: 400px; width: 600px;">
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <h1 class="custom-h1 text-black">{{ products.name }}</h1>
+            <h2 class="display-1 mb-4">Rp. {{ products.price }}</h2>
+            <p class="content-paragraph">{{ products.description }}</p>
+            <p class="content-paragraph">{{ products._id }}</p>
+
+            <form ng-submit="addItemToCart(products, quantity)">
+                <div class="d-flex gap-3 mb-4">
+                    <div class="input-group" style="width: 150px;">
+                        <input type="number" class="form-control text-center" ng-model="quantity" value="1" min="1" required>
+                    </div>
+                    <button type="submit" class="btn btn-dark flex-grow-1">Add to Cart</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
