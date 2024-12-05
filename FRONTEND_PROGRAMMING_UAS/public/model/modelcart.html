@@ -1,24 +1,52 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container">
+        <a class="navbar-brand" ng-href="#/home" draggable="false">WebStyle</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="nav navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link nav-text-size" ng-href="#!/home" draggable="false">Home Page</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-text-size" ng-href="#!/producthome" draggable="false">Product Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-text-size" ng-href="#!/cart" draggable="false">Cart Page</a>
+                </li>
+                <li class="nav-item m-0 p-0">
+                    <a class="nav-link nav-text-size" ng-href="#!/profile" draggable="false"><i
+                            class="icon-size fa-regular fa-user color-white" draggable="false"></i></a>
+                </li>
+                <li class="nav-item m-0 p-0">
+                    <a class="nav-link nav-text-size" ng-href="#!/login" draggable="false"><i
+                            class="icon-size fa-solid fa-right-to-bracket color-white" draggable="false"></i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 <div ng-controller="controllercart" class="container mt-5">
     <h1 class="text-center mb-4 display-4">Your Cart</h1>
     <div class="row">
-        <!-- Cart Items Section -->
         <div class="col-lg-8">
             <div class="list-group">
                 <div class="list-group-item shadow-sm mb-3" 
                      ng-repeat="item in cart" 
                      style="background-color: #f8f9fa; border-radius: 10px;">
                     <div class="d-flex align-items-center">
-                        <!-- Product Image -->
                         <img class="img-fluid" src="{{ item.product.image }}" alt="Product Image" 
                              style="width: 100px; height: 100px; object-fit: cover; margin-right: 15px; border-radius: 8px;">
                         <div class="flex-grow-1">
-                            <!-- Product Name and Price -->
                             <h5 class="mb-1">{{ item.product.name }}</h5>
                             <p class="mb-1">
                                 <strong>Price:</strong> ${{ item.product.price }} 
                                 | <strong>Stock:</strong> {{ item.product.stock }}
                             </p>
-                            <!-- Quantity Input -->
                             <div class="d-flex align-items-center mt-2">
                                 <label for="quantity-{{ $index }}" class="form-label mr-2">Quantity:</label>
                                 <input type="number" id="quantity-{{ $index }}" class="form-control text-dark border-1" 
@@ -27,16 +55,13 @@
                                        style="width: 80px;">
                             </div>
                         </div>
-                        <!-- Remove Button -->
                         <button class="btn btn-danger btn-sm ml-3" ng-click="removeItem(item)">
                             <i class="bi bi-trash"></i> Remove
                         </button>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- Cart Summary Section -->
+        </div>        
         <div class="col-lg-4 mt-4 mt-lg-0">
             <div class="card shadow-lg">
                 <div class="card-header bg-primary text-white text-center">
