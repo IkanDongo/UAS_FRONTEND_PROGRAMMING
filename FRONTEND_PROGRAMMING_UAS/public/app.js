@@ -156,28 +156,30 @@ app.controller("controllerhome", function ($scope) {
 //     console.log("Profile controller loaded");
 
     $scope.message = "Welcome to the Profile Page!";
-    $scope.user = {}; 
+    $scope.user = {}; // Placeholder untuk data pengguna
     $scope.errorMessage = "";
 
-    const userId = localStorage.getItem("user_id");
+//     // Ambil user_id dari localStorage
+//     const userId = localStorage.getItem("user_id");
 
-    if (userId) {
-        $http
-            .get(`http://localhost:8000/users/${userId}`)
-            .then(function (response) {
-                console.log("User Data:", response.data);
-                $scope.user = response.data;
-            })
-            .catch(function (error) {
-                console.error("Error fetching user data:", error);
-                $scope.errorMessage =
-                    error.data?.message || "Unable to fetch user data.";
-            });
-    } else {
-        $scope.errorMessage = "User ID not found in localStorage.";
-    }
-});
-
+//     // Periksa apakah user_id tersedia
+//     if (userId) {
+//         // Lakukan HTTP request ke backend untuk mendapatkan data user
+//         $http
+//             .get(`http://localhost:8000/users/${userId}`)
+//             .then(function (response) {
+//                 console.log("User Data:", response.data);
+//                 $scope.user = response.data; // Simpan data user ke $scope.user
+//             })
+//             .catch(function (error) {
+//                 console.error("Error fetching user data:", error);
+//                 $scope.errorMessage =
+//                     error.data?.message || "Unable to fetch user data.";
+//             });
+//     } else {
+//         $scope.errorMessage = "User ID not found in localStorage.";
+//     }
+// });
 
 app.controller("controllercart", function ($scope, $http) {
     $scope.cart = [];
@@ -218,21 +220,20 @@ app.controller("controllercart", function ($scope, $http) {
                 console.log("Error removing item:", error);
             });
     };
-    
     $scope.changeQuantity = function(item, newQuantity) {
         if (newQuantity < 1) {
             alert("Quantity cannot be less than 1.");
             return;
         }
-    
+
         var itemId = item.product.product_id;
     
-        $http.patch('http://localhost:8000/carts/' + user_id + '/' + itemId, {
+        $http.patch('http://localhost:8000/carts/' + userId + '/' + itemId, {
             quantity: newQuantity
-        }).then(function(response) {
+        }).then(function (response) {
             console.log('Quantity updated successfully:', response.data);
             item.quantity = newQuantity;
-        }).catch(function(error) {
+        }).catch(function (error) {
             console.log('Error updating quantity:', error);
             alert('Failed to update quantity. Please try again.');
         });
@@ -341,60 +342,23 @@ app.controller("controllerproductdetail", [
                     "Failed to load product details. Please try again later.";
             });
 
-            // $scope.fetchComments = function () {
-            //     $http.get("http://localhost:8000/comments/" + product_id + "/show")
-            //         .then(function (response) {
-            //             $scope.comments = response.data; // Should be an array of comments in JSON
-            //             console.log($scope.comments); // This should show JSON data in the console
-            //         })
-            //         .catch(function (error) {
-            //             console.error("Error fetching comments:", error);
-            //         });
-            // };
-
         $scope.addItemToCart = function (product, quantity) {
             const cartData = {
                 product_id: product._id,
-                quantity: quantity,
+                quantity: quantity
             };
+            console.log(product_id),
 
-            $http.post("http://localhost:8000/carts/" + $scope.userId, cartData)
-                .then(function (response) {
-                    alert("Product added to cart successfully!");
-                })
-                .catch(function (error) {
-                    alert("Failed to add product to cart.");
-                    console.error(error);
-                });
+            $http.post('http://localhost:8000/carts/'+ userId + '', cartData).then(function (response) {
+                alert("Product added to cart successfully!");
+            }, function (error) {
+                alert("Failed to add product to cart.");
+                console.error(error);
+            });
         };
-
-        $scope.submitRating = function () {
-            if (!$scope.comment && !$scope.rating) {
-                alert("Please provide a comment or rating.");
-                return;
-            }
-        
-            const ratingData = {
-                user_id: $scope.userId,
-                product_id: product_id,
-                comment: $scope.comment,
-                rating: $scope.rating,
-            };
-        
-            $http.post("http://localhost:8000/comments/" + $scope.userId, ratingData)
-                .then(function (response) {
-                    alert("Rating and comment submitted successfully!");
-                    $scope.comment = "";
-                    $scope.rating = 0;
-                })
-                .catch(function (error) {
-                    alert("Failed to submit rating and comment.");
-                    console.error(error);
-                });
-        };
-        $scope.fetchComments();
-    },
+    }
 ]);
+
 
 app.controller("controlleradminproduct", [
     "$scope",
@@ -518,7 +482,7 @@ app.controller("controllerpedit", [
                     if (
                         response.data.success ||
                         response.data.message ===
-                            "Products updated successfully"
+                        "Products updated successfully"
                     ) {
                         console.log("Product updated successfully");
                         $location.path("/admin/plist");
