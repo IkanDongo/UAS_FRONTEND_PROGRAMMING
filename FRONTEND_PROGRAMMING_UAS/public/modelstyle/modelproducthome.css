@@ -1,7 +1,8 @@
 body {
-    background: linear-gradient(to right top, #1c1c1c, #839788);
+    background: linear-gradient(#333 30%, #546859);
     font-family: 'Noto Sans Telugu', sans-serif;
-    color: #fff;
+    color: #333;
+    /* background-color: #213f11 !important; */
 }
 
 .card {
@@ -144,3 +145,74 @@ blockquote {
        font-weight: bold;
        color: #444;
    }
+
+   /* Container for the product grid */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Product card styling */
+.product-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Card styling */
+.card {
+    background-color: #242424;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: white;
+}
+
+.card img {
+    object-fit: cover;
+    height: 200px;
+    width: 100%;
+    border-radius: 15px 15px 0 0;
+}
+
+/* Card Body Styling */
+.card-body {
+    padding: 10px;
+    text-align: center;
+}
+
+.card-title {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+/* Buttons */
+.btn-outline-light {
+    border-color: rgba(255, 255, 255, 0.7);
+    color: #fff;
+}
+
+.btn-outline-light:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Search and Filter Section Responsive Design */
+.search-box, .filter-box {
+    flex: 1 1 auto;
+    max-width: 100%;
+}
+
+/* Responsive Layout Adjustments */
+@media (max-width: 767px) {
+    .d-flex {
+        flex-direction: column;
+    }
+}
+  
