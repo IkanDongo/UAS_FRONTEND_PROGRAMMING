@@ -1,0 +1,21 @@
+<div ng-controller="controllerforgot">
+    <h2>User Management</h2>
+    <div>
+        <h3>Forgot Password</h3>
+        <form ng-submit="forgotPassword()">
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" ng-model="forgotPasswordData.email" placeholder="Enter your email" required>
+            </div>
+            <div>
+                <label for="newPassword">New Password:</label>
+                <input type="password" id="newPassword" ng-model="forgotPasswordData.password" placeholder="Enter your new password" required>
+            </div>
+            <div>
+                <label for="confirm_password">Confirm Password:</label>
+                <input type="password" id="confirm_password" ng-model="forgotPasswordData.confirm_password" required />
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>

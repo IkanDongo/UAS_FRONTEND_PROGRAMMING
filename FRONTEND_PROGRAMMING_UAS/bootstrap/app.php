@@ -26,6 +26,7 @@ return Application::configure(basePath: dirname(__DIR__))
             '/carts',
             '/carts/*/',
             '/comments/*',
+            '/forget-password',
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

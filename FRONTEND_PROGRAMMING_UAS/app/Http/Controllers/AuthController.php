@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
-
 class AuthController extends Controller
 {
     public function login(Request $request)
@@ -17,7 +16,6 @@ class AuthController extends Controller
         ]);
 
         $user = User::where('email', $request->email)->first();
-        \Log::info($user);
 
         if ($user && Hash::check($request->password, $user->password)) {
             return response()->json([
