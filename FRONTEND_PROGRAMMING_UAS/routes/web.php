@@ -30,5 +30,5 @@ Route::get('/{any}', function () {
     return view('login');
 })->where('any', '.*');
 
-Route::get('/comments/{product_id}', [CommentController::class, 'index']);
-Route::post('/comments', [CommentController::class, 'store']);
+Route::get('/comments/{product_id}/show', action: [CommentController::class, 'index']);
+Route::post('/comments/{user_id}', [CommentController::class, 'store']);
