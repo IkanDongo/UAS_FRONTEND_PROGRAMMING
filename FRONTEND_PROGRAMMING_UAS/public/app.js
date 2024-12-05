@@ -110,6 +110,10 @@ app.config(function ($routeProvider) {
             templateUrl: "model/modeladminttllst.html",
             controller: "controlleradminttlist",
         })
+        .when("/admin/tips-trik/edit/:id", {
+            templateUrl: "model/modeladminttedit.html",
+            controller: "controlleradminttedit",
+        })
         .when("/admin/tipstrik", {
             templateUrl: "model/modeladminttcreate.html",
             controller: "controlleradmintipstrik",
@@ -118,66 +122,148 @@ app.config(function ($routeProvider) {
         .otherwise("login");
 });
 
-app.controller("controlleradmintipstrik", function ($scope, $http, $location) {
-    var apiUrl = 'http://localhost/api/tips-trik';
-
-    $scope.addTipsTrik = function () {
-        var newTip = {
-            name: $scope.newTipName,
-            description: $scope.newTipDescription,
+app.controller("controlleradmintipstrik", [
+    "$scope",
+    "$http",
+    function ($scope, $http) {
+        $scope.tipstriks = {
+            name: "", 
+            title: "", 
+            content: "",
         };
 
-        $http.post(apiUrl, newTip).then(function (response) {
-            $scope.getTipsTrik();
-            $scope.newTipName = '';
-            $scope.newTipDescription = '';
-            alert("Tips & Trik berhasil ditambahkan!");
-        }, function (error) {
-            console.error("Error adding Tips & Trik:", error);
-            alert("Gagal menambahkan Tips & Trik.");
-        });
-    };
+        $scope.imageFile = null;
 
-    $scope.updateTipsTrik = function (id) {
-        var updatedTip = {
-            name: $scope.updatedTipName,
-            description: $scope.updatedTipDescription,
+        $scope.setImageFile = function (element) {
+            $scope.imageFile = element.files[0];
         };
 
-        $http.put(apiUrl + '/' + id, updatedTip).then(function (response) {
-            $scope.updatedTipName = '';
-            $scope.updatedTipDescription = '';
-            alert("Tips & Trik berhasil diperbarui!");
-        }, function (error) {
-            console.error("Error updating Tips & Trik:", error);
-            alert("Gagal memperbarui Tips & Trik.");
-        });
-    };
+        $scope.submitCreateTipstriks = function () {
+            let formData = new FormData();
+            formData.append("name", $scope.tipstriks.name);
+            formData.append("title", $scope.tipstriks.title);
+            formData.append("content", $scope.tipstriks.content);
+            if ($scope.imageFile) {
+                formData.append("image", $scope.imageFile);
+            }
 
-    $scope.deleteTipsTrik = function (id) {
-        if (confirm("Apakah Anda yakin ingin menghapus Tips & Trik ini?")) {
-            $http.delete(apiUrl + '/' + id).then(function (response) {
-                alert("Tips & Trik berhasil dihapus!");
-            }, function (error) {
-                console.error("Error deleting Tips & Trik:", error);
-                alert("Gagal menghapus Tips & Trik.");
-            });
-        }
-    };
-});
+            $http
+                .post("http://localhost:8000/tips-trik", formData, {
+                    headers: { "Content-Type": undefined },
+                    transformRequest: angular.identity,
+                })
+                .then(function (response) {
+                    console.log("tips-trick created successfully:", response.data);
+                    $scope.successMessage = "Tips & Trik berhasil dibuat!";
+                    $scope.tipstriks = {};
+                    $scope.imageFile = null;
+                    document.getElementById("image").value = ""; 
+                })
+                .catch(function (error) {
+                    console.error("Error creating tips-trick:", error);
+                    $scope.errorMessage =
+                        error.data?.message || "Terjadi kesalahan saat membuat Tips & Trik.";
+                });
+        };
+    },
+]);
 
-app.controller("controlleradminttlist", function ($scope, $http, $location) {
-    $scope.tipstrik = [];
+
+app.controller("controlleradminttlist", [
+    "$scope",
+    "$http",
+    "$location",
+    function ($scope, $http, $location) {
+        $scope.tipstrik = [];
 
     $http
         .get("http://localhost:8000/tips-trik")
         .then(function (response) {
-            $scope.users = response.data;
+            $scope.tipstriks = response.data;
         })
         .catch(function (error) {
-            console.error("Error fetching users:", error);
+            console.error("Error fetching tipstriks:", error);
         });
-});
+         $scope.goToEditTipstriks = function (tipstriksId) {
+            $location.path("/admin/tips-trik/edit/" + tipstriksId);
+        };
+        $scope.removeTipstriks = function (tipstriksId) {
+            $http
+                .delete("http://localhost:8000/tips-trik/" + tipstriksId)
+                .then(function (response) {
+                    $scope.tipstriks = $scope.tipstriks.filter(
+                        (t) => t._id !== tipstriksId
+                    );
+                    console.log(response.data.message);
+                })
+                .catch(function (error) {
+                    console.error("Error deleting tipstriks:", error);
+                });
+        };
+    },
+]);
+
+
+app.controller("controlleradminttedit", [
+    "$scope",
+    "$http",
+    "$routeParams",
+    "$location",
+    function ($scope, $http, $routeParams, $location) {
+        const tipstrikId = $routeParams.id;
+
+
+        $scope.tipstriks = {
+            name: "",
+            title: "",
+            content: "",
+        };
+
+
+        $http
+            .get("http://localhost:8000/tips-trik/" + tipstrikId)
+            .then(function (response) {
+                $scope.tipstrik = response.data; 
+            })
+            .catch(function (error) {
+                console.error("Error fetching tipstrik details:", error);
+            });
+
+  
+        $scope.updateTipstrik = function () {
+            $http
+                .put(
+                    "http://localhost:8000/tips-trik/" + tipstrikId,
+                    $scope.tipstriks
+                )
+                .then(function (response) {
+                    if (
+                        response.data.success ||
+                        response.data.message ===
+                            "Tips-Trik updated successfully"
+                    ) {
+                        console.log("Tips-Trik updated successfully");
+                        $location.path("/admin/ttlist");
+                    } else {
+                        console.error(
+                            "Tips-Trik update failed:",
+                            response.data.message
+                        );
+                    }
+                })
+                .catch(function (error) {
+                    console.error("Error updating tips-trik:", error);
+                });
+        };
+
+   
+        $scope.cancel = function () {
+            $location.path("/admin/ttlist");
+        };
+    },
+]);
+
+
 
 app.controller("controllerlogin", function ($scope, $http, $location) {
     console.log("Login controller loaded");

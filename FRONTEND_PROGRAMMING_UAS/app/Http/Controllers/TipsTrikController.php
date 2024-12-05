@@ -33,7 +33,6 @@ class TipsTrikController extends Controller
             'name' => 'required|string|max:255',
             'title' => 'required|string|max:255',
             'content' => 'required|string',
-            'week_number' => 'required|integer',
             'image' => 'image|file|max:1024',
         ]);
 
@@ -47,7 +46,7 @@ class TipsTrikController extends Controller
 
 
         return response()->json([
-            'message' => 'Tips dan Trik berhasil ditambahkan.',
+            'message' => 'Tips and Trik created successfully.',
             'data' => $tipsTrik,
         ], 201);
     }
@@ -79,24 +78,26 @@ class TipsTrikController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $validated = $request->validate([
-            'name' => 'sometimes|string|max:255',
-            'title' => 'sometimes|string|max:255',
-            'content' => 'sometimes|string',
-            'week_number' => 'sometimes|integer',
-        ]);
-
-        // Mengupdate Tips dan Trik
-        $tipsTrik = TipsTriks::find($id);
+          $tipsTrik = TipsTriks::find($id);
 
         if (!$tipsTrik) {
-            return response()->json(['message' => 'Tips dan Trik tidak ditemukan.'], 404);
+            return response()->json(['message' => 'Tips and Trik not found.'], 404);
         }
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+   
+            
+        ]);
+      
+      
 
         $tipsTrik->update($validated);
 
         return response()->json([
-            'message' => 'Tips dan Trik berhasil diperbarui.',
+            'message' => 'Tips and Trik updated successfully.',
             'data' => $tipsTrik,
         ], 200);
     }

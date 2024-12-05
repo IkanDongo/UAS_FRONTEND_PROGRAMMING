@@ -28,27 +28,35 @@
     <div ng-controller="controlleradminttlist">
         <h1 class="mt-5">Tips & Trik List</h1>
 
-        <div ng-if="tips.length > 0">
+        <div ng-if="tipstriks.length > 0">
             <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Tip Name</th>
-                        <th>Description</th>
-                        <th>Week Number</th>
+                        <th>Content</th>
+                        <th>Image</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="tip in tips">
-                        <td>{{ tip._id }}</td>
-                        <td>{{ tip.name }}</td>
-                        <td>{{ tip.description }}</td>
-                        <td>{{ tip.week_number }}</td>
+                    <tr ng-repeat="tipstriks in tipstriks">
+                        <td>{{ tipstriks._id }}</td>
+                        <td>{{ tipstriks.name }}</td>
+                        <td>{{ tipstriks.content }}</td>
+                        <td>{{ tipstriks.image }}</td>
+                    <td>
+                        <button class="btn btn-primary" ng-click="goToEditTipstriks(tipstriks._id)">Edit Tips-Tricks
+                        </button>
+                    </td>
+                    <td>
+                        <button ng-click="removeTipstriks(tipstriks._id)" class="btn btn-danger">Remove
+                            Tips-Tricks</button>
+                    </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <div ng-if="tips.length === 0">
+        <div ng-if="tipstriks.length === 0">
             <p>No tips found.</p>
         </div>
     </div>

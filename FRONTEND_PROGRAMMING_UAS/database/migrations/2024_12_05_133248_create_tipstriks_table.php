@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('name'); 
             $table->string('title');
             $table->text('content');
-            $table->integer('week_number'); 
             $table->string('image')->nullable();
             $table->timestamps(); 
         });

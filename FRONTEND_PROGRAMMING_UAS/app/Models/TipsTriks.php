@@ -15,7 +15,6 @@ class TipsTriks extends Model
         'name',
         'title', 
         'content',
-        'week_number', 
         'image',
     ];
 }
