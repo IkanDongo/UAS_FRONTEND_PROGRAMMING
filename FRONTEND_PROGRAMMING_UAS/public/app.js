@@ -88,6 +88,10 @@ app.config(function ($routeProvider) {
             templateUrl: "model/modeladminpedit.html",
             controller: "controllerp",
         })
+        .when("/forgot", {
+            templateUrl: "model/modelforgot.html",
+            controller: "controllerforgot",
+        })
 
         //Admin Area
         .when("/admin/product", {
@@ -120,6 +124,28 @@ app.config(function ($routeProvider) {
         })
 
         .otherwise("login");
+});
+
+app.controller("controllerforgot", function ($scope, $http, $location) {
+    $scope.forgotPasswordData = {};
+
+    $scope.forgotPassword = function () {
+        if ($scope.forgotPasswordData.password !== $scope.forgotPasswordData.confirm_password) {
+            alert("Passwords do not match!");
+            return;
+        }
+
+        $http.post("http://localhost:8000/forget-password", $scope.forgotPasswordData)
+            .then(function (response) {
+                alert('Password has been reset successfully!');
+                $scope.forgotPasswordData = {};
+                $location.path('/login');
+            })
+            .catch(function (error) {
+                console.error('Error resetting password:', error);
+                alert('Failed to reset password');
+            });
+    };
 });
 
 app.controller("controlleradmintipstrik", [
@@ -276,8 +302,7 @@ app.controller("controllerlogin", function ($scope, $http, $location) {
 
     $scope.errorMessage = "";
     $scope.submitLogin = function () {
-        $http
-            .post("http://localhost:8000/login", $scope.loginData)
+        $http.post("http://localhost:8000/login", $scope.loginData)
             .then(function (response) {
                 console.log("Response Data:", response.data);
                 localStorage.setItem("user_id", response.data.user.id);
