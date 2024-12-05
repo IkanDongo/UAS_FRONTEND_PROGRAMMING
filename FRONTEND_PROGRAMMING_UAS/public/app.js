@@ -555,11 +555,9 @@ app.controller("controllerproductdetail", [
                         alert("Komentar berhasil ditambahkan!");
                         $scope.comment = "";
                         $scope.rating = 0;
-                        $scope.loadComments(); 
                     }
                 })
                 .catch(function (error) {
-                    alert("Gagal mengirim komentar.");
                     console.error(error);
                 });
         };
