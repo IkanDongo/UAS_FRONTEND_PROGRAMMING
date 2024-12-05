@@ -183,7 +183,6 @@ app.controller("controllerhome", function ($scope) {
 //     }
 // });
 
-
 app.controller("controllercart", function ($scope, $http) {
     $scope.cart = [];
 
