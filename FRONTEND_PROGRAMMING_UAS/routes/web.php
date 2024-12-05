@@ -28,11 +28,11 @@ Route::get('/carts/{user_id}', [CartController::class, 'getCart']);
 Route::delete('/carts/{user_id}/{cart_id}', [CartController::class, 'removeCart']);
 Route::post('/forget-password', [UserController::class, 'forget']);
 
-Route::get('/tips-trik', [TipsTrikController::class, 'index'])->name('tips-trik.index');
-Route::post('/tips-trik', [TipsTrikController::class, 'store'])->name('tips-trik.store'); 
-Route::get('/tips-trik/{id}', [TipsTrikController::class, 'show'])->name('tips-trik.show'); 
-Route::patch('/tips-trik/{id}', [TipsTrikController::class, 'update']); 
-Route::delete('/tips-trik/{id}', [TipsTrikController::class, 'destroy'])->name('tips-trik.destroy'); 
+Route::get('/tips-trik', [TipsTrikController::class, 'index']);
+Route::post('/tips-trik', [TipsTrikController::class, 'store']); 
+Route::get('/tips-trik/{id}', [TipsTrikController::class, 'show']); 
+Route::put('/tips-trik/{id}', [TipsTrikController::class, 'update']); 
+Route::delete('/tips-trik/{id}', [TipsTrikController::class, 'destroy']); 
 
 Route::post('/login', [AuthController::class, 'login'])->middleware(\App\Http\Middleware\CorsMiddleware::class);;
 
