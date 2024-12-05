@@ -1,0 +1,54 @@
+<button class="hamburger" onclick="toggleSidebar()">☰</button>
+<div class="container">
+    <div class="sidebar">
+        <h3 class="text-center text-white py-3 display-6">Admin Dashboard</h3>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <strong>User Options</strong>
+                <ul class="nav flex-column ms-3">
+                    <li class="nav-item"><a href="#!/admin/ulist" class="nav-link">User list</a></li>
+                </ul>
+            </li>
+            <li class="nav-item mt-4">
+                <strong>Product Options</strong>
+                <ul class="nav flex-column ms-3">
+                    <li class="nav-item"><a href="#!/admin/plist" class="nav-link">Product List</a></li>
+                    <li class="nav-item"><a href="#!/admin/product" class="nav-link">Add Product</a></li>
+                </ul>
+            </li>
+            <li class="nav-item mt-4">
+                <strong>Tips & Trik Options</strong>
+                <ul class="nav flex-column ms-3">
+                    <li class="nav-item"><a href="#!/admin/ttlist" class="nav-link">Tips & Trik List</a></li>
+                    <li class="nav-item"><a href="#!/admin/tipstrik" class="nav-link">Add Tips & Trik</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="content" ng-controller="controlleradmintipstrik">
+        <h1 class="display-4">Manage Tips & Trik</h1>
+
+        <h2 class="mt-4">Tambah Tips & Trik</h2>
+        <form ng-submit="addTipsTrik()" class="mb-4">
+            <div class="mb-3">
+                <label for="newTipCreator" class="form-label">Nama Pembuat</label>
+                <input type="text" id="newTipCreator" class="form-control" ng-model="newTipCreator" placeholder="Masukkan nama tips" required>
+            </div>
+            <div class="mb-3">
+                <label for="newTipName" class="form-label">Nama Tips</label>
+                <input type="text" id="newTipName" class="form-control" ng-model="newTipName" placeholder="Masukkan nama tips" required>
+            </div>
+            <div class="mb-3">
+                <label for="newTipDescription" class="form-label">Deskripsi</label>
+                <textarea id="newTipDescription" class="form-control" ng-model="newTipDescription" placeholder="Masukkan deskripsi tips" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="productImages" class="form-label">Upload Image:</label>
+                <input class="form-control" type="file" id="image" onchange="angular.element(this).scope().setImageFile(this)"
+                    required>
+            </div>
+            <button type="submit" class="btn btn-primary">Tambah Tips</button>
+        </form>
+    </div>
+</div>

@@ -34,20 +34,18 @@ class ProductController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-        $imagePath = $request->file('image')->store('image');
-        $validatedData['image'] = basename($imagePath);
+            $imagePath = $request->file('image')->store('image');
+            $validatedData['image'] = basename($imagePath);
         }
-
 
         $product = Products::create($validatedData);
         $product->image = $product->image ? asset('storage/image/' . $product->image) : null;
 
 
-    return response()->json([
-    'message' => 'Products created successfully',
-    'product' => $product,
-    ], 201);
-
+        return response()->json([
+            'message' => 'Products created successfully',
+            'product' => $product,
+        ], 201);
     }
 
     /**

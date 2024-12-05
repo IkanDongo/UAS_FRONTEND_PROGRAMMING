@@ -106,8 +106,77 @@ app.config(function ($routeProvider) {
             templateUrl: "model/modeladminpedit.html",
             controller: "controllerpedit",
         })
+        .when("/admin/ttlist", {
+            templateUrl: "model/modeladminttllst.html",
+            controller: "controlleradminttlist",
+        })
+        .when("/admin/tipstrik", {
+            templateUrl: "model/modeladminttcreate.html",
+            controller: "controlleradmintipstrik",
+        })
 
         .otherwise("login");
+});
+
+app.controller("controlleradmintipstrik", function ($scope, $http, $location) {
+    var apiUrl = 'http://localhost/api/tips-trik';
+
+    $scope.addTipsTrik = function () {
+        var newTip = {
+            name: $scope.newTipName,
+            description: $scope.newTipDescription,
+        };
+
+        $http.post(apiUrl, newTip).then(function (response) {
+            $scope.getTipsTrik();
+            $scope.newTipName = '';
+            $scope.newTipDescription = '';
+            alert("Tips & Trik berhasil ditambahkan!");
+        }, function (error) {
+            console.error("Error adding Tips & Trik:", error);
+            alert("Gagal menambahkan Tips & Trik.");
+        });
+    };
+
+    $scope.updateTipsTrik = function (id) {
+        var updatedTip = {
+            name: $scope.updatedTipName,
+            description: $scope.updatedTipDescription,
+        };
+
+        $http.put(apiUrl + '/' + id, updatedTip).then(function (response) {
+            $scope.updatedTipName = '';
+            $scope.updatedTipDescription = '';
+            alert("Tips & Trik berhasil diperbarui!");
+        }, function (error) {
+            console.error("Error updating Tips & Trik:", error);
+            alert("Gagal memperbarui Tips & Trik.");
+        });
+    };
+
+    $scope.deleteTipsTrik = function (id) {
+        if (confirm("Apakah Anda yakin ingin menghapus Tips & Trik ini?")) {
+            $http.delete(apiUrl + '/' + id).then(function (response) {
+                alert("Tips & Trik berhasil dihapus!");
+            }, function (error) {
+                console.error("Error deleting Tips & Trik:", error);
+                alert("Gagal menghapus Tips & Trik.");
+            });
+        }
+    };
+});
+
+app.controller("controlleradminttlist", function ($scope, $http, $location) {
+    $scope.tipstrik = [];
+
+    $http
+        .get("http://localhost:8000/tips-trik")
+        .then(function (response) {
+            $scope.users = response.data;
+        })
+        .catch(function (error) {
+            console.error("Error fetching users:", error);
+        });
 });
 
 app.controller("controllerlogin", function ($scope, $http, $location) {
@@ -340,17 +409,6 @@ app.controller("controllerproductdetail", [
                     "Failed to load product details. Please try again later.";
             });
 
-            // $scope.fetchComments = function () {
-            //     $http.get("http://localhost:8000/comments/" + product_id + "/show")
-            //         .then(function (response) {
-            //             $scope.comments = response.data; // Should be an array of comments in JSON
-            //             console.log($scope.comments); // This should show JSON data in the console
-            //         })
-            //         .catch(function (error) {
-            //             console.error("Error fetching comments:", error);
-            //         });
-            // };
-
         $scope.addItemToCart = function (product, quantity) {
             const cartData = {
                 product_id: product._id,
@@ -366,19 +424,6 @@ app.controller("controllerproductdetail", [
             });
         };
 
-        $scope.loadComments = function () {
-            $http
-                .get(`http://localhost:8000/comments/${productId}`)
-                .then(function (response) {
-                    if (response.data.success) {
-                        $scope.comments = response.data.comments;
-                    }
-                })
-                .catch(function (error) {
-                    console.error("Error fetching comments:", error);
-                });
-        };
-        
         $scope.commentRating = function () {
             if (!$scope.comment && !$scope.rating) {
                 alert("Minimal salah satu, komentar atau rating, harus diisi.");
@@ -399,7 +444,7 @@ app.controller("controllerproductdetail", [
                         alert("Komentar berhasil ditambahkan!");
                         $scope.comment = "";
                         $scope.rating = 0;
-                        // $scope.loadComments(); 
+                        $scope.loadComments(); 
                     }
                 })
                 .catch(function (error) {
@@ -407,9 +452,6 @@ app.controller("controllerproductdetail", [
                     console.error(error);
                 });
         };
-    
-        // Load comments saat halaman dimuat
-        // $scope.loadComments();
     }
 ]);
 
@@ -498,6 +540,7 @@ app.controller("controllerplist", [
         };
     },
 ]);
+
 app.controller("controllerpedit", [
     "$scope",
     "$http",
@@ -505,7 +548,6 @@ app.controller("controllerpedit", [
     "$location",
     function ($scope, $http, $routeParams, $location) {
         const productId = $routeParams.id;
-
 
         $scope.products = {
             name: "",
