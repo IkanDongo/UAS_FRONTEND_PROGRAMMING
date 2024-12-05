@@ -273,16 +273,13 @@ app.controller("controllerproductdetail", [
     "$http",
     "$routeParams",
     function ($scope, $http, $routeParams) {
-        $scope.products = {};
-        $scope.quantity = 1;
-        $scope.rating = 0;
-        $scope.comment = "";
         $scope.comments = [];
-        
-        $scope.userId = localStorage.getItem("user_id");
-        var product_id = $routeParams.id;
+        $scope.comment = "";
+        $scope.rating = 0;
+        $scope.userId = localStorage.getItem("user_id"); 
+        var productId = $routeParams.id; 
 
-        $http.get("http://localhost:8000/products/" + product_id)
+        $http.get("http://localhost:8000/products/" + productId)
             .then(function (response) {
                 $scope.products = response.data;
             })
@@ -308,43 +305,61 @@ app.controller("controllerproductdetail", [
                 product_id: product._id,
                 quantity: quantity,
             };
+            console.log(productId),
 
-            $http.post("http://localhost:8000/carts/" + $scope.userId, cartData)
-                .then(function (response) {
-                    alert("Product added to cart successfully!");
-                })
-                .catch(function (error) {
-                    alert("Failed to add product to cart.");
-                    console.error(error);
-                });
+            $http.post('http://localhost:8000/carts/'+ $scope.userId, cartData).then(function (response) {
+                alert("Product added to cart successfully!");
+            }, function (error) {
+                alert("Failed to add product to cart.");
+                console.error(error);
+            });
         };
 
-        $scope.submitRating = function () {
+        $scope.loadComments = function () {
+            $http
+                .get(`http://localhost:8000/comments/${productId}`)
+                .then(function (response) {
+                    if (response.data.success) {
+                        $scope.comments = response.data.comments;
+                    }
+                })
+                .catch(function (error) {
+                    console.error("Error fetching comments:", error);
+                });
+        };
+        
+        $scope.commentRating = function () {
             if (!$scope.comment && !$scope.rating) {
-                alert("Please provide a comment or rating.");
+                alert("Minimal salah satu, komentar atau rating, harus diisi.");
                 return;
             }
-        
-            const ratingData = {
+    
+            const commentData = {
                 user_id: $scope.userId,
-                product_id: product_id,
+                product_id: productId,
                 comment: $scope.comment,
                 rating: $scope.rating,
+                rating: $scope.rating,
             };
-        
-            $http.post("http://localhost:8000/comments/" + $scope.userId, ratingData)
+    
+            $http.post("http://localhost:8000/comments/" + $scope.userId, commentData)
                 .then(function (response) {
-                    alert("Rating and comment submitted successfully!");
-                    $scope.comment = "";
-                    $scope.rating = 0;
+                    if (response.data.success) {
+                        alert("Komentar berhasil ditambahkan!");
+                        $scope.comment = "";
+                        $scope.rating = 0;
+                        // $scope.loadComments(); 
+                    }
                 })
                 .catch(function (error) {
-                    alert("Failed to submit rating and comment.");
+                    alert("Gagal mengirim komentar.");
                     console.error(error);
                 });
         };
-        $scope.fetchComments();
-    },
+    
+        // Load comments saat halaman dimuat
+        // $scope.loadComments();
+    }
 ]);
 
 app.controller("controlleradminproduct", [
