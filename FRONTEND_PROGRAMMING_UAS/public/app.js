@@ -111,7 +111,7 @@ app.config(function ($routeProvider) {
             controller: "controllerpedit",
         })
         .when("/admin/ttlist", {
-            templateUrl: "model/modeladminttllst.html",
+            templateUrl: "model/modeladminttlist.html",
             controller: "controlleradminttlist",
         })
         .when("/admin/tips-trik/edit/:id", {
@@ -940,6 +940,9 @@ app.run(function ($rootScope, $document, $timeout) {
                 break;
             case "/cart":
                 cssFile = "modelstyle/modelcart.css";
+                break;
+            case "/admin/ttlist":
+                cssFile = "modelstyle/modeladminttllist.css";
                 break;
         }
 

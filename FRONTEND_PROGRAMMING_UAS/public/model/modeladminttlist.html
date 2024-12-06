@@ -1,0 +1,73 @@
+<div class="container-fluid d-flex">
+    <div class="sidebar bg-dark text-white p-4 rounded-3 shadow-lg">
+        <h3 class="text-center mb-4 display-6">Admin Dashboard</h3>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <strong>User Options</strong>
+                <ul class="nav flex-column ms-3">
+                    <li class="nav-item"><a href="#!/admin/ulist" class="nav-link text-white">User list</a></li>
+                </ul>
+            </li>
+            <li class="nav-item mt-4">
+                <strong>Product Options</strong>
+                <ul class="nav flex-column ms-3">
+                    <li class="nav-item"><a href="#!/admin/plist" class="nav-link text-white">Product List</a></li>
+                    <li class="nav-item"><a href="#!/admin/product" class="nav-link text-white">Add Product</a></li>
+                </ul>
+            </li>
+            <li class="nav-item mt-4">
+                <strong>Tips & Tricks Options</strong>
+                <ul class="nav flex-column ms-3">
+                    <li class="nav-item"><a href="#!/admin/ttlist" class="nav-link text-white">Tips & Tricks List</a></li>
+                    <li class="nav-item"><a href="#!/admin/tipstrik" class="nav-link text-white">Add Tips & Tricks</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="content container-fluid ms-4">
+        <div ng-controller="controlleradminttlist">
+            <h1 class="display-3 mt-5">Tips & Tricks List</h1>
+            <p class="text-dark">Manage your Tips & Tricks here</p>
+
+            <div ng-if="tipstriks.length > 0">
+                <h2>List of Tips & Tricks</h2>
+                <div class="table-responsive mt-4">
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Tip Name</th>
+                                <th>Content</th>
+                                <th>Image</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="tipstrik in tipstriks">
+                                <td>{{ tipstrik._id }}</td>
+                                <td>{{ tipstrik.name }}</td>
+                                <td>{{ tipstrik.content }}</td>
+                                <td>
+                                    <img ng-src="{{ tipstrik.image }}" alt="Tip Image" class="img-fluid rounded" style="max-width: 100px;">
+                                </td>
+                                <td>
+                                    <button class="btn btn-primary custom-button" ng-click="goToEditTipstrik(tipstrik._id)">
+                                        Edit
+                                    </button>
+                                </td>
+                                <td>
+                                    <button ng-click="removeTipstrik(tipstrik._id)" class="btn btn-danger custom-button">Remove</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div ng-if="tipstriks.length === 0">
+                <p class="alert alert-warning mt-4">No Tips & Tricks found.</p>
+            </div>
+        </div>
+    </div>
+</div>
