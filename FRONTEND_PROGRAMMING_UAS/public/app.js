@@ -942,7 +942,7 @@ app.run(function ($rootScope, $document, $timeout) {
                 cssFile = "modelstyle/modelcart.css";
                 break;
             case "/admin/ttlist":
-                cssFile = "modelstyle/modeladminttllist.css";
+                cssFile = "modelstyle/modeladminplist.css";
                 break;
         }
 
