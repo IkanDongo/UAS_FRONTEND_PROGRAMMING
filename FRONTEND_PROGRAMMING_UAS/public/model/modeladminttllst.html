@@ -1,5 +1,6 @@
 <button class="hamburger" onclick="toggleSidebar()">☰</button>
-<div class="container">
+
+<div class="container-fluid d-flex">
     <div class="sidebar">
         <h3 class="text-center text-white py-3 display-6">Admin Dashboard</h3>
         <ul class="nav flex-column">
@@ -25,39 +26,54 @@
             </li>
         </ul>
     </div>
-    <div ng-controller="controlleradminttlist">
-        <h1 class="mt-5">Tips & Trik List</h1>
 
-        <div ng-if="tipstriks.length > 0">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Tip Name</th>
-                        <th>Content</th>
-                        <th>Image</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="tipstriks in tipstriks">
-                        <td>{{ tipstriks._id }}</td>
-                        <td>{{ tipstriks.name }}</td>
-                        <td>{{ tipstriks.content }}</td>
-                        <td>{{ tipstriks.image }}</td>
-                    <td>
-                        <button class="btn btn-primary" ng-click="goToEditTipstriks(tipstriks._id)">Edit Tips-Tricks
-                        </button>
-                    </td>
-                    <td>
-                        <button ng-click="removeTipstriks(tipstriks._id)" class="btn btn-danger">Remove
-                            Tips-Tricks</button>
-                    </td>
-                    </tr>
-                </tbody>
-            </table>
+    <div ng-controller="controllerplist" class="content d-flex justify-content-center align-items-center flex-column">
+        <h1 class="display-3 mt-5">Welcome, Admin</h1>
+        <p class="text-dark">What are you doing today?</p>
+
+        <div ng-if="products.length > 0">
+            <h2>Product List</h2>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Image</th>
+                            <th colspan="2">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="products in products" class="place-item-center">
+                            <td>{{ products._id }}</td>
+                            <td>{{ products.name }}</td>
+                            <td>{{ products.description }}</td>
+                            <td>{{ products.category }}</td>
+                            <td>{{ products.price }}</td>
+                            <td>{{ products.stock }}</td>
+                            <td>{{ products.image }}</td>
+                            <td>
+                                <button class="btn btn-primary custom-button" ng-click="goToEditProduct(products._id)">
+                                    Edit Product
+                                </button>
+                            </td>
+                            <td>
+                                <button ng-click="removeProducts(products._id)" class="btn btn-danger custom-button">
+                                    Remove Product
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div ng-if="tipstriks.length === 0">
-            <p>No tips found.</p>
+
+        <div ng-if="products.length === 0">
+            <p>No products found.</p>
         </div>
     </div>
 </div>

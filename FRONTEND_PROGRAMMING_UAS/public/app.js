@@ -86,7 +86,7 @@ app.config(function ($routeProvider) {
         })
         .when("/product/edit/:id", {
             templateUrl: "model/modeladminpedit.html",
-            controller: "controllerp",
+            controller: "controllerpedit",
         })
         .when("/forgot", {
             templateUrl: "model/modelforgot.html",
@@ -898,30 +898,6 @@ app.controller("controllerprofile", function ($scope, $http) {
 
 });
 
-
-
-// app.controller("controllerproductdetail", [
-//     "$scope",
-//     "$http",
-//     "$routeParams",
-//     function ($scope, $http, $routeParams) {
-//         $scope.products = {};
-
-//         var productId = $routeParams.id;
-
-//         $http
-//             .get("http://localhost:8000/products/" + productId)
-//             .then(function (response) {
-//                 $scope.products = response.data;
-//             })
-//             .catch(function (error) {
-//                 console.error("Error fetching product details:", error);
-//                 $scope.errorMessage =
-//                     "Failed to load product details. Please try again later.";
-//             });
-//     },
-// ]);
-
 app.run(function ($rootScope, $document, $timeout) {
     $rootScope.$on("$routeChangeSuccess", function (event, current) {
         var cssFile = "";
@@ -953,11 +929,17 @@ app.run(function ($rootScope, $document, $timeout) {
             case "/producthome":
                 cssFile = "modelstyle/modelproducthome.css";
                 break;
-            case "/productdetail":
+            case "/productdetail/:id":
                 cssFile = "modelstyle/modelproductdetail.css";
                 break;
-            case "/profile":
-                cssFile = "modelstyle/modelprofile.css";
+            case "/admin/product":
+                cssFile = "modelstyle/modelproduct.css";
+                break;
+            case "/product/edit/:id":
+                cssFile = "modelstyle/modeladminpedit.css";
+                break;
+            case "/cart":
+                cssFile = "modelstyle/modelcart.css";
                 break;
         }
 

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
     <div class="container">
-        <a class="navbar-brand title-size" ng-href="#/home" draggable="false">WebStyle</a>
+        <a class="navbar-brand" ng-href="#!/home" draggable="false">WebStyle</a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,12 +19,12 @@
                     <a class="nav-link nav-text-size" ng-href="#!/cart" draggable="false">Cart Page</a>
                 </li>
                 <li class="nav-item m-0 p-0">
-                    <a class="nav-link nav-text-size" ng-href="#!/profile" draggable="false"><i
-                            class="icon-size fa-regular fa-user color-white" draggable="false"></i></a>
+                    <a class="nav-link nav-text-size color-white" ng-href="#!/profile" draggable="false"><i
+                            class="icon-size fa-regular fa-user" draggable="false"></i></a>
                 </li>
                 <li class="nav-item m-0 p-0">
-                    <a class="nav-link nav-text-size" ng-href="#/login" draggable="false"><i
-                            class="icon-size fa-solid fa-right-to-bracket color-white" draggable="false"></i></a>
+                    <a class="nav-link nav-text-size color-white" ng-href="#!/login" draggable="false"><i
+                            class="icon-size fa-solid fa-right-to-bracket" draggable="false"></i></a>
                 </li>
             </ul>
         </div>
@@ -146,7 +146,6 @@
 <div class="container my-5">
     <h2 class="text-center mb-4 text-white">Featured Product</h2>
 
-    <!-- Search and Filter Section -->
     <div class="d-flex flex-column flex-sm-row align-items-center mb-4 gap-3">
         <input type="text" class="form-control search-box w-100" placeholder="Search products..." ng-model="searchQuery" ng-change="filterAndSort()">
         <select class="form-control filter-box w-100" ng-model="selectedCategory" ng-change="filterAndSort()">
@@ -159,7 +158,6 @@
         </select>
     </div>
 
-    <!-- Sort Buttons -->
     <div class="mb-4 text-center">
         <button class="btn btn-outline-light" ng-click="toggleSort('name')">
             Sort by Name <span ng-if="sortField === 'name'">{{ sortReverse ? '▲' : '▼' }}</span>
@@ -169,7 +167,6 @@
         </button>
     </div>
 
-    <!-- Products Grid with CSS Grid -->
     <div class="product-grid" ng-if="filteredProducts.length > 0">
         <div class="product-card" ng-repeat="product in filteredProducts | limitTo: maxProducts">
             <div class="card h-100">
@@ -185,12 +182,10 @@
         </div>
     </div>
 
-    <!-- No Products Found Message -->
     <div ng-if="filteredProducts.length === 0">
         <p>No products found.</p>
     </div>
 
-    <!-- Load More Button -->
     <div class="text-center mt-4" ng-if="products.length > maxProducts">
         <button class="btn btn-secondary" ng-click="loadMore()">Load More</button>
     </div>

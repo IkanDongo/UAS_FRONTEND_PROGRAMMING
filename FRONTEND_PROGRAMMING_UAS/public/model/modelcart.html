@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
     <div class="container">
-        <a class="navbar-brand" ng-href="#/home" draggable="false">WebStyle</a>
+        <a class="navbar-brand" ng-href="#!/home" draggable="false">WebStyle</a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -8,25 +8,23 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
+            <ul class="nav navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" ng-href="#!/home" draggable="false">Home Page</a>
+                    <a class="nav-link nav-text-size" ng-href="#!/home" draggable="false">Home Page</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" ng-href="#!/producthome" draggable="false">Product Home</a>
+                    <a class="nav-link nav-text-size" ng-href="#!/producthome" draggable="false">Product Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" ng-href="#!/cart" draggable="false">Cart Page</a>
+                    <a class="nav-link nav-text-size" ng-href="#!/cart" draggable="false">Cart Page</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" ng-href="#!/profile" draggable="false">
-                        <i class="fa-regular fa-user"></i>
-                    </a>
+                <li class="nav-item m-0 p-0">
+                    <a class="nav-link nav-text-size color-white" ng-href="#!/profile" draggable="false"><i
+                            class="icon-size fa-regular fa-user" draggable="false"></i></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" ng-href="#!/login" draggable="false">
-                        <i class="fa-solid fa-right-to-bracket"></i>
-                    </a>
+                <li class="nav-item m-0 p-0">
+                    <a class="nav-link nav-text-size color-white" ng-href="#!/login" draggable="false"><i
+                            class="icon-size fa-solid fa-right-to-bracket" draggable="false"></i></a>
                 </li>
             </ul>
         </div>
@@ -70,7 +68,7 @@
                 <div class="card-header bg-dark text-white text-center">
                     <h4><i class="bi bi-cart4"></i> Cart Summary</h4>
                 </div>
-                <div class="card-body">
+                <div class="card-body px-5">
                     <p class="d-flex justify-content-between">
                         <strong>Total Items:</strong>
                         <span>{{ totalItems }}</span>

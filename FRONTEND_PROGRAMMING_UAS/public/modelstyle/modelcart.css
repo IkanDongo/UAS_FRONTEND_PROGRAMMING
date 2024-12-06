@@ -1,0 +1,33 @@
+body {
+    background-color: #f5f5f5f5;
+}
+
+.navbar-nav {
+    display: flex;
+    align-items: center; 
+}
+
+i.icon-size {
+    padding: 10px;
+    border: 1px solid #f5f5f5;
+    border-radius: 50%;
+}
+
+.navbar-nav {
+    display: flex;
+    align-items: center; 
+}
+
+.nav-item {
+    margin: 0 10px;
+}
+
+.nav-text-size {
+    font-family: "Rajdhani", sans-serif;
+}
+
+i.icon-size {
+    padding: 10px;
+    border: 1px solid #f5f5f5;
+    border-radius: 50%;
+}
