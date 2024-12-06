@@ -1,0 +1,31 @@
+body {
+    background: linear-gradient(to right top, #000, #839788);
+}
+
+.card-custom {
+    width: 500px;
+    background-color: #ffffff2b;
+}
+
+input {
+    border-radius: 5px ;
+    transition: 0.3s ease-in-out !important;
+}
+
+input:focus {
+    border-radius: 15px;
+}
+
+.hover-link, .hover-button {
+    transition: 0.3s ease-in-out;
+}
+
+.hover-link:hover {
+    transform: translateY(-3px);
+    text-shadow: 0 3px 5px #f5f5f5;
+}
+
+.hover-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 3px 5px #f5f5f5, 0 5px 7px #aaa;
+}

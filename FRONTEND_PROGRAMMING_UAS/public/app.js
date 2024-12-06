@@ -905,6 +905,9 @@ app.run(function ($rootScope, $document, $timeout) {
             case "/login":
                 cssFile = "modelstyle/modellogin.css";
                 break;
+            case "/forgot":
+                cssFile = "modelstyle/modelforgot.css";
+                break;
             case "/createuser":
                 cssFile = "modelstyle/modelcreate.css";
                 break;
