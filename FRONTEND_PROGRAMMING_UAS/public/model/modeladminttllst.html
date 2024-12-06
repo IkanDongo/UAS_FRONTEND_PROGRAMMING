@@ -26,52 +26,39 @@
     </div>
 </div>
 <div class="container-fluid">
-<div ng-controller="controllerplist" class="content d-flex justify-content-center align-items-center flex-column container">
-    <h1 class="display-3 mt-5">Welcome, Admin</h1>
-    <p class="text-dark">What are you doing today?</p>
-    <div ng-if="products.length > 0">
-        <h2>Product List</h2>
-        <div class="table-responsive">
+    <div ng-controller="controlleradminttlist">
+        <h1 class="mt-5">Tips & Trik List</h1>
+
+        <div ng-if="tipstriks.length > 0">
             <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Category</th>
-                        <th>Price</th>
-                        <th>Stock</th>
+                        <th>Tip Name</th>
+                        <th>Content</th>
                         <th>Image</th>
-                        <th colspan="2">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="product in products" class="place-item-center">
-                        <td>{{ product._id }}</td>
-                        <td>{{ product.name }}</td>
-                        <td>{{ product.description }}</td>
-                        <td>{{ product.category }}</td>
-                        <td>{{ product.price }}</td>
-                        <td>{{ product.stock }}</td>
-                        <td><img src="{{ product.image }}" alt="Product Image" width="50"></td>
-                        <td>
-                            <button class="btn btn-primary custom-button" ng-click="goToEditProduct(product._id)">
-                                Edit Product
-                            </button>
-                        </td>
-                        <td>
-                            <button ng-click="removeProducts(product._id)" class="btn btn-danger custom-button">
-                                Remove Product
-                            </button>
-                        </td>
+                    <tr ng-repeat="tipstriks in tipstriks">
+                        <td>{{ tipstriks._id }}</td>
+                        <td>{{ tipstriks.name }}</td>
+                        <td>{{ tipstriks.content }}</td>
+                        <td>{{ tipstriks.image }}</td>
+                    <td>
+                        <button class="btn btn-primary" ng-click="goToEditTipstriks(tipstriks._id)">Edit Tips-Tricks
+                        </button>
+                    </td>
+                    <td>
+                        <button ng-click="removeTipstriks(tipstriks._id)" class="btn btn-danger">Remove
+                            Tips-Tricks</button>
+                    </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-    </div>
-
     <div ng-if="products.length === 0">
-        <p>No products found.</p>
+        <p>No Tips Found.</p>
     </div>
 </div>
 </div>
